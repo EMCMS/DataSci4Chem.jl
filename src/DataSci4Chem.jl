@@ -9,6 +9,7 @@ using LinearAlgebra
 using LsqFit
 import Pluto
 using IJulia
+using Documenter
 
 
 export notebook
