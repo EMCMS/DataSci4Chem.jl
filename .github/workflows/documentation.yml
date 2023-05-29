@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - main # update to match your development branch (master, main, dev, trunk, ...)
-    tags: '*'
+    paths:
+      - '.github/workflows/documentation.yml'
+      - 'src/'
+      - 'docs/**'
+    tags: '*' 
   pull_request:
 
 jobs:
