@@ -1,6 +1,6 @@
-# [Advanced Chemometrics and Statistics (ACS)](https://coursecatalogue.uva.nl/xmlpages/page/2022-2023-en/search-course/course/99444)
+# Data Analysis and Programming
 
-*A documentation built for the ACS course to help the students during the lectures and for exam preparation* 
+*The content of this page will be updated soon!!!* 
 
 ## Course content
 
