@@ -10,9 +10,12 @@ using LsqFit
 import Pluto
 using IJulia
 using Documenter
+#using ACS
+using RDatasets
 
 
-export notebook
+export notebook, plot, plot!, xlabel!, ylabel!, jupyterlab, scatter, scatter!, bar, bar!, xlims!, ylims!, sp, dataset, describe, histogram,
+ histogram!
 
 
 # Write your package code here.

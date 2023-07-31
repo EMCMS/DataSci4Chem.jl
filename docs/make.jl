@@ -5,7 +5,8 @@ makedocs(modules = [Documenter, DataSci4Chem],
     clean = true,
     sitename="DataSci4Chem.jl",
     pages = [
-        "Home" => "index.md"
+        "Home" => "index.md",
+        "Data visualization" => "vis.md"
         ]
     )
 
