@@ -15,7 +15,7 @@ using RDatasets
 
 
 export notebook, plot, plot!, xlabel!, ylabel!, jupyterlab, scatter, scatter!, bar, bar!, xlims!, ylims!, sp, dataset, describe, histogram,
- histogram!
+ histogram!, scatter3d, scatter3d!, heatmap, heatmap!, savefig, twinx
 
 
 # Write your package code here.

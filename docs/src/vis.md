@@ -15,7 +15,7 @@ y = collect(1:0.1:10)
 
 # Plotting the data
 
-DataSci4Chem.plot(y)
+plot(y)
 
 ```
 
@@ -28,7 +28,7 @@ y1 = 5 .* y
 
 # Plotting the data
 
-DataSci4Chem.plot(y1)
+plot(y1)
 
 ```
 In this case the *julia* plotting backend is actually evaluating the below command to generate this figure. 
@@ -40,7 +40,7 @@ y1 = 5 .* y
 
 # Plotting the data
 
-DataSci4Chem.plot(1:length(y1),y1)
+plot(1:length(y1),y1)
 
 ```
 The first entry in the *plot(-)* is replaced with a vector of indices from 1 to the length of the *y*. This implies that we generally need two variables of the same size to be able to use line plot. In case we have a *x* vector the above plot will be changed to the following. 
@@ -53,7 +53,7 @@ x = sin.(y)
 
 # Plotting the data
 
-DataSci4Chem.plot(x,y)
+plot(x,y)
 
 ```
 The x values in this plot are the *sin(y)* while the y values remain the same. 
@@ -71,9 +71,9 @@ Below you can see how the labels on the x and y axis are set via frame modificat
 using DataSci4Chem
 
 
-DataSci4Chem.plot(x,y)
-DataSci4Chem.xlabel!("sin(y)")              # setting the label of x axis 
-DataSci4Chem.ylabel!("y values")            # setting the label of the y axis
+plot(x,y)
+xlabel!("sin(y)")              # setting the label of x axis 
+ylabel!("y values")            # setting the label of the y axis
 
 ```
 
@@ -83,7 +83,7 @@ You can also set these parameters directly in the *plot(-)* function.
 using DataSci4Chem
 
 
-DataSci4Chem.plot(x,y,xlabel="sin(y)",ylabel="y values")
+plot(x,y,xlabel="sin(y)",ylabel="y values")
 
 ```
 These ways of setting axis labels can be used for any type of plot type as long as the generic ["GR" backend](https://docs.juliaplots.org/stable/gallery/gr/) is used. These approaches are not completely mapped for all the backends, particularly for [PlotlyJS](https://docs.juliaplots.org/stable/gallery/plotlyjs/).  
@@ -96,9 +96,9 @@ You can also set the range of each axis using the function *lims!(-)*. This func
 using DataSci4Chem
 
 
-DataSci4Chem.plot(x,y,xlabel="sin(y)",ylabel="y values")
-DataSci4Chem.xlims!(-2,2)                               # Setting the limits of x
-DataSci4Chem.ylims!(3,6)                                # Setting the limits of y
+plot(x,y,xlabel="sin(y)",ylabel="y values")
+xlims!(-2,2)                               # Setting the limits of x
+ylims!(3,6)                                # Setting the limits of y
 
 ```
 Similar to the axis label, the same concept can be applied to any plot frame generated via *Plots.jl*. 
@@ -111,7 +111,7 @@ When plotting multiple series or overlaying multiple frames, it is important to 
 using DataSci4Chem
 
 
-DataSci4Chem.plot(x,y,xlabel="sin(y)",ylabel="y values",label = "Example data")
+plot(x,y,xlabel="sin(y)",ylabel="y values",label = "Example data")
 
 ```
 
@@ -121,7 +121,7 @@ In case you want to remove the label of a data series, you can set the attribute
 using DataSci4Chem
 
 
-DataSci4Chem.plot(x,y,xlabel="sin(y)",ylabel="y values",label = false)
+plot(x,y,xlabel="sin(y)",ylabel="y values",label = false)
 
 ```
 
@@ -133,7 +133,7 @@ When plotting our data being able to adjust parameters associated with the line 
 using DataSci4Chem
 
 
-DataSci4Chem.plot(x,y,xlabel="sin(y)",ylabel="y values",label = false,linestyle=:dash)
+plot(x,y,xlabel="sin(y)",ylabel="y values",label = false,linestyle=:dash)
 
 ```
 A shortcut to the "linestyle" parameter is "ls". In other words, you will get the same outcome replacing "linestyle" with "ls" in the above example. The *GR* backend in *Plots.jl* package has several builtin options for the line style. 
@@ -147,7 +147,7 @@ Another line setting to be adjusted is the line width, which helps with the visi
 using DataSci4Chem
 
 
-DataSci4Chem.plot(x,y,xlabel="sin(y)",ylabel="y values",label = false,linestyle=:dash,lw=2)
+plot(x,y,xlabel="sin(y)",ylabel="y values",label = false,linestyle=:dash,lw=2)
 
 ```
 For most figures, we also want to set the color of the lines in the plot, particularly when multiple lines are plotted. The parameter to be adjusted here is "linecolor" or "lc". The julia plotting backend, usually, sets a different color to each line in your plot. However, it is useful to be able to set these colors as it fits your needs. There several [colors](https://github.com/JuliaGraphics/Colors.jl/blob/master/src/names_data.jl) builtin the *plots.jl* and can be used without further definition. You can also set these colors manually via [RGB cods](https://en.wikipedia.org/wiki/RGB_color_model). 
@@ -156,7 +156,7 @@ For most figures, we also want to set the color of the lines in the plot, partic
 using DataSci4Chem
 
 
-DataSci4Chem.plot(x,y,xlabel="sin(y)",ylabel="y values",label = false,
+plot(x,y,xlabel="sin(y)",ylabel="y values",label = false,
 linestyle=:dash,lw=2,lc=:red)
 
 ```
@@ -179,7 +179,7 @@ using DataSci4Chem
 x_m = hcat(x,x)
 y_m = hcat(y,y .+ 5)
 
-DataSci4Chem.plot(x_m,y_m,xlabel="sin(y)",ylabel="y values")
+plot(x_m,y_m,xlabel="sin(y)",ylabel="y values")
 
 ```
 In this case to add the legend to this plot you need to provide a vector of labels to the *plot(-)* function. The same goes for all the line setting attributes. 
@@ -190,7 +190,7 @@ using DataSci4Chem
 x_m = hcat(x,x)
 y_m = hcat(y,y .+ 5)
 
-DataSci4Chem.plot(x_m,y_m,xlabel="sin(y)",ylabel="y values",label=["column 1" "column 2"])
+plot(x_m,y_m,xlabel="sin(y)",ylabel="y values",label=["column 1" "column 2"])
 
 ```
 
@@ -204,7 +204,7 @@ using DataSci4Chem
 x_m = hcat(x,x)
 y_m = hcat(y,y .+ 5)
 
-DataSci4Chem.plot(x_m,y_m,xlabel="sin(y)",ylabel="y values",label=["column 1" "column 2"],
+plot(x_m,y_m,xlabel="sin(y)",ylabel="y values",label=["column 1" "column 2"],
 lc = [:red :green], lw = [2 1], ls = [:dot :dash])
 
 ```
@@ -220,8 +220,8 @@ using DataSci4Chem
 x_m = hcat(x,x)
 y_m = hcat(y,y .+ 5)
 
-DataSci4Chem.plot(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values",label="column 1")
-DataSci4Chem.plot!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values",label="column 2")
+plot(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values",label="column 1")
+plot!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values",label="column 2")
 
 
 ```
@@ -237,8 +237,8 @@ using DataSci4Chem
 x_m = hcat(x,x)
 y_m = hcat(y,y .+ 5)
 
-DataSci4Chem.plot(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values",label="column 1",lw=2,ls=:dot,lc=:red)
-DataSci4Chem.plot!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values",label="column 2",lw=1,ls=:dash)
+plot(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values",label="column 1",lw=2,ls=:dot,lc=:red)
+plot!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values",label="column 2",lw=1,ls=:dash)
 
 
 ```
@@ -253,7 +253,7 @@ using DataSci4Chem
 x_m = hcat(x,x)
 y_m = hcat(y,y .+ 5)
 
-p = DataSci4Chem.plot(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values",label="column 1",lw=2,ls=:dot,lc=:red)
+p = plot(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values",label="column 1",lw=2,ls=:dot,lc=:red)
 
 ```
 
@@ -263,7 +263,7 @@ In the next step, one can modify this frame using the function *plot!(-)* by def
 using DataSci4Chem
 
 
-DataSci4Chem.plot!(p,x_m[:,2],y_m[:,2],xlabel="sin(y)",
+plot!(p,x_m[:,2],y_m[:,2],xlabel="sin(y)",
 ylabel="y values",label="column 2",lw=1,ls=:dash)
 
 ```
@@ -289,7 +289,7 @@ using DataSci4Chem
 x_m = hcat(x,x)
 y_m = hcat(y,y .+ 5)
 
-DataSci4Chem.scatter(x_m,y_m,xlabel="sin(y)",ylabel="y values",label=["column 1" "column 2"])
+scatter(x_m,y_m,xlabel="sin(y)",ylabel="y values",label=["column 1" "column 2"])
 
 ```
 
@@ -300,8 +300,8 @@ DataSci4Chem.scatter(x_m,y_m,xlabel="sin(y)",ylabel="y values",label=["column 1"
 using DataSci4Chem
 
 
-DataSci4Chem.scatter(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values",label="column 1",lw=2,ls=:dot,lc=:red)
-DataSci4Chem.scatter!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values",label="column 2",lw=1,ls=:dash)
+scatter(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values",label="column 1",lw=2,ls=:dot,lc=:red)
+scatter!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values",label="column 2",lw=1,ls=:dash)
 
 
 ```
@@ -322,8 +322,8 @@ The default marker size is 4 and can be changed by resetting either "markersize"
 using DataSci4Chem
 
 
-DataSci4Chem.scatter(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values",label="column 1",ms=5)
-DataSci4Chem.scatter!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values",label="column 2",ms=2)
+scatter(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values",label="column 1",ms=5)
+scatter!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values",label="column 2",ms=2)
 
 
 ```
@@ -335,8 +335,8 @@ using DataSci4Chem
 
 ms1 = range(1, stop=10, length=size(y_m,1))
 
-DataSci4Chem.scatter(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values",label="column 1",ms=ms1)
-DataSci4Chem.scatter!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values",label="column 2",ms=2)
+scatter(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values",label="column 1",ms=ms1)
+scatter!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values",label="column 2",ms=2)
 
 
 ```
@@ -348,10 +348,10 @@ using DataSci4Chem
 
 ms1 = range(1, stop=10, length=size(y_m,1))
 
-DataSci4Chem.scatter(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values"
+scatter(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values"
 ,label="column 1",ms=ms1)
 
-DataSci4Chem.scatter!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values"
+scatter!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values"
 ,label="column 2",ms=2,shape=:+)
 
 
@@ -364,10 +364,10 @@ using DataSci4Chem
 
 ms1 = range(1, stop=10, length=size(y_m,1))
 
-DataSci4Chem.scatter(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values"
+scatter(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values"
 ,label="column 1",ms=ms1)
 
-DataSci4Chem.scatter!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values"
+scatter!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values"
 ,label="column 2",ms=2,shape=:+,mc=:black)
 
 
@@ -380,10 +380,10 @@ using DataSci4Chem
 
 ms1 = range(1, stop=10, length=size(y_m,1))
 
-DataSci4Chem.scatter(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values"
+scatter(x_m[:,1],y_m[:,1],xlabel="sin(y)",ylabel="y values"
 ,label="column 1",ms=ms1,ma=0.5)
 
-DataSci4Chem.scatter!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values"
+scatter!(x_m[:,2],y_m[:,2],xlabel="sin(y)",ylabel="y values"
 ,label="column 2",ms=3,shape=:+,mc=:black)
 
 
@@ -397,7 +397,7 @@ Another commonly used plotting style is [bar plots](https://en.wikipedia.org/wik
 using DataSci4Chem
 
 
-DataSci4Chem.bar(x_m[:,1][1:10],y_m[:,1][1:10],label="column 1 - first 10")
+bar(x_m[:,1][1:10],y_m[:,1][1:10],label="column 1 - first 10")
 
 
 ```
@@ -412,11 +412,11 @@ mumps = [20178, 23536, 34561, 37395, 36072, 32237, 18597, 9408, 6005, 6268, 8963
 chickenPox = [37140, 32169, 37533, 39103, 33244, 23269, 16737, 5411, 3435, 6052, 12825, 23332]
 
 
-DataSci4Chem.bar(measles,label="measles")
+bar(measles,label="measles")
 
-DataSci4Chem.bar!(mumps,label="mumps")
+bar!(mumps,label="mumps")
 
-DataSci4Chem.bar!(chickenPox,label="chickenPox")
+bar!(chickenPox,label="chickenPox")
 
 ```
 
@@ -426,11 +426,11 @@ In the figure above each series is plotted on top of the previous one, which may
 using DataSci4Chem
 
 
-DataSci4Chem.sp.bar(measles,label="measles")
+sp.bar(measles,label="measles")
 
-DataSci4Chem.sp.bar!(mumps,label="mumps")
+sp.bar!(mumps,label="mumps")
 
-DataSci4Chem.sp.bar!(chickenPox,label="chickenPox")
+sp.bar!(chickenPox,label="chickenPox")
 
 ```
 For this case we need to used the function *groupedbar(-)* to be able to have the bars being plotted side by side. The combination of *groupedbar(-)* and the attribute "bar_position" enables having the bars side by side. 
@@ -439,7 +439,7 @@ For this case we need to used the function *groupedbar(-)* to be able to have th
 using DataSci4Chem
 
 
-DataSci4Chem.sp.groupedbar([measles mumps chickenPox], bar_position = :dodge)
+sp.groupedbar([measles mumps chickenPox], bar_position = :dodge)
 
 ```
 
@@ -449,8 +449,8 @@ A variant of bar plot is [histogram](https://en.wikipedia.org/wiki/Histogram), w
 ```@example vis
 using DataSci4Chem
 
-data = DataSci4Chem.dataset("datasets", "iris")     # Importing the data
-DataSci4Chem.describe(data)                         # Summarizes the dataset
+data = dataset("datasets", "iris")     # Importing the data
+describe(data)                         # Summarizes the dataset
 
 ```
 
@@ -459,6 +459,330 @@ Through the function *describe(-)* we can seen that the dataset contains five va
 ```@example vis
 using DataSci4Chem
 
-DataSci4Chem.histogram(data[!,"SepalLength"])
+histogram(data[!,"SepalLength"],label=false)
+
+xlabel!("SepalWidth")
+ylabel!("Frequency")
 
 ```
+In this plot the bin size and number is set automatically by julia. However, the automatic choice may not be the best option for your case of data exploration. One of the parameters that can be set here is the number of bins. Let's change the number of bins to 20 instead of 8.
+
+```@example vis
+using DataSci4Chem
+
+histogram(data[!,"SepalLength"],label=false,bins =20)
+
+xlabel!("SepalWidth")
+ylabel!("Frequency")
+
+```
+
+!!! warning 
+    As you can see changing the number of bins may impact the final interpretation of your data. Therefore, you need to be sure that this parameter is adequately selected to correctly reflect the true distribution of your data. 
+
+Another way to change the number of bins or their size is to provide a vector of bins to the parameter "bins" rather than an integer. 
+
+```@example vis
+using DataSci4Chem
+
+b_range = range(4, 8, length=21)                            # Generate the individual bins
+
+histogram(data[!,"SepalLength"],label=false,bins =b_range)  # Use those bins for plotting the results
+
+xlabel!("SepalWidth")
+ylabel!("Frequency")
+
+```
+
+Similar to the previous plots you can overlay multiple frames on top of each other. For example, below we are plotting the histogram of two separate variables in the "iris dataset" together. 
+
+```@example vis
+using DataSci4Chem
+
+histogram(data[!,"SepalLength"],label="Sepal Length", bins=10)
+histogram!(data[!,"SepalWidth"],label="Sepal Width", bins=10)
+
+xlabel!("Bins")
+ylabel!("Frequency")
+
+```
+
+As you can see from the above plot the two distributions have an overlapping region, which is very difficult to see. To overcome this issue you can use the parameter "fillalpha", which sets the transparency of the bars. Please note that the order of the plotting is highly relevant when setting this parameter. 
+
+```@example vis
+using DataSci4Chem
+
+histogram(data[!,"SepalLength"],label="Sepal Length", bins=10)
+histogram!(data[!,"SepalWidth"],label="Sepal Width", bins=10,fillalpha=0.6)
+
+xlabel!("Bins")
+ylabel!("Frequency")
+
+```
+
+Another highly relevant parameter to adjust when using histograms is the normalization factor set via parameter "norm". The julia default is false (i.e. the pure count). This can be set to ":pdf" resulting in the sum of areas will be set to one while :probability generates a plot where the sum of heights is equal to one. The normalization is very helpful when dealing with datasets with different population sizes. 
+
+```@example vis
+using DataSci4Chem
+
+histogram(data[!,"SepalLength"],label="Sepal Length", bins=10,norm = :pdf)
+histogram!(data[!,"SepalWidth"],label="Sepal Width", bins=10,fillalpha=0.6, norm = :pdf)
+
+xlabel!("Bins")
+ylabel!("Frequency")
+
+```
+
+or 
+
+```@example vis
+using DataSci4Chem
+
+histogram(data[!,"SepalLength"],label="Sepal Length", bins=10,norm = :probability)
+histogram!(data[!,"SepalWidth"],label="Sepal Width", bins=10,fillalpha=0.6, norm = :probability)
+
+xlabel!("Bins")
+ylabel!("Frequency")
+
+```
+
+### Heatmap
+
+[Heatmaps](https://en.wikipedia.org/wiki/Heat_map) are a set of very information rich and versatile plots that can be used for multidimensional data plotting. In heatmaps the 3rd dimension is usually represented through a color scheme indicating the magnitude of the plotted data. Heatmaps either accept an *``D_{m,n}``* or three variables where *``X_{m,1}``* and *``Y_{1,n}``*. 
+
+```@example vis
+using DataSci4Chem
+
+D = randn(10,20)
+
+heatmap(D)
+
+xlabel!("Random values")
+ylabel!("Random values")
+
+```
+
+or 
+
+```@example vis
+using DataSci4Chem
+
+x = range(5, 25, length=10) 
+y = range(-5, 3, length=20) 
+
+DataSci4Chem.heatmap(x,y,D)
+
+xlabel!("Random values")
+ylabel!("Random values")
+
+```
+
+When working with the heatmaps you can change the color scheme used via "cmap" and different colormaps. For example, below we are setting the [colormap](https://docs.juliaplots.org/latest/colorschemes/) of our data to :jet.  
+
+```@example vis
+using DataSci4Chem
+
+
+heatmap(x,y,D,cmap= :jet)
+
+xlabel!("Random values")
+ylabel!("Random values")
+
+```
+
+There are many useful attributes built in the heatmap function to enable you to visualize your data at best. Here we will discuss a few of those. 
+
+#### Color scale limits
+
+You can adjust the color scale in a similar way to the ranges of *X* and/or *Y*. For this you can use the attribute "clim". 
+
+```@example vis
+using DataSci4Chem
+
+
+heatmap(x,y,D,cmap= :turbo,clim=(-1,1))
+
+xlabel!("Random values")
+ylabel!("Random values")
+
+```
+
+#### Colorbar title 
+
+You can also add a title to your colorbar as it represent highly relevant information. This can be done with "colorbar_title".
+
+
+```@example vis
+using DataSci4Chem
+
+
+DataSci4Chem.heatmap(x,y,D,cmap= :turbo,clim=(-1,1),colorbar_title="My title")
+
+xlabel!("Random values")
+ylabel!("Random values")
+
+```
+
+#### Colorbar position
+
+You can also set the position of the colorbar, depending on the backend, to improve the way that your data is displayed. For the position of the colorbar you can use the "cbar" attribute. The backend "GR" only supports absence and presence of the colorbar in the position of the legend. For example, below we are removing the colorbar completely.
+
+```@example vis
+using DataSci4Chem
+
+
+heatmap(x,y,D,cmap= :turbo,clim=(-1,1),colorbar_title="My title",cbar= :none)
+
+xlabel!("Random values")
+ylabel!("Random values")
+
+```
+
+
+!!! tip 
+    The plot type can be set as on the attributes of *plot(-)* using parameter "seriestype" or "st". In other words, you can use *plot(-)* for all the plot types presented above. 
+
+ 
+
+
+
+```@example vis
+using DataSci4Chem
+
+plot(data[!,"SepalLength"],label="Sepal Length", st = :histogram,bins=10,norm = :probability)
+plot!(data[!,"SepalWidth"],label="Sepal Width", st = :histogram, bins=10,fillalpha=0.6, norm = :probability)
+
+xlabel!("Bins")
+ylabel!("Frequency")
+
+```
+
+or 
+
+```@example vis
+using DataSci4Chem
+
+
+plot(x,y,D,st = :heatmap,cmap= :turbo,clim=(-1,1),colorbar_title="My title")
+
+xlabel!("Random values")
+ylabel!("Random values")
+
+```
+
+## Advanced topics 
+
+This section aims at enabling you to generate publication quality figures. This is only a small selection of things that might be useful for high quality figure generation.
+
+### Frame size
+
+The size of the frame/plot can be set depending on the your needs. This is an attribute called "size", which is [tuple](https://en.wikipedia.org/wiki/Tuple) and has (600,400) as default. For example, we can update the above plot by making it more square. 
+
+```@example vis
+using DataSci4Chem
+
+
+plot(x,y,D,st = :heatmap,cmap= :turbo,clim=(-1,1),colorbar_title="My title",size=(600,600))
+
+xlabel!("Random values")
+ylabel!("Random values")
+
+```
+
+### The figure resolution
+
+You can also adjust the resolution of your plots using the attribute "dpi" (i.e. dots per inch). The higher is dpi the higher is the resolution and thus the quality of your plots. Julia sets this at 100 by default. For high quality figures using a value around 300 is recommended. 
+
+```@example vis
+using DataSci4Chem
+
+
+plot(x,y,D,st = :heatmap,cmap= :turbo,clim=(-1,1),colorbar_title="My title",size=(600,600),dpi =300)
+
+xlabel!("Random values")
+ylabel!("Random values")
+
+```
+!!! note 
+    When changing the dpi for a figure, you will not notice any differences at the screen level, given that the figure is rendered as a vector giving you the possibility to zoom in as much as possible. The dpi becomes very important when you are saving your plots.
+
+### Subplots 
+
+Subplots are the combination of multiple plots in separate sub-frames within on main frame. Subplots mainly use a combination of *plot(-)* and the attribute ["layout"](https://docs.juliaplots.org/latest/layouts/) to achieve its goal. The simplest way of making subplots is the following. 
+
+```@example vis
+using DataSci4Chem
+
+
+p1 = plot(x,y,D,st = :heatmap,cmap= :turbo,clim=(-1,1),colorbar_title="My title")
+
+xlabel!("Random values")
+ylabel!("Random values")
+
+
+p2 = plot(data[!,"SepalLength"],label="Sepal Length", st = :histogram,bins=10,norm = :probability)
+
+xlabel!("Bins")
+ylabel!("Frequency")
+
+plot(p1,p2,layout = (1,2),size=(800,400))
+
+```
+
+You can also have a set of nested subplots to represent you data. Below you can see an example of such a case.   
+
+```@example vis
+using DataSci4Chem
+
+
+p1 = plot(data[!,"SepalWidth"],label="SepalWidth", st = :histogram,bins=10,norm = :probability)
+
+ylabel!("Frequency")
+
+p2 = plot(data[!,"SepalLength"],label="Sepal Length", st = :histogram,bins=10,norm = :probability)
+
+ylabel!("Frequency")
+
+p3 = plot(x,y,D,st = :heatmap,cmap= :turbo,clim=(-1,1))
+
+xlabel!("Random values")
+ylabel!("Random values")
+
+
+
+plot(plot(p1,p2),p3,layout = (2,1),margin = (5,:mm))
+
+
+
+```
+
+### Saving figures 
+
+You can save your figures using the function *savefig(-)*. This function takes the currently stored plot in the memory and saves it with a given title. You can also save a specific figure using its handle, if that figure is not the last figure stored in the memory. For example, here we are saving the last generated figure (i.e. the subplot). 
+
+```@example vis
+using DataSci4Chem
+
+
+savefig("Example_fig.png")
+
+
+```
+
+On the other hand, in this example we are saving the figure "p3, which is the heatmap, independently from the last generated figure. 
+
+```@example vis
+using DataSci4Chem
+
+
+savefig(p3,"Example_fig_p3.png")
+
+
+```
+
+!!! tip 
+    By changing the extension of the figure in its name (i.e. ".png" vs ".pdf") you can change the format of the generated file as well as its quality. The extensions such as ".svg", ".tiff", and ".pdf" tend to be of higher quality than ".png" for example. 
+
+## Additional resources 
+
+There are several external resources for making plots and practicing. The main and the most important one is the [*Plots.jl documentation*](https://docs.juliaplots.org/latest/). There are several videos on YouTube with introductory lectures in julia plotting (https://www.youtube.com/watch?v=rtOqvqm5IjE).   
