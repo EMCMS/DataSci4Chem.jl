@@ -421,7 +421,7 @@ You can calculate the inverse of invertible matrices using the functions *inv()*
 using DataSci4Chem
 
 A = [2 1; -1 1]
-DataSci4Chem.inv(A)
+inv(A)
 
 ```
 

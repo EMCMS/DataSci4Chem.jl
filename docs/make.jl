@@ -7,7 +7,8 @@ makedocs(modules = [Documenter, DataSci4Chem],
     pages = [
         "Home" => "index.md",
         "Data visualization" => "vis.md",
-        "Matrix manipulation" => "Matrix.md"
+        "Matrix manipulation" => "Matrix.md",
+        "Numerical root finding" => "RootFinding.md"
         ]
     )
 
