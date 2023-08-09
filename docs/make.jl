@@ -8,7 +8,8 @@ makedocs(modules = [Documenter, DataSci4Chem],
         "Home" => "index.md",
         "Data visualization" => "vis.md",
         "Matrix manipulation" => "Matrix.md",
-        "Numerical root finding" => "RootFinding.md"
+        "Numerical root finding" => "RootFinding.md",
+        "Numerical integration" => "Integration.md"
         ]
     )
 

@@ -126,3 +126,102 @@ function secant_root(f, x0, x1, tol=1e-6, max_iter=100)
         error("Secant method did not converge within the maximum number of iterations.")
     end
 end
+
+
+
+###############################################################################
+# Midpoint integration
+
+
+function midpoint_integration(f, a, b; n_wins = 100)
+    # f: the function for which we want to integrate
+    # a: the lower bound of the interval
+    # b: the upper bound of the interval
+    # n_wins: number of windows
+    #################################################
+    # Example 
+    # f(x) = x.^2 .- a
+    # a = 0.0
+    # b = 25.0
+    # est_int = midpoint_integration(f, a, b)
+    #################################################
+
+    n_mp = n_wins - 1 
+
+    wins = collect(range(a,b,length = (n_wins + n_mp)))   # Calculating the edges of the windows and their midpoints
+    mps = wins[2:2:length(wins)]                         # Collecting only the midpoints 
+    edges = wins[1:2:length(wins)]
+
+    f_mps = f(mps)                                       # Evaluating the midpoints 
+    
+    est_int = sum(f_mps .* (edges[2] - edges[1])) 
+    
+    return est_int
+end
+
+
+###############################################################################
+# Trapezoid rule integration
+
+
+function trapezoid_rule(f, a, b; n = 100)
+    # f: the function for which we want to integrate
+    # a: the lower bound of the interval
+    # b: the upper bound of the interval
+    # n: number of windows
+    #################################################
+    # Example 
+    # f(x) = x.^2 .- a
+    # a = 0.0
+    # b = 25.0
+    # est_int = trapezoid_rule(f, a, b)
+    #################################################
+    h = (b - a) / n
+    sum = 0.5 * (f(a) + f(b))
+    
+    for i in 1:(n-1)
+        x = a + i * h
+        sum += f(x)
+    end
+    
+    integral = h * sum
+    return integral
+end
+
+
+###############################################################################
+# Simpson rule integration
+
+
+function simpsons_rule(f, a, b, n)
+    # f: the function for which we want to integrate
+    # a: the lower bound of the interval
+    # b: the upper bound of the interval
+    # n: number of windows
+    #################################################
+    # Example 
+    # f(x) = x.^2 .- a
+    # a = 0.0
+    # b = 25.0
+    # est_int = simpsons_rule(f, a, b, n)
+    #################################################
+    if n % 2 != 0
+        throw(ArgumentError("Number of subintervals (n) must be even for Simpson's Rule."))
+    end
+    
+    h = (b - a) / n
+    s = f(a) + f(b)
+    
+    for i in 1:(n-1)
+        x = a + i * h
+        if i % 2 == 0
+            s += 2 * f(x)
+        else
+            s += 4 * f(x)
+        end
+        
+    end
+    
+    integral = (h / 3) * s
+    return integral
+end
