@@ -287,5 +287,37 @@ int_er_2 =  int_anal - est_int
     As you can see from the results above the trapezoid method tends to underestimate the area under the curve while the midpoint method has a tendency to overestimate the integrals. However, with enough intervals both method are able to achieve high levels of accuracy. 
 
 
-## Simpson rule
+## Simpson's rule
 
+So far we have been using linear functions to perform our integration. However, as you may imagine, the linear function (i.e. *f(x) = ax + b*) may not be the best function to describe the trend in the objective curve. On the other hand, a function that is very well able to cover any trends is a parabola (i.e. *``f(x) = ax^2 + bx + c``*), which is the basic principal of [Simpson's rule](https://en.wikipedia.org/wiki/Simpson%27s_rule). A variation of parabola can, theoretically, cover any kind of objective function. To be able to do this we need to fit a parabola into at least three consecutive points, which will be unique. Let's write our system of equations: 
+
+```math
+
+f(x_i) = a(x_{i+1} - \Delta x)^2 + b(x_{i+1} - \Delta x) + c \\
+f(x_{i+1}) = a(x_{i+1})^2 + b(x_{i+1}) + c \\
+f(x_{i+2}) = a(x_{i+1} + \Delta x)^2 + b(x_{i+1} + \Delta x) + c \\
+
+```
+
+Now if we solve this system of equations we will end up with the following equation:
+
+```math
+
+\int_{x_{i+1} - \Delta x}^{x_{i+1} + \Delta x} (ax^2 + bx + c)dx = \sum_{0}^{n} \frac{\Delta x}{3}(f(x_i) + 4f(x_{i+1}) + f(x_{i+2})),
+
+```
+which will ultimately result in the below equation. 
+
+```math
+
+\int_{x_{i+1} - \Delta x}^{x_{i+1} + \Delta x} (ax^2 + bx + c)dx = \\
+
+ \frac{\Delta x}{3}(f(x_0) + 4f(x_1) + 2f(x_2) + 4f(x_3) + ... + 2f(x_{n−2})+4f(x_{n−1})+f(x_n))
+
+```
+
+Here the pattern is that the first and the last terms stay as they are while the odd indexed terms are multiplied by four and the even ones are multiplied by two. By selecting a small enough *``\Delta x``* this method is able to provide a fairly accurate estimation of the area under the curve. 
+
+## Additional resources
+
+There are additional resources for the numerical integration, for example this [MIT open course](https://ocw.mit.edu/courses/18-01-single-variable-calculus-fall-2006/). 
