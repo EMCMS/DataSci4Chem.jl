@@ -205,3 +205,111 @@ plot!(X,fh(X),label="numerical model 1000 steps",ls =:dot,lw=3)
 There are several numerical approaches that are able to solve both linear and nonlinear problems, referred to [nonlinear solvers](https://en.wikipedia.org/wiki/Non-linear_least_squares). For these solvers to work, they need a starting point and the interest window for each parameter. Depending on the implementation, they may have different kernels to solve such systems. For example the package [*LsqFit.jl*](https://julianlsolvers.github.io/LsqFit.jl/latest/) incorporated into *DataSci4Chem.jl* employs the [Gauss-Newton](https://en.wikipedia.org/wiki/Gauss%E2%80%93Newton_algorithm) algorithm. 
 
 
+To solve linear problems you need to define your objective model as a combination of independent variables and the model parameters. For example, our current system is defined as following. 
+
+
+```@example cft
+using DataSci4Chem
+
+model(x,p) = p[1] .* x .+ p[2]
+
+```
+
+Now that the objective function is already built, we can use our data to fit our data. For that we need to provide the algorithm with a set of starting points as well as the data. 
+
+
+```@example cft
+using DataSci4Chem
+
+p0 = [0.5, 0.5]
+
+fit = curve_fit(model, X, Y, p0)
+fit.param
+
+```
+
+!!! warning 
+	The starting points must be close to the true value of the parameters otherwise, the algorithm may not be able to find the best fit, particularly for more complex systems. 
+
+For more complex systems, we must provide our algorithm with parameter bounds besides the starting points. These will be particularly helpful for cases that multiple solutions to the system is possible (e.g. Gaussian fit). 
+
+
+```@example cft
+using DataSci4Chem
+
+lb = [-2.0, -2.0]
+ub = [2.0, 2.0]
+
+fit = curve_fit(model, X, Y, p0, lower=lb, upper=ub)
+fit.param
+
+```
+
+!!! warning 
+	The parameter bounds must be float64! If integers are provided, the algorithm will give you an error.
+
+## Goodness of the fit
+
+Now that we have managed to fit an objective function to our model, we need to evaluate whether the fitted model is good enough, or representative of our data. There are different metrics for this assessment. Here we are going to discuss the residuals, root mean squared error (RMSE), and  coefficient of determination (i.e. *``R^2``*).
+
+### Residuals
+
+Residuals are the difference between each *``y_i``* and *``f(x_i)``*. For a model that is able to represent our data well without any systematic error, we want to see a random distribution of the residuals across *X*. 
+
+```@example cft
+using DataSci4Chem
+
+fh2(x) = fit.param[1] .* x .+ fit.param[2]
+
+res = fh2(X) - Y 
+
+scatter(X,res,xlabel ="X values", ylabel = "residuals", label =false)
+plot!([0,105],[0,0],label=false)
+
+```
+
+As you can see from the above figure, there is not a clear trend in the distribution of the residuals, indicating the our model is able to capture the underlying trend in our data. In case of observed trends, we can deduce that our objective function is not well suited to describe such trends. 
+
+### RMSE
+
+[RMSE](https://en.wikipedia.org/wiki/Root-mean-square_deviation) provides a metrics of the magnitude of the error in the model predictions. As you can deduce from the name, it is a combined measure of residuals. 
+
+```math 
+
+RMSE = \sqrt{mean(Y - f(X))}
+
+```
+
+Smaller RMSE values indicate that the model is able to explain higher levels of variance in the data. There is not a clear cut off for RMSE for accepting or rejecting a model. It is mainly used for comparing two or more models against each other.
+
+### ``R^2``
+
+[``R^2``](https://en.wikipedia.org/wiki/Coefficient_of_determination) similarly to the other measures is an indicator for the goodness of fit. ``R^2`` in practice is showing how much better your model is in describing your data than the average value. Mathematically the ``R^2`` is calculated as below
+
+```math 
+
+R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - f(x_i))^2}{\sum_{i=1}^{n} (y_i - \bar y)^2}
+
+```
+``R^2`` can range between zero, no trend, to one, perfect correlation. The larger ``R^2`` values show that the fitted model a lot better than the *``\bar Y``* in describing our data. For example for our model the ``R^2`` can be calculated as follows.
+
+```@example cft
+using DataSci4Chem
+
+
+res_t = fh2(X) .- mean(Y) 
+
+R2 = 1 - sum(res.^2)/sum(res_t.^2)
+
+```
+Usually, ``R^2`` values above 0.6 indicate that the model is able to explain a large portion of variance in the data. 
+
+!!! tip 
+	For complex and multivariate systems, ``R^2`` values close to one may indicate an issue of [overfitting](https://en.wikipedia.org/wiki/Overfitting).
+
+!!! note 
+	Another metrics that can be used for the assessment of your fit quality is the confidence interval (CI) of your model. The CI of your model can be estimated based on the residuals and the t-distribution. There are also numerical approaches such as [bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)) and [leave one out](https://en.wikipedia.org/wiki/Cross-validation_(statistics)) to do these calculations. 
+
+## Additional resources 
+
+For additional resources, please take a look at this MIT open course ware [here:](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/resources/lecture-16-projection-matrices-and-least-squares/). 
