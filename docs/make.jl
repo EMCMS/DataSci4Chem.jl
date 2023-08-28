@@ -6,11 +6,13 @@ makedocs(modules = [Documenter, DataSci4Chem],
     sitename="DataSci4Chem.jl",
     pages = [
         "Home" => "index.md",
+        "Basics" => "Basics.md",
         "Data visualization" => "vis.md",
         "Matrix manipulation" => "Matrix.md",
         "Numerical root finding" => "RootFinding.md",
         "Numerical integration" => "Integration.md",
-        "Curve fitting" => "fit.md"
+        "Curve fitting" => "fit.md",
+        "Data exploration" => "DataExplore.md"
         ]
     )
 
