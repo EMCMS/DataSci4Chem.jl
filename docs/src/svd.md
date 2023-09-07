@@ -32,7 +32,8 @@ A =
 \end{pmatrix},
 ```
 so in this case the sum is just one term. Here is a larger example: we measure the infrared spectra of 2000 samples and put them in matrix as rows. Each spectrum contains 1000 points, so the data is a 2000$`\times`$1000 matrix. To get a view of this matrix we can translate numbers into color intensity:
-![alt text](gray1.png "Title")
+![](1component_example.png)
+
 
 ### Entry selection
 
