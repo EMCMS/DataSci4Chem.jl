@@ -15,102 +15,102 @@ m = 15          # number of rows
 n = 21          # number of columns
 
 X = randn(m,n)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">15×21 Matrix{Float64}:
-  1.7625    -1.54801     1.85039    …  -0.300239    -0.250977    1.90713
- -1.99641    1.338      -0.145205      -0.523159    -0.848999    0.443066
-  0.198372   0.996742    0.648866      -0.771563     0.503683    0.618288
- -0.967369   0.21853    -0.432344       1.13371     -0.0113527  -1.00845
-  0.707163  -1.22774     1.02926        0.00353455  -0.616615    0.863885
- -0.166707   0.278738    0.240406   …  -0.38311     -0.118392   -1.04944
- -0.177109  -1.10291     0.52391        0.0275893   -1.61597     2.10228
-  0.59624    1.46766     0.378816       0.244984    -0.437087   -0.277053
- -0.353572  -0.545699    0.0250837      0.621916    -0.185201   -0.052932
-  1.50309    1.16816     0.927315      -0.317972     2.29381    -1.4386
-  0.303992   0.749006    0.746414   …   0.0660887   -1.54768    -0.304514
- -0.717404   0.530132    0.381568       1.28339     -1.16895     2.42287
- -0.225061   0.0254788  -0.0751375      1.13319      0.688682    1.26319
- -0.410742  -0.90107     0.189043      -1.4796       0.585841   -0.280484
- -0.467378   0.112184    0.391136      -0.215688     0.582285   -0.302209</code></pre><p>As you can see, we have generated our matrix of random <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format">floats</a> and have stored it in a variable called <em>X</em>. Now as our first example we will attempt at selecting the matrix entry at the row 5 and column 20. To do that we use the provided coordinates with &quot;[]&quot;. Here we first select the specified entry and store it in the variable &quot;x1&quot; and then printed. </p><pre><code class="language-julia hljs">using DataSci4Chem
+  0.00797756   0.45233    0.45363   …  -1.78443    0.0918878  -0.452007
+  0.632119    -0.359459   0.752065     -0.201181  -2.4586     -0.174643
+  0.469375    -0.208988  -0.176281      0.736065   2.06326    -0.602935
+ -0.909741     0.411749   0.245418      0.305481  -0.0248235   0.0494172
+ -0.215778     1.6054     3.45432       0.646107   1.0386      1.70294
+ -0.702695     0.469294   0.747032  …   1.87166   -1.13714     2.17039
+ -0.145015    -0.242196  -0.556846     -1.67529    0.709728   -0.35129
+  0.894835    -0.78389   -1.44846       0.94838   -0.362592   -0.224089
+  0.18032     -1.57781    0.934238     -0.59816   -0.382999   -0.887293
+  0.619843    -2.01747    0.429079     -0.404926   1.24773    -0.327786
+  0.930825    -0.231443  -2.64189   …  -1.92557   -0.890784   -0.367533
+  1.67485      2.13288   -0.184526      0.952933   0.26296    -1.41109
+  0.790245     0.954698  -1.32508       0.330136  -1.23955     0.407942
+ -1.48516      0.868955  -0.346472     -0.288697  -0.0826584   0.277661
+  0.888138     0.585597  -0.438065     -0.420997  -1.08259    -0.149716</code></pre><p>As you can see, we have generated our matrix of random <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format">floats</a> and have stored it in a variable called <em>X</em>. Now as our first example we will attempt at selecting the matrix entry at the row 5 and column 20. To do that we use the provided coordinates with &quot;[]&quot;. Here we first select the specified entry and store it in the variable &quot;x1&quot; and then printed. </p><pre><code class="language-julia hljs">using DataSci4Chem
 
 x1 = X[5,20]
 
-println(x1)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">-0.6166147785047156</code></pre><p>We can also select more than one entry at a time. For example if we want to select the entries between 3rd and 10th rows on the 2nd column we take advantage of ranges (i.e. 3:10). Similar to the single entry selection we put the relevant range in the spot for rows and select the column #2. </p><pre><code class="language-julia hljs">using DataSci4Chem
+println(x1)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">1.038603848645927</code></pre><p>We can also select more than one entry at a time. For example if we want to select the entries between 3rd and 10th rows on the 2nd column we take advantage of ranges (i.e. 3:10). Similar to the single entry selection we put the relevant range in the spot for rows and select the column #2. </p><pre><code class="language-julia hljs">using DataSci4Chem
 
 x2 = X[3:10,2]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">8-element Vector{Float64}:
-  0.9967417895342091
-  0.2185299403761543
- -1.2277386287809255
-  0.27873767165848423
- -1.1029135038784743
-  1.4676644973964357
- -0.5456986961809718
-  1.1681622777034943</code></pre><p>As you can see, the output of this operation is a matrix of 8 by 1, thus a vector of 8 elements. We can perform the range selection in both row and column level at the same time. The example below shows how to select rows 5:10 and columns 1:3. This should result into a 6 by 3 matrix. </p><pre><code class="language-julia hljs">using DataSci4Chem
+ -0.20898780306206133
+  0.4117486862709982
+  1.605404150165341
+  0.46929376806468087
+ -0.2421957128034121
+ -0.7838900160858862
+ -1.5778149950349547
+ -2.017473584858028</code></pre><p>As you can see, the output of this operation is a matrix of 8 by 1, thus a vector of 8 elements. We can perform the range selection in both row and column level at the same time. The example below shows how to select rows 5:10 and columns 1:3. This should result into a 6 by 3 matrix. </p><pre><code class="language-julia hljs">using DataSci4Chem
 
 X1 = X[5:10,1:3]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">6×3 Matrix{Float64}:
-  0.707163  -1.22774   1.02926
- -0.166707   0.278738  0.240406
- -0.177109  -1.10291   0.52391
-  0.59624    1.46766   0.378816
- -0.353572  -0.545699  0.0250837
-  1.50309    1.16816   0.927315</code></pre><p>There are also cases where you would like to select a column or an entire row in a matrix. In this case also we can use ranges expressed by &quot;:&quot;. Since this is the full range from 1:end you do not need to specify the details. For example for selecting the second column of the <em>X</em> we can use the expression <em>X[:,2]</em>, which implies that we are selecting all the rows in the second column. </p><pre><code class="language-julia hljs">using DataSci4Chem
+ -0.215778   1.6054     3.45432
+ -0.702695   0.469294   0.747032
+ -0.145015  -0.242196  -0.556846
+  0.894835  -0.78389   -1.44846
+  0.18032   -1.57781    0.934238
+  0.619843  -2.01747    0.429079</code></pre><p>There are also cases where you would like to select a column or an entire row in a matrix. In this case also we can use ranges expressed by &quot;:&quot;. Since this is the full range from 1:end you do not need to specify the details. For example for selecting the second column of the <em>X</em> we can use the expression <em>X[:,2]</em>, which implies that we are selecting all the rows in the second column. </p><pre><code class="language-julia hljs">using DataSci4Chem
 
 X2 = X[:,2]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">15-element Vector{Float64}:
- -1.548010907566614
-  1.3380038358379946
-  0.9967417895342091
-  0.2185299403761543
- -1.2277386287809255
-  0.27873767165848423
- -1.1029135038784743
-  1.4676644973964357
- -0.5456986961809718
-  1.1681622777034943
-  0.7490062820681056
-  0.5301320548924295
-  0.025478754897623305
- -0.9010698137119542
-  0.11218441414898336</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>Please note that as a generally accepted rule, the matrices and vectors are represented with CAPITAL letters (e.g. <em>X</em>) while the entries are represented with small letters (e.g. <em>x</em>). </p></div></div><p>You can also select multiple columns or rows of a matrix. In this example we are selecting rows 3:5 of the matrix <em>X</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
+  0.4523302602608523
+ -0.35945869098421757
+ -0.20898780306206133
+  0.4117486862709982
+  1.605404150165341
+  0.46929376806468087
+ -0.2421957128034121
+ -0.7838900160858862
+ -1.5778149950349547
+ -2.017473584858028
+ -0.23144257780872443
+  2.1328756196394174
+  0.9546983152570667
+  0.8689551663846821
+  0.5855971064532016</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>Please note that as a generally accepted rule, the matrices and vectors are represented with CAPITAL letters (e.g. <em>X</em>) while the entries are represented with small letters (e.g. <em>x</em>). </p></div></div><p>You can also select multiple columns or rows of a matrix. In this example we are selecting rows 3:5 of the matrix <em>X</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
 
 X3 = X[3:5,:]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">3×21 Matrix{Float64}:
-  0.198372   0.996742   0.648866  …  -0.771563     0.503683    0.618288
- -0.967369   0.21853   -0.432344      1.13371     -0.0113527  -1.00845
-  0.707163  -1.22774    1.02926       0.00353455  -0.616615    0.863885</code></pre><p>So far we have selected rows and/or columns that are next to each other, thus accessible with ranges. We can also access entries in a matrix that are not next to one another. In the below example we are selecting the columns 1, 3, and 21 of the matrix <em>X</em>. For this we need to generate a vector of the column indices (i.e. [1,3,21]), which is used for our operation. </p><pre><code class="language-julia hljs">using DataSci4Chem
+  0.469375  -0.208988  -0.176281  …  0.736065   2.06326    -0.602935
+ -0.909741   0.411749   0.245418     0.305481  -0.0248235   0.0494172
+ -0.215778   1.6054     3.45432      0.646107   1.0386      1.70294</code></pre><p>So far we have selected rows and/or columns that are next to each other, thus accessible with ranges. We can also access entries in a matrix that are not next to one another. In the below example we are selecting the columns 1, 3, and 21 of the matrix <em>X</em>. For this we need to generate a vector of the column indices (i.e. [1,3,21]), which is used for our operation. </p><pre><code class="language-julia hljs">using DataSci4Chem
 
 X4 = X[:,[1,3,21]]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">15×3 Matrix{Float64}:
-  1.7625     1.85039     1.90713
- -1.99641   -0.145205    0.443066
-  0.198372   0.648866    0.618288
- -0.967369  -0.432344   -1.00845
-  0.707163   1.02926     0.863885
- -0.166707   0.240406   -1.04944
- -0.177109   0.52391     2.10228
-  0.59624    0.378816   -0.277053
- -0.353572   0.0250837  -0.052932
-  1.50309    0.927315   -1.4386
-  0.303992   0.746414   -0.304514
- -0.717404   0.381568    2.42287
- -0.225061  -0.0751375   1.26319
- -0.410742   0.189043   -0.280484
- -0.467378   0.391136   -0.302209</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>When setting indices for a matrix or a dataframe, you must work with <a href="https://en.wikipedia.org/wiki/Integer">integers</a> that are larger than zero or <a href="https://en.wikipedia.org/wiki/Boolean_data_type">boolians</a>. </p></div></div><p>Now that we know how to select entries or chunks of a matrix, we can start working on matrix operations. </p><h2 id="Matrix-operations"><a class="docs-heading-anchor" href="#Matrix-operations">Matrix operations</a><a id="Matrix-operations-1"></a><a class="docs-heading-anchor-permalink" href="#Matrix-operations" title="Permalink"></a></h2><h3 id="Element-wise"><a class="docs-heading-anchor" href="#Element-wise">Element wise</a><a id="Element-wise-1"></a><a class="docs-heading-anchor-permalink" href="#Element-wise" title="Permalink"></a></h3><p>Most matrix operations are divided into two categories: element wise and the matrix wise. For the element vise operations the two matrices must have exactly the same size as the desired operation is performed element by element. Consequently, the resulting matrix will have the same size as the starting matrices. </p><h4 id="Summation"><a class="docs-heading-anchor" href="#Summation">Summation</a><a id="Summation-1"></a><a class="docs-heading-anchor-permalink" href="#Summation" title="Permalink"></a></h4><p>An example of such operations is summing or subtracting two matrices. Let&#39;s generate two matrices 4 by 5 populated with random numbers called <em>A</em> and <em>B</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
+  0.00797756   0.45363   -0.452007
+  0.632119     0.752065  -0.174643
+  0.469375    -0.176281  -0.602935
+ -0.909741     0.245418   0.0494172
+ -0.215778     3.45432    1.70294
+ -0.702695     0.747032   2.17039
+ -0.145015    -0.556846  -0.35129
+  0.894835    -1.44846   -0.224089
+  0.18032      0.934238  -0.887293
+  0.619843     0.429079  -0.327786
+  0.930825    -2.64189   -0.367533
+  1.67485     -0.184526  -1.41109
+  0.790245    -1.32508    0.407942
+ -1.48516     -0.346472   0.277661
+  0.888138    -0.438065  -0.149716</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>When setting indices for a matrix or a dataframe, you must work with <a href="https://en.wikipedia.org/wiki/Integer">integers</a> that are larger than zero or <a href="https://en.wikipedia.org/wiki/Boolean_data_type">boolians</a>. </p></div></div><p>Now that we know how to select entries or chunks of a matrix, we can start working on matrix operations. </p><h2 id="Matrix-operations"><a class="docs-heading-anchor" href="#Matrix-operations">Matrix operations</a><a id="Matrix-operations-1"></a><a class="docs-heading-anchor-permalink" href="#Matrix-operations" title="Permalink"></a></h2><h3 id="Element-wise"><a class="docs-heading-anchor" href="#Element-wise">Element wise</a><a id="Element-wise-1"></a><a class="docs-heading-anchor-permalink" href="#Element-wise" title="Permalink"></a></h3><p>Most matrix operations are divided into two categories: element wise and the matrix wise. For the element vise operations the two matrices must have exactly the same size as the desired operation is performed element by element. Consequently, the resulting matrix will have the same size as the starting matrices. </p><h4 id="Summation"><a class="docs-heading-anchor" href="#Summation">Summation</a><a id="Summation-1"></a><a class="docs-heading-anchor-permalink" href="#Summation" title="Permalink"></a></h4><p>An example of such operations is summing or subtracting two matrices. Let&#39;s generate two matrices 4 by 5 populated with random numbers called <em>A</em> and <em>B</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
 
 A = rand(4,5)
 
 B = rand(4,5)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">4×5 Matrix{Float64}:
- 0.0457908  0.262936  0.678186   0.26438   0.704436
- 0.769371   0.181607  0.770293   0.19384   0.797088
- 0.818677   0.331795  0.0846516  0.167404  0.647648
- 0.148067   0.890864  0.0485372  0.67925   0.375119</code></pre><p>Now we can try to sum up these two matrices and store the results in the matrix <em>C</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
+ 0.281835  0.83189   0.324509  0.196642  0.126412
+ 0.579137  0.143013  0.022575  0.358192  0.961227
+ 0.270296  0.473731  0.557855  0.166486  0.380163
+ 0.309974  0.39534   0.539844  0.403144  0.682176</code></pre><p>Now we can try to sum up these two matrices and store the results in the matrix <em>C</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
 
 C = A + B</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">4×5 Matrix{Float64}:
- 0.742993  0.366744  1.59436   0.548803  0.957864
- 1.20527   1.02343   1.64737   0.985585  1.44669
- 1.4966    1.27427   0.593743  0.868723  1.23411
- 0.721055  1.36432   0.655784  1.25091   0.494708</code></pre><p>The matrix <em>D</em> is the result of subtraction of two matrices <em>A</em> and <em>B</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
+ 0.894087  1.44146   1.17794   0.774229  1.01127
+ 0.926003  0.958599  0.676167  1.08421   1.21192
+ 0.491071  0.753238  1.46337   0.37993   0.574076
+ 0.945365  0.929236  1.45803   0.823162  1.1978</code></pre><p>The matrix <em>D</em> is the result of subtraction of two matrices <em>A</em> and <em>B</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
 
 D = A - B</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">4×5 Matrix{Float64}:
-  0.651412  -0.159127  0.237984   0.0200424  -0.451008
- -0.333475   0.660216  0.106783   0.597905   -0.147487
- -0.140758   0.610678  0.42444    0.533915   -0.0611814
-  0.424921  -0.417412  0.558709  -0.107594   -0.255529</code></pre><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>The operation summation has the commutative and associative properties. In other words the following is correct: </p><ol><li><em>A</em> + <em>B</em> = <em>B</em> + <em>A</em> (commutative),</li><li>(<em>A</em> + <em>B</em>) + <em>C</em> = <em>A</em> + (<em>B</em> + <em>C</em>) (associative).</li></ol></div></div><h4 id="Transpose"><a class="docs-heading-anchor" href="#Transpose">Transpose</a><a id="Transpose-1"></a><a class="docs-heading-anchor-permalink" href="#Transpose" title="Permalink"></a></h4><p>Another very useful element wise matrix operation is the &quot;transpose&quot; operation. When a matrix is transposed its rows and columns are switched. This means that if you have started with <em><span>$X2_{3,2}$</span></em>, you will end up with matrix <em><span>$X2^{T}_{2,3}$</span></em>. In the below example we have a 3 by 2 matrix <em>X2</em> and we will try to transpose it to <em>X2_t</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
+  0.330416   -0.22232   0.528925  0.380944    0.758446
+ -0.232271    0.672573  0.631017  0.367824   -0.710535
+ -0.0495214  -0.194223  0.347664  0.0469586  -0.186249
+  0.325417    0.138556  0.378342  0.0168735  -0.166554</code></pre><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>The operation summation has the commutative and associative properties. In other words the following is correct: </p><ol><li><em>A</em> + <em>B</em> = <em>B</em> + <em>A</em> (commutative),</li><li>(<em>A</em> + <em>B</em>) + <em>C</em> = <em>A</em> + (<em>B</em> + <em>C</em>) (associative).</li></ol></div></div><h4 id="Transpose"><a class="docs-heading-anchor" href="#Transpose">Transpose</a><a id="Transpose-1"></a><a class="docs-heading-anchor-permalink" href="#Transpose" title="Permalink"></a></h4><p>Another very useful element wise matrix operation is the &quot;transpose&quot; operation. When a matrix is transposed its rows and columns are switched. This means that if you have started with <em><span>$X2_{3,2}$</span></em>, you will end up with matrix <em><span>$X2^{T}_{2,3}$</span></em>. In the below example we have a 3 by 2 matrix <em>X2</em> and we will try to transpose it to <em>X2_t</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
 
 X2 = [1 2 ; 4 3 ;  5 4]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">3×2 Matrix{Int64}:
  1  2
@@ -259,4 +259,4 @@ c + d = 1 \\
 A = [2 1; -1 1]
 inv(A)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">2×2 Matrix{Float64}:
  0.333333  -0.333333
- 0.333333   0.666667</code></pre><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>For a matrix <em>X</em>, which is not square, thus noninvertible, the <em><span>$X^{T}X$</span></em> matrix is square and has very special characteristics. </p></div></div><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>The inverse matrix also has a lot of interesting properties: </p><ol><li><em><span>$(A^{-1})^{-1} = A$</span></em> </li><li><em><span>$(A^{T})^{-1} = (A^{-1})^{-T}$</span></em></li><li>if <em><span>$y = Ax$</span></em> where <em>x</em> <span>$\in R^{n}$</span> and <em>A</em> is invertible, then <em><span>$x = A^{-1} y$</span></em>. </li></ol></div></div><h2 id="Matrix-decomposition"><a class="docs-heading-anchor" href="#Matrix-decomposition">Matrix decomposition</a><a id="Matrix-decomposition-1"></a><a class="docs-heading-anchor-permalink" href="#Matrix-decomposition" title="Permalink"></a></h2><p><a href="https://en.wikipedia.org/wiki/Matrix_decomposition">Matrix decomposition</a> is another important operation where a matrix <em>X</em> is decomposed/factorized into product matrices. There are several matrix decomposition methods, depending on the applications. For example for solving systems of equations <a href="https://en.wikipedia.org/wiki/LU_decomposition">LU decomposition</a> is employed. One of the highly relevant matrix decomposition approaches is <a href="https://en.wikipedia.org/wiki/Singular_value_decomposition">singular value decomposition (SVD)</a>. The SVD decomposes a matrix <em>X</em> into the product is three matrices <em><span>$U_{m \times n}$</span></em>, <em><span>$D_{n \times n}$</span></em>, and <em><span>$V_{n \times n}^{T}$</span></em>. The matrix <em><span>$U_{m \times n}$</span></em> is the left singular matrix and it represents a rotation in the matrix space. The <em><span>$D_{n \times n}$</span></em> is diagonal matrix and contains the singular values. Finally, <em><span>$V_{n \times n}^{T}$</span></em> is called the right singular matrix and is associated with rotation. For more details of SVD please look at <a href="https://emcms.github.io/ACS.jl/dev/svd/">SVD course material</a>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../vis/">« Data visualization</a><a class="docs-footer-nextpage" href="../svd/">SVD »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Thursday 7 September 2023 11:31">Thursday 7 September 2023</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+ 0.333333   0.666667</code></pre><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>For a matrix <em>X</em>, which is not square, thus noninvertible, the <em><span>$X^{T}X$</span></em> matrix is square and has very special characteristics. </p></div></div><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>The inverse matrix also has a lot of interesting properties: </p><ol><li><em><span>$(A^{-1})^{-1} = A$</span></em> </li><li><em><span>$(A^{T})^{-1} = (A^{-1})^{-T}$</span></em></li><li>if <em><span>$y = Ax$</span></em> where <em>x</em> <span>$\in R^{n}$</span> and <em>A</em> is invertible, then <em><span>$x = A^{-1} y$</span></em>. </li></ol></div></div><h2 id="Matrix-decomposition"><a class="docs-heading-anchor" href="#Matrix-decomposition">Matrix decomposition</a><a id="Matrix-decomposition-1"></a><a class="docs-heading-anchor-permalink" href="#Matrix-decomposition" title="Permalink"></a></h2><p><a href="https://en.wikipedia.org/wiki/Matrix_decomposition">Matrix decomposition</a> is another important operation where a matrix <em>X</em> is decomposed/factorized into product matrices. There are several matrix decomposition methods, depending on the applications. For example for solving systems of equations <a href="https://en.wikipedia.org/wiki/LU_decomposition">LU decomposition</a> is employed. One of the highly relevant matrix decomposition approaches is <a href="https://en.wikipedia.org/wiki/Singular_value_decomposition">singular value decomposition (SVD)</a>. The SVD decomposes a matrix <em>X</em> into the product is three matrices <em><span>$U_{m \times n}$</span></em>, <em><span>$D_{n \times n}$</span></em>, and <em><span>$V_{n \times n}^{T}$</span></em>. The matrix <em><span>$U_{m \times n}$</span></em> is the left singular matrix and it represents a rotation in the matrix space. The <em><span>$D_{n \times n}$</span></em> is diagonal matrix and contains the singular values. Finally, <em><span>$V_{n \times n}^{T}$</span></em> is called the right singular matrix and is associated with rotation. For more details of SVD please look at <a href="https://emcms.github.io/ACS.jl/dev/svd/">SVD course material</a>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../vis/">« Data visualization</a><a class="docs-footer-nextpage" href="../svd/">SVD »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Thursday 7 September 2023 12:59">Thursday 7 September 2023</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
