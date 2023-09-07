@@ -1,22 +1,38 @@
-# Matrix Manipulation 
+# Singular Value Decomposition
 
-[Matrices](https://en.wikipedia.org/wiki/Matrix_(mathematics)) are multi-dimensional data containers, which have very important properties enabling a branch of mathematics called [Linear Algebra](https://en.wikipedia.org/wiki/Linear_algebra). Matrices can have multiple dimensions. However, the most commonly used type is a two dimensional matrix (e.g. *``X_{m,n}``*) or *``m \times n``*. The first dimension of a matrix (i.e. *m*) is the number of rows and the second dimension (i.e. *n*) is the number of columns of that matrix. A matrix with one of dimensions being **one** is called a [vector](https://en.wikipedia.org/wiki/Vector_(mathematics_and_physics)). Matrices may contain one or multiple data types, including mixed data types (e.g. combination of strings and integers). A matrix with multiple type data is called an [Array](https://en.wikipedia.org/wiki/Array_(data_structure)) while the homogeneous data container is a matrix. This module only focuses on the homogeneous matrices containing only numerical entries, given their mathematical properties. 
-
-## Matrix dimensionality
-
-The very first step to be able to work with matrices is being able to handle them, including being able to select specific rows, columns, and/or entries in a matrix. As mentioned before each entry in a matrix has its own coordinates (i.e. the row and column number). For example, the ``a_{2,1}`` represents the entry on the second row and the first column. 
+## Introduction 
+In many cases, a data matrix can be very well approximated by a sum (linear combination) of products of vectors. As a trivial example, consider the matrix
 
 ```math 
-
-A_{m,n} = 
+A = 
 \begin{pmatrix}
-a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
-a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
-\vdots  & \vdots  & \ddots & \vdots  \\
-a_{m,1} & a_{m,2} & \cdots & a_{m,n} 
+1 & 2 & 3 \\
+3 & 6 & 9 \\
+0 & 0 & 0 \\
+2 & 4 & 6 \\
+-1 & -2 & -3
 \end{pmatrix}
-
 ```
+In this case, each row is a multiple of the row vector $`\begin{pmatrix} 1 & 2 & 3 \end{pmatrix}`$, and we have
+```math 
+A = 
+\begin{pmatrix}
+1 & 2 & 3 \\
+3 & 6 & 9 \\
+0 & 0 & 0 \\
+2 & 4 & 6 \\
+-1 & -2 & -3
+\end{pmatrix}
+=
+\begin{pmatrix}
+1\\3\\0\\2\\-1
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2 & 3
+\end{pmatrix},
+```
+so in this case the sum is just one term. Here is a larger example: we measure the infrared spectra of 2000 samples and put them in matrix as rows. Each spectrum contains 1000 points, so the data is a 2000$`\times`$1000 matrix. To get a view of this matrix we can translate numbers into color intensity:
+![alt text](gray1.png "Title")
 
 ### Entry selection
 
