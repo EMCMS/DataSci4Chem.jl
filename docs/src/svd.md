@@ -38,10 +38,10 @@ B =
 c_1\\c_2\\\vdots\\c_{3000}
 \end{pmatrix}
 \begin{pmatrix}
-s_1 & s_2 & \ldots & s_{2000}
+p_1 & p_2 & \ldots & p_{2000}
 \end{pmatrix},
 ```
-where the $`c_i`$ values are (proportional to) the concentrations, and the vector $`\begin{pmatrix} s_1 & s_2 & \ldots & s_{1000} \end{pmatrix}`$ is the spectrum of the compound. Note that we need only 3000+2000 numbers to characterize the entire matrix, which contains 3000$`\times`$2000 numbers, so we have a data reduction by a factor of more than 1000. Of course, this situation will not occur very often. As a  more realistic example, here is a different set of IR spectra, again for 2000 samples:
+where the $`c_i`$ values are (proportional to) the concentrations, and the vector $`\begin{pmatrix} p_1 & p_2 & \ldots & p_{2000} \end{pmatrix}`$ is the spectrum of the compound (=its absorption at 2000 different IR frequencies). Note that we need only 3000+2000 numbers to characterize the entire matrix, which contains 3000$`\times`$2000 numbers, so we have a data reduction by a factor of more than 1000. Of course, this situation will not occur very often. As a  more realistic example, here is a different set of IR spectra, again containing 2000 samples (=rows):
 ![1component_example.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/2component_example.png)
 Looking at the graphs of the first 5 rows, we see that this matrix can not be written as the product of two vectors: comparing the relative intensities at positions 1050 and 1720 of the blue and red data, it is clear that these two matrix rows are not multiples of each other (and therefore cannot be multiples of one and the same row vector). However, in this case, it turns out that the matrix can be very well approximated by a sum of two vector products:
 ```math 
@@ -50,13 +50,13 @@ C =
 c_{1,1}\\c_{2,1}\\\vdots\\c_{3000,1}
 \end{pmatrix}
 \begin{pmatrix}
-s_{1,1} & s_{1,2} & \ldots & s_{1,2000}
+p_{1,1} & p_{1,2} & \ldots & p_{1,2000}
 \end{pmatrix}+
 \begin{pmatrix}
 c_{1,2}\\c_{2,2}\\\vdots\\c_{3000,2}
 \end{pmatrix}
 \begin{pmatrix}
-s_{2,1} & s_{2,2} & \ldots & s_{2,2000}
+p_{2,1} & p_{2,2} & \ldots & p_{2,2000}
 \end{pmatrix}
 ,
 ```
@@ -89,28 +89,45 @@ Theorem: any $`m \times n`$ matrix $A$ (with $`m\ge n`$) can be decomposed as
 ~\\~\\~\\~~~~~~~~~~~~U~~~~~~~~~~~~\\~\\~\\~
 \end{pmatrix}
 \begin{pmatrix}
-w_1 & & & \\ & w_2 & & \\ & & \ddots & \\ & & & w_n
+s_1 & & & \\ & s_2 & & \\ & & \ddots & \\ & & & s_n
 \end{pmatrix}
 \begin{pmatrix}
   & & & & & \\ &  & & & & \\ & & &  \!\!\!V^T   & & \\  && &  & & \\ & & & & &
 \end{pmatrix},
 ```
-where the middle matrix $`W`$ is a diagonal $`n\times n`$  matrix with positive or zero elements ("weights"), $U$ has the same dimensions as $`A`$ and has columns that are orthonormal vectors, and $V^T$ is a square $`n\times n`$ matrix with rows that are orthonormal vectors. If the $`w_i`$ are sorted by order of decreasing value, this decomposition is unique (apart from forming linear combinations of columns of $U$ and rows of $V^T$ that have the same $w_i$ values).
-Note that the diagonal matrix $`W`$ in the middle "picks out" rows from the right matrix and columns from the left matrix, and that we can also write the above decomposition as
+where the middle matrix $`S`$ is a diagonal $`n\times n`$  matrix with positive or zero elements (the singular values, basically "weights"), $U$ has the same dimensions as $`A`$ and has columns that are orthonormal vectors, and $V^T$ is a square $`n\times n`$ matrix with rows that are orthonormal vectors. If the $`s_i`$ are sorted by order of decreasing value, this decomposition is unique (apart from forming linear combinations of columns of $U$ and rows of $V^T$ that have the same $s_i$ values). The names $`U,S,V^T`$ of the matrices in the product are standard.
+Note that the diagonal matrix $`S`$ in the middle "picks out" columns from the left matrix and rows from the right matrix, and that we can also write the above decomposition as
 ```math
 \begin{pmatrix}
 ~\\~\\~\\~~~~~~~~~~~~A~~~~~~~~~~~~\\~\\~\\~
 \end{pmatrix}
-=w_1
+= s_1
 \begin{pmatrix}
-u_{1,1}\\u_{2,1}\\ \vdots \\ u_{n,1}
+u_{1,1}\\u_{2,1}\\ \vdots \\ u_{m,1}
 \end{pmatrix}
 \begin{pmatrix}
-v_{1,1} &v_{1,2} & \ldots & v_{1,m}  
+v_{1,1} &v_{1,2} & \ldots & v_{1,n}  
+\end{pmatrix}
++
+s_2
+\begin{pmatrix}
+u_{1,2}\\u_{2,2}\\ \vdots \\ u_{m,2}
+\end{pmatrix}
+\begin{pmatrix}
+v_{2,1} &v_{2,2} & \ldots & v_{2,n}  
+\end{pmatrix}
++\ldots+
+s_n
+\begin{pmatrix}
+u_{1,n}\\u_{2,n}\\ \vdots \\ u_{m,n}
+\end{pmatrix}
+\begin{pmatrix}
+v_{n,1} &v_{n,2} & \ldots & v_{n,n}  
 \end{pmatrix}
 ```
-
-As an example, for matrix $A$ above we have
+This shows that the example matrices $`A,B,C`$ above were special cases in which the only nonzero $`s_i`$ were the first (for $`A`$ and $`B`$) and the first and second (for $`C`$).
+#### Example 
+Specifically, for matrix $A$ above we have
 ```math
 \begin{pmatrix}
 1 & 2 & 3 \\
@@ -135,21 +152,32 @@ As an example, for matrix $A$ above we have
 0 & 0 & 0 \\
 2 & 4 & 6
 \end{pmatrix}
+= 14 \begin{pmatrix}
+  0.267 \\
+ 0.802 \\
+  0.0  \\
+ 0.535
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2 & 3
+\end{pmatrix}
 ```
 
-
+For many (if not most) data matrices that one encounters in practice, it turns out that the first few weights $`s_i`$ are much larger than all the others. This means that if we truncate the summation after a small number of terms, we still get a good approximation of the original matrix. How good?
 
 ### Matrix approximation
 
+## Doing it yourself 
+Julia has a function 'svd' that returns the SVD of any matrix. This function can be loaded (together with many other matrix functions) by 
 
 
 
-## Examples
+## Applications
 
-### Sets of spectra
+### Sets of sample spectra
 
 ### Chemical Kinetics
 
 ### Image compression
 
-## Doing it yourself 
+
