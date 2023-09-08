@@ -9,8 +9,7 @@ A =
 1 & 2 & 3 \\
 3 & 6 & 9 \\
 0 & 0 & 0 \\
-2 & 4 & 6 \\
--1 & -2 & -3
+2 & 4 & 6
 \end{pmatrix}
 ```
 Each row of this matrix is a multiple of the row vector $`\begin{pmatrix} 1 & 2 & 3 \end{pmatrix}`$, and in matrix notation we can write
@@ -20,12 +19,11 @@ A =
 1 & 2 & 3 \\
 3 & 6 & 9 \\
 0 & 0 & 0 \\
-2 & 4 & 6 \\
--1 & -2 & -3
+2 & 4 & 6
 \end{pmatrix}
 =
 \begin{pmatrix}
-1\\3\\0\\2\\-1
+1\\3\\0\\2
 \end{pmatrix}
 \begin{pmatrix}
 1 & 2 & 3
@@ -43,9 +41,9 @@ c_1\\c_2\\\vdots\\c_{3000}
 s_1 & s_2 & \ldots & s_{2000}
 \end{pmatrix},
 ```
-where the $`c_i`$ values are (proportional to) the concentrations, and the vector $`\begin{pmatrix} s_1 & s_2 & \ldots & s_{1000} \end{pmatrix}`$ is the spectrum of the compound. Note that we need only 3000+2000 numbers to characterize the entire matrix, which contains 3000$`\times`$2000 numbers, so we have a data reduction by a factor of more than 1000. Of course, this situation will not occur very often. As a  more realistic example, have a look at a different set of IR spectra, again for 2000 samples:
+where the $`c_i`$ values are (proportional to) the concentrations, and the vector $`\begin{pmatrix} s_1 & s_2 & \ldots & s_{1000} \end{pmatrix}`$ is the spectrum of the compound. Note that we need only 3000+2000 numbers to characterize the entire matrix, which contains 3000$`\times`$2000 numbers, so we have a data reduction by a factor of more than 1000. Of course, this situation will not occur very often. As a  more realistic example, here is a different set of IR spectra, again for 2000 samples:
 ![1component_example.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/2component_example.png)
-Looking at the graphs of the first 5 rows, we see that this matrix can not be written as the product of two vectors: looking the values at positions 1050 and 1720 of the blue and red data, it is clear that these two matrix rows are not multiples of each other (and therefore cannot be multiples of one and the same row vector). However, in this case, it turns out that the matrix can be very well approximated by a sum of two vector products:
+Looking at the graphs of the first 5 rows, we see that this matrix can not be written as the product of two vectors: comparing the relative intensities at positions 1050 and 1720 of the blue and red data, it is clear that these two matrix rows are not multiples of each other (and therefore cannot be multiples of one and the same row vector). However, in this case, it turns out that the matrix can be very well approximated by a sum of two vector products:
 ```math 
 C = 
 \begin{pmatrix}
@@ -79,7 +77,7 @@ So in this case we need 2(3000+2000) numbers to characterize the matrix, still a
 
 In many practical situations, matrices turn out to be such sums of a small number of vector products: in the case where the matrix contains sample spectra (IR, mass, NMR, ...), this is simply the mathematical expression of the fact that the samples contain a finite number of compounds, each with their own spectrum (but with different concentrations in the samples). However, when the number of components is larger than 1 it generally becomes difficult to find out how many there are by just looking at the data. For instance in the case of matrix $`C`$ above, how did we know there were not more than 2 components required to describe it? (we will soon be able to answer this). Two questions naturally arise: (1) is there a mathematical way of estimating how many components there are present in a data matrix? and (2) can we quantify how well the sum of component products approximates the original data matrix?
 
-## Singular Value Decomposition
+## Singular Value Decomposition Theorem
 
 Theorem: any $`m \times n`$ matrix $A$ (with $`m\ge n`$) can be decomposed as
 ```math
@@ -94,13 +92,52 @@ Theorem: any $`m \times n`$ matrix $A$ (with $`m\ge n`$) can be decomposed as
 w_1 & & & \\ & w_2 & & \\ & & \ddots & \\ & & & w_n
 \end{pmatrix}
 \begin{pmatrix}
- & & & & & & & \\ &  & & & \!\! V^T & & &  \\ & & & & & &
+  & & & & & \\ &  & & & & \\ & & &  \!\!\!V^T   & & \\  && &  & & \\ & & & & &
 \end{pmatrix},
 ```
-where the middle matrix $`W`$ is an $`n\times n`$ diagonal matrix with positive or zero elements ("weights"), $U$ has the same dimensions as $`A`$ and has columns that are orthonormal vectors, and $V^T$ is an  $`n\times n`$ matrix with rows that are orthonormal vectors.
+where the middle matrix $`W`$ is a diagonal $`n\times n`$  matrix with positive or zero elements ("weights"), $U$ has the same dimensions as $`A`$ and has columns that are orthonormal vectors, and $V^T$ is a square $`n\times n`$ matrix with rows that are orthonormal vectors. If the $`w_i`$ are sorted by order of decreasing value, this decomposition is unique (apart from forming linear combinations of columns of $U$ and rows of $V^T$ that have the same $w_i$ values).
+Note that the diagonal matrix $`W`$ in the middle "picks out" rows from the right matrix and columns from the left matrix, and that we can also write the above decomposition as
+```math
+\begin{pmatrix}
+~\\~\\~\\~~~~~~~~~~~~A~~~~~~~~~~~~\\~\\~\\~
+\end{pmatrix}
+=w_1
+\begin{pmatrix}
+u_{1,1}\\u_{2,1}\\ \vdots \\ u_{n,1}
+\end{pmatrix}
+\begin{pmatrix}
+v_{1,1} &v_{1,2} & \ldots & v_{1,m}  
+\end{pmatrix}
+```
+
+As an example, for matrix $A$ above we have
+```math
+\begin{pmatrix}
+1 & 2 & 3 \\
+3 & 6 & 9 \\
+0 & 0 & 0 \\
+2 & 4 & 6
+\end{pmatrix} =
+\begin{pmatrix}
+  0.267 &  0.951 &  -0.153\\
+ 0.802 & -0.132  &  0.583\\
+  0.0      &  0.0     &   0.0\\
+ 0.535 & -0.278 & -0.798
+\end{pmatrix}
+\begin{pmatrix}
+14 &  &  \\
+ & 0 &  \\
+ & & 0
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2 & 3 \\
+3 & 6 & 9 \\
+0 & 0 & 0 \\
+2 & 4 & 6
+\end{pmatrix}
+```
 
 
-### Definition
 
 ### Matrix approximation
 
