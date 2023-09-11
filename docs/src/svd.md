@@ -135,7 +135,7 @@ v_{n,1} &v_{n,2} & \ldots & v_{n,n}
 &=s_1{\bf u}_1 {\bf v}^T_1+s_2{\bf u }_2 {\bf v}^T_2+\ldots+s_n{\bf u}_n {\bf v}^T_n
 \end{align} 
 ```
-where in the second line we use boldface letters to denote column vectors (with the transposes ${\bf v}^T_k$ being row vectors). This shows that the example matrices $`A,B,C`$ above were special cases in which the only nonzero $`s_i`$ were the first (for $`A`$ and $`B`$) and the first and second (for $`C`$).
+where in the second line we used boldface letters to denote column vectors (with the transposes ${\bf v}^T_k$ being row vectors). This shows that the example matrices $`A,B,C`$ above were special cases in which the only nonzero $`s_i`$ were the first (for $`A`$ and $`B`$) and the first and second (for $`C`$).
 #### Example 
 For matrix the $A$ above we have
 ```math
@@ -222,7 +222,7 @@ julia> Capprox = F.S[1]*F.U[:,1]*Transpose(F.Vt[1,:]) + F.S[2]*F.U[:,2]*Transpos
 julia> plot([C[1,:] Capprox[1,:]], label=["C" "Capprox"])
 ```
 ![](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svd_approx.png)
-Isn't that nice? The approximation actually looks smoother than the original data! Try to think why this is the case. More importantly, the SVD method to analyze a data matrix also works when the number of components is larger (and it would be difficult to "guess" the number of components contained in the samples): very often the list of weights ("singular values") is dominated by the first few, and they represent the components present in the data set.
+Isn't that nice? The approximation is actually smoother than the original data! Try to think why this is the case. More importantly, the SVD method to analyze a data matrix also works when the number of components is larger (and it would be difficult to "guess" the number of components contained in the samples): very often the list of weights ("singular values") is dominated by the first few, and they represent the components present in the data set.
 
 ### Chemical Kinetics
 
