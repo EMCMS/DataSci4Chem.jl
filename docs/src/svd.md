@@ -221,7 +221,7 @@ Clearly the list of weights is completely dominated by the first two. This is th
 julia> Capprox = F.S[1]*F.U[:,1]*Transpose(F.Vt[1,:]) + F.S[2]*F.U[:,2]*Transpose(F.Vt[2,:])
 julia> plot([C[1,:] Capprox[1,:]], label=["C" "Capprox"])
 ```
-![svd_approx.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svd_approx.png)
+![](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svd_approx.png)
 Isn't that nice? The approximation actually looks smoother than the original data! Try to think why this is the case. More importantly,  The SVD method to analyze a data matrix also works when the number of components is larger (and it would be impossible to "guess" the number of components): very often the list of weights ("singular values") is dominated by the first few, and they represent the components present in the samples.
 
 ### Chemical Kinetics
