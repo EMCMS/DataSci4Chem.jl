@@ -95,7 +95,14 @@ s_1 & & & \\ & s_2 & & \\ & & \ddots & \\ & & & s_n
   & & & & & \\ &  & & & & \\ & & &  \!\!\!V^T   & & \\  && &  & & \\ & & & & &
 \end{pmatrix},
 ```
-where the middle matrix $`S`$ is a diagonal $`n\times n`$  matrix with positive or zero elements (the singular values, basically "weights"), $U$ has the same dimensions as $`A`$ and has columns that are orthonormal vectors, and $V^T$ is a square $`n\times n`$ matrix with rows that are orthonormal vectors. If the $`s_i`$ are sorted by order of decreasing value, this decomposition is unique (apart from forming linear combinations of columns of $U$ and rows of $V^T$ that have the same $s_i$ values). The names $`U,S,V^T`$ of the matrices in the product are standard.
+where the middle matrix $`S`$ is a diagonal $`n\times n`$  matrix with positive or zero elements (the singular values, basically "weights"), $U$ has the same dimensions as $`A`$ and has columns that are orthonormal vectors, and $V^T$ is a square $`n\times n`$ matrix with rows that are orthonormal vectors. This latter orthogonal-vector property of the columns of $U$ and the rows of $V^T$ can be written explicitly as
+```math
+\sum_i U_{ij}U_{ik} = \delta_{jk}\\
+```
+```math
+\sum_j V^T_{ij}V^T_{kj} = \delta_{ik} 
+```
+If the $`s_i`$ are sorted by order of decreasing value, this decomposition is unique (apart from forming linear combinations of columns of $U$ and rows of $V^T$ that have the same $s_i$ values). The names $`U,S,V^T`$ of the matrices in the product are standard.
 Note that the diagonal matrix $`S`$ in the middle "picks out" columns from the left matrix and rows from the right matrix, and that we can also write the above decomposition as
 ```math
 \begin{pmatrix}
@@ -168,8 +175,19 @@ For many (if not most) data matrices that one encounters in practice, it turns o
 ### Matrix approximation
 
 ## Doing it yourself 
-Julia has a function 'svd' that returns the SVD of any matrix. This function can be loaded (together with many other matrix functions) by 
-
+Julia has a function ``svd`` that returns the SVD of any matrix. This function can be loaded (together with many other matrix functions) with ``using LinearAlgebra``.
+```@example
+A = [[1,3,0,2] [2,6,0,4] [3,9,0,6]]
+F = svd(A)
+```
+after which the matrices $`U,S,V^T`$ are contained in ``F.U``, ``F.S`` and ``F.Vt`` (the nontransposed matrix $`V`$ is contained in ``F.V``). The SVD is calculated numerically, and in the case of matrix $`A`$ we run into the machine precision:
+```
+julia> F.S
+3-element Vector{Float64}:
+ 14.0
+  4.43199111387671e-16
+  4.7982681877701203e-32
+```
 
 
 ## Applications
@@ -180,4 +198,8 @@ Julia has a function 'svd' that returns the SVD of any matrix. This function can
 
 ### Image compression
 
+## Further reading
+[D. Kalman, "A Singularly Valuable Decomposition: The SVD of a Matrix"](https://sites.math.washington.edu/~morrow/464_16/svd.pdf)
 
+
+[S. L. Brunton, "Data Driven Science & Engineering", chapter 1: Singular Value Decomposition](https://www.researchgate.net/publication/332751929)
