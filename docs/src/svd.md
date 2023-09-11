@@ -173,7 +173,7 @@ For matrix the $A$ above we have
 \end{pmatrix}
 ```
 
-The SVD decomposition (and the dyadic summations) is exact. Importantly, for many (if not most) data matrices that one encounters in practice, it turns out that the first few weights $`s_i`$ are much larger than all the others. This means that if we truncate the dyadic summation after a small number of terms, we still get a good approximation of the original matrix. How good?
+The SVD decomposition (and the dyadic summation) is exact. Importantly, for many data matrices that one encounters in practice, it turns out that the first few weights $`s_i`$ are much larger than all the others. This means that if we truncate the dyadic summation after a small number of terms, we still get a good approximation of the original matrix. How good?
 
 ### Matrix approximation
 To define quantitatively how well we approximate a given matrix $X$ with another matrix $\tilde{X}$, we sum the squares of the differences per element:
@@ -205,7 +205,7 @@ julia> F.S
 ## Applications
 
 ### Sets of sample spectra
-Let us calculate the SVD of matrix $C$ above, and have a look at the first 10 weights $s_1,\ldots,s_{5}$:
+Let us calculate the SVD of matrix $C$ above, and have a look at the first 5 weights $s_1,\ldots,s_{5}$:
 ```@example
 julia> F = svd(C)
 julia> F.S[1:10]
@@ -216,11 +216,13 @@ julia> F.S[1:10]
    0.9160134372171663
    0.914885397452181
 ```
-Clearly the list of weights is completely dominated by the first two: this is the quantitative version of our earlier hunch that $C$ contained only two spectra. Note that unlike the SVD of matrix $A$, the remaining weights are not zero, but very small. This is because the data in $C$ also contain a noise contribution, which is contained in the remaining singular vectors. How well can we approximate $C$ with the first two terms in the summation? We plot the first row of $C$ and of its approxiation obtained from the first two components of the SVD:
+Clearly the list of weights is completely dominated by the first two. This is the quantitative version of our earlier hunch that each sample in the matrix $C$ contained only two compounds. Note that unlike the SVD of matrix $A$, the remaining weights are not zero, but very small. This is because the data in $C$ also contain a noise contribution, which is contained in the remaining singular vectors. How well can we approximate $C$ with the first two terms in the summation? We plot the first row of $C$ and of its approxiation obtained from the first two components of the SVD:
 ```@example
 julia> Capprox = F.S[1]*F.U[:,1]*Transpose(F.Vt[1,:]) + F.S[2]*F.U[:,2]*Transpose(F.Vt[2,:])
 julia> plot([C[1,:] Capprox[1,:]], label=["C" "Capprox"])
 ```
+![svd_approx.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svd_approx.png)
+Isn't that nice? The approximation actually looks smoother than the original data! Try to think why this is the case. More importantly,  The SVD method to analyze a data matrix also works when the number of components is larger (and it would be impossible to "guess" the number of components): very often the list of weights ("singular values") is dominated by the first few, and they represent the components present in the samples.
 
 ### Chemical Kinetics
 
