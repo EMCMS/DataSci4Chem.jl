@@ -173,7 +173,7 @@ For matrix the $A$ above we have
 \end{pmatrix}
 ```
 
-The SVD decomposition (and the dyadic summation) is exact. Importantly, for many data matrices that one encounters in practice, it turns out that the first few weights $`s_i`$ are much larger than all the others. This means that if we truncate the dyadic summation after a small number of terms, we still get a good approximation of the original matrix. How good?
+The SVD decomposition (and the dyadic summation) is exact. In addition, for many data matrices that one encounters in practice, it turns out that the first few weights $`s_i`$ are much larger than all the others. This means that if we truncate the dyadic summation after a small number of terms, we still get a good approximation of the original matrix. How good?
 
 ### Matrix approximation
 To define quantitatively how well we approximate a given matrix $X$ with another matrix $\tilde{X}$, we sum the squares of the differences per element:
@@ -222,7 +222,7 @@ julia> Capprox = F.S[1]*F.U[:,1]*Transpose(F.Vt[1,:]) + F.S[2]*F.U[:,2]*Transpos
 julia> plot([C[1,:] Capprox[1,:]], label=["C" "Capprox"])
 ```
 ![](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svd_approx.png)
-Isn't that nice? The approximation actually looks smoother than the original data! Try to think why this is the case. More importantly,  The SVD method to analyze a data matrix also works when the number of components is larger (and it would be impossible to "guess" the number of components): very often the list of weights ("singular values") is dominated by the first few, and they represent the components present in the samples.
+Isn't that nice? The approximation actually looks smoother than the original data! Try to think why this is the case. More importantly, the SVD method to analyze a data matrix also works when the number of components is larger (and it would be difficult to "guess" the number of components contained in the samples): very often the list of weights ("singular values") is dominated by the first few, and they represent the components present in the data set.
 
 ### Chemical Kinetics
 
