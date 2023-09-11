@@ -103,12 +103,13 @@ where the middle matrix $`S`$ is a diagonal $`n\times n`$  matrix with positive 
 \sum_j v_{ij}v_{ik} = \delta_{jk} 
 ```
 If the $`s_i`$ are sorted by order of decreasing value, this decomposition is unique (apart from forming linear combinations of columns of $U$ and rows of $V^T$ that have the same $s_i$ values). The names $`U,S,V^T`$ of the matrices in the product are standard.
-Note that the diagonal matrix $`S`$ in the middle "picks out" columns from the left matrix and rows from the right matrix, and that we can also write the above decomposition as
+Note that the diagonal matrix $`S`$ in the middle "picks out" columns from the left matrix and rows from the right matrix, and that we can also write the above decomposition as a so-called "dyadic summation":
 ```math
+\begin{align} 
 \begin{pmatrix}
 ~\\~\\~\\~~~~~~~~~~~~A~~~~~~~~~~~~\\~\\~\\~
 \end{pmatrix}
-= s_1
+&= s_1
 \begin{pmatrix}
 u_{1,1}\\u_{2,1}\\ \vdots \\ u_{m,1}
 \end{pmatrix}
@@ -130,11 +131,13 @@ u_{1,n}\\u_{2,n}\\ \vdots \\ u_{m,n}
 \end{pmatrix}
 \begin{pmatrix}
 v_{n,1} &v_{n,2} & \ldots & v_{n,n}  
-\end{pmatrix}
+\end{pmatrix}\\
+&=s_1{\bf u}_1 {\bf v}^T_1+s_2{\bf u }_2 {\bf v}^T_2+\ldots+s_n{\bf u}_n {\bf v}^T_n
+\end{align} 
 ```
-This shows that the example matrices $`A,B,C`$ above were special cases in which the only nonzero $`s_i`$ were the first (for $`A`$ and $`B`$) and the first and second (for $`C`$).
+where in the second line we use boldface letters to denote column vectors (with the transposes ${\bf v}^T_k$ being row vectors). This shows that the example matrices $`A,B,C`$ above were special cases in which the only nonzero $`s_i`$ were the first (for $`A`$ and $`B`$) and the first and second (for $`C`$).
 #### Example 
-Specifically, for matrix $A$ above we have
+For matrix the $A$ above we have
 ```math
 \begin{pmatrix}
 1 & 2 & 3 \\
@@ -170,10 +173,18 @@ Specifically, for matrix $A$ above we have
 \end{pmatrix}
 ```
 
-For many (if not most) data matrices that one encounters in practice, it turns out that the first few weights $`s_i`$ are much larger than all the others. This means that if we truncate the summation after a small number of terms, we still get a good approximation of the original matrix. How good?
+The SVD decomposition (and the dyadic summations) is exact. Importantly, for many (if not most) data matrices that one encounters in practice, it turns out that the first few weights $`s_i`$ are much larger than all the others. This means that if we truncate the dyadic summation after a small number of terms, we still get a good approximation of the original matrix. How good?
 
 ### Matrix approximation
-The result 
+To define quantitatively how well we approximate a given matrix $X$ with another matrix $\tilde{X}$, we sum the squares of the differences per element:
+```math
+||X-\tilde{X}||=\sum_i \sum_j |x_{ij}-\tilde{x}_{ij}|^2
+```
+Then it can be shown that of all possible $r$-term summations 
+```math
+\tilde{X} = \sum_{k=1}^r s_k {\bf u}_k {\bf v}^T_k
+```
+the minimum value of the difference $||X-\tilde{X}||$ is obtained precisely for the truncated $r$-term summation obtained from the first $k$ weights in the singular-value decomposition. In this sense, the truncated dyadic summation of vector products that we obtain from the SVD of a given matrix is the best possible approximation of this matrix.
 
 ## Doing it yourself 
 Julia has a function ``svd`` that returns the SVD of any matrix. This function can be loaded (together with many other matrix functions) with ``using LinearAlgebra``.
@@ -194,6 +205,22 @@ julia> F.S
 ## Applications
 
 ### Sets of sample spectra
+Let us calculate the SVD of matrix $C$ above, and have a look at the first 10 weights $s_1,\ldots,s_{5}$:
+```@example
+julia> F = svd(C)
+julia> F.S[1:10]
+5-element Vector{Float64}:
+ 312.83248348826254
+ 124.30327344440433
+   0.9221245484802668
+   0.9160134372171663
+   0.914885397452181
+```
+Clearly the list of weights is completely dominated by the first two: this is the quantitative version of our earlier hunch that $C$ contained only two spectra. Note that unlike the SVD of matrix $A$, the remaining weights are not zero, but very small. This is because the data in $C$ also contain a noise contribution, which is contained in the remaining singular vectors. How well can we approximate $C$ with the first two terms in the summation? We plot the first row of $C$ and of its approxiation obtained from the first two components of the SVD:
+```@example
+julia> Capprox = F.S[1]*F.U[:,1]*Transpose(F.Vt[1,:]) + F.S[2]*F.U[:,2]*Transpose(F.Vt[2,:])
+julia> plot([C[1,:] Capprox[1,:]], label=["C" "Capprox"])
+```
 
 ### Chemical Kinetics
 
