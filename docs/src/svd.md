@@ -227,8 +227,8 @@ Isn't that nice? Not only do we get the number of components present in the samp
 ### Chemical Kinetics
 To investigate time-dependent processes such as chemical reactions, one often measures time series of spectra (NMR, IR, Raman, ...) to observe time-dependent changes in the molecular composition of a sample. Putting such a time series of spectra in a matrix, we can analyze the data with SVD to obtain the number of species involved in the process (since each will have its own time dependence). This can be valuable if one or more of the species are intermediates, that may are present in comparatively low concentrations compared to the initial (reactant) and final (rpdouct) compounds, and therefore dififcult to observe separately. Suitable analysis of the singular vectors can even reveal the spectra of the intermediate species. Examples include [shuttling molecular motors](https://doi.org/10.1039/C1CP22146A) and [amyloid formation](https://doi.org/10.1016/j.bpj.2020.05.026).
 
-### Image data compression
-Images are matrices of intensity values, and we can apply SVD to approximate these matrices. In this way, you can reduce the file size of an image. Here is an example using a healthy-looking image from the [Julia standard-image database](https://testimages.juliaimages.org/stable/imagelist/):
+### Image compression
+Digital images are matrices of intensity values, and we can apply SVD to approximate these matrices. In this way, you can reduce the file size of an image. Here is an example using a healthy-looking image from the [Julia standard-image database](https://testimages.juliaimages.org/stable/imagelist/):
 ```
 using TestImages
 img = testimage("peppers_gray.tif")
@@ -243,6 +243,5 @@ The quality of the compressed image depends on the number $r$ of singular vector
 
 ## Further reading
 [D. Kalman, "A Singularly Valuable Decomposition: The SVD of a Matrix"](https://sites.math.washington.edu/~morrow/464_16/svd.pdf)
-
 
 [S. L. Brunton, "Data Driven Science & Engineering", chapter 1: Singular Value Decomposition](https://www.researchgate.net/publication/332751929)
