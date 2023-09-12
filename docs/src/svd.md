@@ -178,13 +178,13 @@ The SVD decomposition (and the dyadic summation) is exact. In addition, for many
 ### Matrix approximation
 To define quantitatively how well we approximate a given matrix $X$ with another matrix $\tilde{X}$, we sum the squares of the differences per element:
 ```math
-||X-\tilde{X}||=\sum_i \sum_j |x_{ij}-\tilde{x}_{ij}|^2
+||X-\tilde{X}||=\sqrt{\sum_i \sum_j |x_{ij}-\tilde{x}_{ij}|^2}
 ```
 Then it can be shown that of all possible $r$-term summations 
 ```math
 \tilde{X} = \sum_{k=1}^r s_k {\bf u}_k {\bf v}^T_k
 ```
-the minimum value of the difference $||X-\tilde{X}||$ is obtained precisely for the truncated $r$-term summation obtained from the first $k$ weights in the singular-value decomposition. In this sense, the truncated dyadic summation of vector products that we obtain from the SVD of a given matrix is the best possible approximation of this matrix.
+the minimum value of $||X-\tilde{X}||$ is obtained precisely for the truncated $r$-term summation obtained from the first $k$ weights in the singular-value decomposition. In this sense, the truncated dyadic summation of vector products that we obtain from the SVD of a given matrix is the best possible approximation of this matrix.
 
 ## Doing it yourself 
 Julia has a function ``svd`` that returns the SVD of any matrix. This function can be loaded (together with many other matrix functions) with ``using LinearAlgebra``.
