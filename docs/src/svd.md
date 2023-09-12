@@ -239,7 +239,7 @@ Tapprox = F.U[:,1:r]*Diagonal(F.S[1:r])*F.Vt[1:r,:]
 Gray.(Tapprox)
 ```
 The quality of the compressed image depends on the number $r$ of singular vectors that we include in the approximation:
-
+![peppers.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/peppers.png)
 
 ## Further reading
 [D. Kalman, "A Singularly Valuable Decomposition: The SVD of a Matrix"](https://sites.math.washington.edu/~morrow/464_16/svd.pdf)
