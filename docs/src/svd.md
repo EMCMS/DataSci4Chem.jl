@@ -95,7 +95,7 @@ s_1 & & & \\ & s_2 & & \\ & & \ddots & \\ & & & s_n
   & & & & & \\ &  & & & & \\ & & &  \!\!\!V^T   & & \\  && &  & & \\ & & & & &
 \end{pmatrix},
 ```
-where the middle matrix $`S`$ is a diagonal $`n\times n`$  matrix with positive or zero elements (the singular values, basically "weights"), $U$ has the same dimensions as $`A`$ and has columns that are orthonormal vectors, and $V^T$ is a square $`n\times n`$ matrix with rows that are orthonormal vectors (so that 4`V`$ is a square matrix with colums that are orthonormal vectors). This latter orthogonal-vector property of the columns of $U$ and the rows of $V^T$ (or $V$) can be written explicitly as
+where the middle matrix $`S`$ is a diagonal $`n\times n`$  matrix with positive or zero elements (the singular values, basically "weights"), $U$ has the same dimensions as $`A`$ and has columns that are orthonormal vectors, and $V^T$ is a square $`n\times n`$ matrix with rows that are orthonormal vectors (so that $`V`$ is a square matrix with colums that are orthonormal vectors). This latter orthogonal-vector property of the columns of $U$ and the rows of $V^T$ (or $V$) can be written explicitly as
 ```math
 \sum_i u_{ij}u_{ik} = \delta_{jk}\\
 ```
