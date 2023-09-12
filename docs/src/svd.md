@@ -222,7 +222,8 @@ julia> Capprox = F.U[:,1:2]*Diagonal(F.S[1:2])*F.Vt[1:2,:]
 julia> plot([C[1,:] Capprox[1,:]], label=["C" "Capprox"])
 ```
 
-![Capprox](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svd_approx.png?raw=true)
+[comment:] # ![Capprox](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svd_approx.png?raw=true)
+
 Isn't that nice? Not only do we get the number of components present in the samples, but the approximation constructed from the first two singular vectors is actually smoother than the original data! Try to think why this is. More importantly, the SVD method to analyze a data matrix also works when the number of components is larger (and it would be difficult to "guess" the number of components contained in the samples).
 
 ### Chemical Kinetics
@@ -239,7 +240,7 @@ Tapprox = F.U[:,1:r]*Diagonal(F.S[1:r])*F.Vt[1:r,:]
 Gray.(Tapprox)
 ```
 The quality of the compressed image depends on the number $r$ of singular vectors that we include in the approximation:
-![svdpeppers.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svdpeppers.png)
+![svdpeppers.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svdpeppers.png?raw=true))
 
 ## Further reading
 [D. Kalman, "A Singularly Valuable Decomposition: The SVD of a Matrix"](https://sites.math.washington.edu/~morrow/464_16/svd.pdf)
