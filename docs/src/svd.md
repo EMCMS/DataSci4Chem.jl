@@ -216,17 +216,29 @@ julia> F.S[1:10]
    0.9160134372171663
    0.914885397452181
 ```
-Clearly the list of weights is completely dominated by the first two. This is the quantitative version of our earlier hunch that each sample in the matrix $C$ contained only two compounds. Note that unlike the SVD of matrix $A$, the remaining weights are not zero, but very small. This is because the data in $C$ also contain a noise contribution, which is contained in the remaining singular vectors. How well can we approximate $C$ with the first two terms in the summation? We plot the first row of $C$ and of its approxiation obtained from the first two components of the SVD:
+Clearly the list of weights is completely dominated by the first two. This is the quantitative version of our earlier hunch that each sample in the matrix $C$ contained only two compounds. Note that unlike the SVD of matrix $A$, the remaining weights are not zero, but very small. This is because the data in $C$ also contain a noise contribution, which is contained in the remaining singular vectors. How well can we approximate $C$ with the first two terms in the summation? We plot the first row of $C$ and of its approxiation obtained from just the first two components of the SVD:
 ```@example
-julia> Capprox = F.S[1]*F.U[:,1]*Transpose(F.Vt[1,:]) + F.S[2]*F.U[:,2]*Transpose(F.Vt[2,:])
+julia> Capprox = F.U[:,1:2]*Diagonal(F.S[1:2])*F.Vt[1:2,:]
 julia> plot([C[1,:] Capprox[1,:]], label=["C" "Capprox"])
 ```
-![](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svd_approx.png?raw=true)
-Isn't that nice? Not only do we get the number of components present in the samples, but the approximation is actually smoother than the original data! Try to think why this is the case. More importantly, the SVD method to analyze a data matrix also works when the number of components is larger (and it would be difficult to "guess" the number of components contained in the samples): very often the list of weights ("singular values") is dominated by the first few, and they represent the components present in the data set.
+#![](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svd_approx.png?raw=true)
+Isn't that nice? Not only do we get the number of components present in the samples, but the approximation constructed from the first two singular vectors is actually smoother than the original data! Try to think why this is. More importantly, the SVD method to analyze a data matrix also works when the number of components is larger (and it would be difficult to "guess" the number of components contained in the samples): very often the list of weights ("singular values") is dominated by the first few, and they represent the components present in the data set.
 
 ### Chemical Kinetics
 
 ### Image compression
+Images are matrices of intensity values, and we can apply SVD to approximate these matrices. In this way, you can reduce the file size of an image. Here is an example using a healthy-looking image from the Julia standard-image database:
+```
+using TestImages
+img = testimage("peppers_gray.tif")
+T = channelview(img)[1,:,:]
+F = svd(T)
+N = 5
+Tapprox = F.U[:,1:N]*Diagonal(F.S[1:N])*F.Vt[1:N,:]
+Gray.(Tapprox)
+```
+The quality of the compressed image depends on the number $N$ of singular vectors that we include in the approximation:
+
 
 ## Further reading
 [D. Kalman, "A Singularly Valuable Decomposition: The SVD of a Matrix"](https://sites.math.washington.edu/~morrow/464_16/svd.pdf)
