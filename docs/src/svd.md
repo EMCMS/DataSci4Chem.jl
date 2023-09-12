@@ -227,7 +227,7 @@ Isn't that nice? Not only do we get the number of components present in the samp
 ### Chemical Kinetics
 
 ### Image data compression
-Images are matrices of intensity values, and we can apply SVD to approximate these matrices. In this way, you can reduce the file size of an image. Here is an example using a healthy-looking image from the Julia standard-image database:
+Images are matrices of intensity values, and we can apply SVD to approximate these matrices. In this way, you can reduce the file size of an image. Here is an example using a healthy-looking image from the [Julia standard-image database](https://testimages.juliaimages.org/stable/imagelist/):
 ```
 using TestImages
 img = testimage("peppers_gray.tif")
