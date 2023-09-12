@@ -221,8 +221,9 @@ Clearly the list of weights is completely dominated by the first two. This is th
 julia> Capprox = F.U[:,1:2]*Diagonal(F.S[1:2])*F.Vt[1:2,:]
 julia> plot([C[1,:] Capprox[1,:]], label=["C" "Capprox"])
 ```
-#![](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svd_approx.png?raw=true)
-Isn't that nice? Not only do we get the number of components present in the samples, but the approximation constructed from the first two singular vectors is actually smoother than the original data! Try to think why this is. More importantly, the SVD method to analyze a data matrix also works when the number of components is larger (and it would be difficult to "guess" the number of components contained in the samples): very often the list of weights ("singular values") is dominated by the first few, and they represent the components present in the data set.
+
+![Capprox](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svd_approx.png?raw=true)
+Isn't that nice? Not only do we get the number of components present in the samples, but the approximation constructed from the first two singular vectors is actually smoother than the original data! Try to think why this is. More importantly, the SVD method to analyze a data matrix also works when the number of components is larger (and it would be difficult to "guess" the number of components contained in the samples).
 
 ### Chemical Kinetics
 
@@ -233,11 +234,11 @@ using TestImages
 img = testimage("peppers_gray.tif")
 T = channelview(img)[1,:,:]
 F = svd(T)
-N = 5
-Tapprox = F.U[:,1:N]*Diagonal(F.S[1:N])*F.Vt[1:N,:]
+r = 5
+Tapprox = F.U[:,1:r]*Diagonal(F.S[1:r])*F.Vt[1:r,:]
 Gray.(Tapprox)
 ```
-The quality of the compressed image depends on the number $N$ of singular vectors that we include in the approximation:
+The quality of the compressed image depends on the number $r$ of singular vectors that we include in the approximation:
 
 
 ## Further reading
