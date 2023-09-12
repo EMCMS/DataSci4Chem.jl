@@ -226,7 +226,7 @@ Isn't that nice? Not only do we get the number of components present in the samp
 
 ### Chemical Kinetics
 
-### Image compression
+### Image data compression
 Images are matrices of intensity values, and we can apply SVD to approximate these matrices. In this way, you can reduce the file size of an image. Here is an example using a healthy-looking image from the Julia standard-image database:
 ```
 using TestImages
@@ -237,8 +237,8 @@ r = 5
 Tapprox = F.U[:,1:r]*Diagonal(F.S[1:r])*F.Vt[1:r,:]
 Gray.(Tapprox)
 ```
-The quality of the compressed image depends on the number $r$ of singular vectors that we include in the approximation:
-![svdpeppers.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svdpeppers.png?raw=true))
+The quality of the compressed image depends on the number $r$ of singular vectors that we include in the approximation, see below. With $r=50$ we have a compression of about a factor of 10.
+![svdpeppers.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svdpeppers.png?raw=true)
 
 ## Further reading
 [D. Kalman, "A Singularly Valuable Decomposition: The SVD of a Matrix"](https://sites.math.washington.edu/~morrow/464_16/svd.pdf)
