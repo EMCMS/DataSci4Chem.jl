@@ -211,7 +211,12 @@ Let us calculate the SVD of matrix $C$ above, and have a look at the first 5 wei
 
 ```@example svd 
 
-C = DataFrame(DataSci4Chem.CSV.File("https://raw.githubusercontent.com/EMCMS/DataSci4Chem.jl/main/docs/src/assets/C.csv"))
+url = "https://raw.githubusercontent.com/EMCMS/DataSci4Chem.jl/main/docs/src/assets"
+
+file_name = "C.csv"
+data = DataFrame(CSV.File(HTTP.get(url * "/" *  file_name).body))
+
+#C_df = DataSci4Chem.read_inter_data("C.csv")
 
 ```
-Clearly the list of weights is completely dominated by the first two. This is the quantitative version of our earlier hunch that each sample in the matrix $C$ contained only two compounds. Note that unlike the SVD of matrix $A$, the remaining weights are not zero, but very small. This is because the data in $C$ also contain a noise contribution, which is contained in the remaining singular vectors. How well can we approximate $C$ with the first two terms in the summation? We plot the first row of $C$ and of its approxiation obtained from just the first two components of the SVD:
+Clearly the list of weights is completely dominated by the first two. This is the quantitative version of our earlier hunch that each sample in the matrix $C$ contained only two compounds. Note that unlike the SVD of matrix $A$, the remaining weights are not zero, but very small. This is because the data in $C$ also contain a noise contribution, which is contained in the remaining singular vectors. How well can we approximate $C$ with the first two terms in the summation? We plot the first row of $C$ and of its approximation obtained from just the first two components of the SVD:
