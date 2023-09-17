@@ -215,31 +215,3 @@ C = DataFrame(DataSci4Chem.CSV.File("https://raw.githubusercontent.com/EMCMS/Dat
 
 ```
 Clearly the list of weights is completely dominated by the first two. This is the quantitative version of our earlier hunch that each sample in the matrix $C$ contained only two compounds. Note that unlike the SVD of matrix $A$, the remaining weights are not zero, but very small. This is because the data in $C$ also contain a noise contribution, which is contained in the remaining singular vectors. How well can we approximate $C$ with the first two terms in the summation? We plot the first row of $C$ and of its approxiation obtained from just the first two components of the SVD:
-```@example
-julia> Capprox = F.U[:,1:2]*Diagonal(F.S[1:2])*F.Vt[1:2,:]
-julia> plot([C[1,:] Capprox[1,:]], label=["C" "Capprox"])
-```
-![svdapprox.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svdapprox.png)
-Isn't that nice? Not only do we get the number of components present in the samples, but the approximation constructed from the first two singular vectors is actually smoother than the original data! Try to think why this is. More importantly, the SVD method to analyze a data matrix also works when the number of components is larger (and it would be difficult to "guess" the number of components contained in the samples).
-
-### Chemical Kinetics
-To investigate time-dependent processes such as chemical reactions, one often measures time series of spectra (NMR, IR, Raman, ...) to observe time-dependent changes in the molecular composition of a sample. Putting such a time series of spectra in a matrix, we can analyze the data with SVD to obtain the number of species involved in the process (since each will have its own time dependence). This can be valuable if one or more of the species are intermediates, that may are present in comparatively low concentrations compared to the initial (reactant) and final (rpdouct) compounds, and therefore dififcult to observe separately. Suitable analysis of the singular vectors can even reveal the spectra of the intermediate species. Examples include [shuttling molecular motors](https://doi.org/10.1039/C1CP22146A) and [amyloid formation](https://doi.org/10.1016/j.bpj.2020.05.026).
-
-### Image compression
-Digital images are matrices of intensity values, and we can apply SVD to approximate these matrices. In this way, you can reduce the file size of an image. Here is an example using a healthy-looking image from the [Julia standard-image database](https://testimages.juliaimages.org/stable/imagelist/):
-```
-using TestImages
-img = testimage("peppers_gray.tif")
-T = channelview(img)[1,:,:]
-F = svd(T)
-r = 5
-Tapprox = F.U[:,1:r]*Diagonal(F.S[1:r])*F.Vt[1:r,:]
-Gray.(Tapprox)
-```
-The quality of the compressed image depends on the number $r$ of singular vectors that we include in the approximation, see below. With $r=50$ we have a compression of about a factor of 10.
-![svdpeppers.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svdpeppers.png?raw=true)
-
-## Further reading
-[D. Kalman, "A Singularly Valuable Decomposition: The SVD of a Matrix"](https://sites.math.washington.edu/~morrow/464_16/svd.pdf)
-
-[S. L. Brunton, "Data Driven Science & Engineering", chapter 1: Singular Value Decomposition](https://www.researchgate.net/publication/332751929)
