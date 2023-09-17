@@ -17,6 +17,10 @@ using HTTP
 using TestImages
 using ImageCore
 using Images
+using BSON
+using XLSX
+using JLD
+using HDF5
 
 include("Added_Functions.jl")
 
