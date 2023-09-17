@@ -14,7 +14,6 @@ using Documenter
 using RDatasets
 using StatsBase
 using TestImages
-using ImageCore
 
 include("Added_Functions.jl")
 
