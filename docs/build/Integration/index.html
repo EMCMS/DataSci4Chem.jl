@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Numerical integration · DataSci4Chem.jl</title><meta name="title" content="Numerical integration · DataSci4Chem.jl"/><meta property="og:title" content="Numerical integration · DataSci4Chem.jl"/><meta property="twitter:title" content="Numerical integration · DataSci4Chem.jl"/><meta name="description" content="Documentation for DataSci4Chem.jl."/><meta property="og:description" content="Documentation for DataSci4Chem.jl."/><meta property="twitter:description" content="Documentation for DataSci4Chem.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.png" alt="DataSci4Chem.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">DataSci4Chem.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../Basics/">Basics</a></li><li><a class="tocitem" href="../vis/">Data visualization</a></li><li><a class="tocitem" href="../Matrix/">Matrix manipulation</a></li><li><a class="tocitem" href="../svd/">SVD</a></li><li><a class="tocitem" href="../DataExplore/">Data exploration</a></li><li><a class="tocitem" href="../RootFinding/">Numerical root finding</a></li><li class="is-active"><a class="tocitem" href>Numerical integration</a><ul class="internal"><li><a class="tocitem" href="#Midpoint-method"><span>Midpoint method</span></a></li><li><a class="tocitem" href="#Trapezoid-rule"><span>Trapezoid rule</span></a></li><li><a class="tocitem" href="#Simpson&#39;s-rule"><span>Simpson&#39;s rule</span></a></li><li><a class="tocitem" href="#Additional-resources"><span>Additional resources</span></a></li></ul></li><li><a class="tocitem" href="../fit/">Curve fitting</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Numerical integration</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Numerical integration</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/EMCMS/DataSci4Chem.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/Integration.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Numerical-Integration"><a class="docs-heading-anchor" href="#Numerical-Integration">Numerical Integration</a><a id="Numerical-Integration-1"></a><a class="docs-heading-anchor-permalink" href="#Numerical-Integration" title="Permalink"></a></h1><p><a href="https://en.wikipedia.org/wiki/Numerical_integration">Numerical integration</a> is a set of numerical methods that aim at integrating the <em>f(x)</em> over a defined window. Here the aim is to find the area under a curve without calculating the analytical derivative of <em>f(x)</em>. Let&#39;s assume that the function <em>f(x)</em> is continuous and defined between <em>a</em> and <em>b</em>.</p><p class="math-container">\[
+\int_a^b f(x)dx 
+\]</p><p>The integration algorithms provide an approximation of the area under the curve for <em>f(x)</em>. Independently from the method used, they all tend to divide the interval (i.e. <em>a:b</em>) into smaller chunks that could be integrated providing high enough accuracy for the true integral of the function. </p><h2 id="Midpoint-method"><a class="docs-heading-anchor" href="#Midpoint-method">Midpoint method</a><a id="Midpoint-method-1"></a><a class="docs-heading-anchor-permalink" href="#Midpoint-method" title="Permalink"></a></h2><p><a href="https://en.wikipedia.org/wiki/Midpoint_method">Midpoint method</a> is one of the simplest numerical integration methods. The basic principal of this method is that the integral of a function can be approximated by one or more rectangles. Let&#39;s say we have the below function and we would like to integrate this between <em>a</em> and <em>b</em>. </p><p class="math-container">\[
+\int_a^b (-x^2 + 50)dx 
+\]</p><pre><code class="language-julia hljs">using DataSci4Chem
+
+x = collect(-10:0.1:10)
+
+f(x) = (- x.^2) .+ 50
+
+plot(x,f(x),label = &quot;f(x)&quot;, xlabel = &quot;x values&quot;, ylabel = &quot;f(x)&quot;)
+plot!([-10,10],[0,0], label = &quot;y = 0&quot;)</code></pre><img src="349e883d.svg" alt="Example block output"/><p>Let&#39;s say that the integration window is between -5 and 5. </p><p>With the integral of assuming <em>C = 0</em>.</p><p class="math-container">\[
+F(-5:5) = -\frac{x^{3}}{3} + 50x + C = 416.666
+\]</p><p>Now to perform the same calculations numerically, we need to calculate the midpoint in this window as the first step. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+a = -5
+b = 5
+
+mp = mean([a,b])
+
+plot(x,f(x),label = &quot;f(x)&quot;, xlabel = &quot;x values&quot;, ylabel = &quot;f(x)&quot;)
+plot!([-10,10],[0,0], label = &quot;y = 0&quot;)
+plot!([a,a],[0,f(mp)],label = &quot;a&quot;,lc =:black)
+plot!([b,b],[0,f(mp)],label = &quot;b&quot;,lc =:black)
+scatter!([mp],[f(mp)],label = &quot;midpoint&quot;)</code></pre><img src="9caf3e0c.svg" alt="Example block output"/><p>In the next step we need to form a rectangle from <em>a</em>, <em>b</em>, and <em>f(midpoint)</em>, which will have a with of <em>b - a</em> and the length of <em>f(midpoint)</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+a = -5
+b = 5
+
+mp = mean([a,b])
+
+plot(x,f(x),label = &quot;f(x)&quot;, xlabel = &quot;x values&quot;, ylabel = &quot;f(x)&quot;)
+plot!([-10,10],[0,0], label = &quot;y = 0&quot;)
+plot!([a,a],[0,f(mp)],label = false,lc =:black)
+plot!([b,b],[0,f(mp)],label = false,lc =:black)
+plot!([a,b],[f(mp),f(mp)],label = &quot;rectangle&quot;,lc =:black)
+scatter!([mp],[f(mp)],label = &quot;midpoint&quot;)</code></pre><img src="9ff56aec.svg" alt="Example block output"/><p>In the last step, we assume that the area of this rectangle is a good approximation of the area under the <em>f(x)</em> within the set interval. As we remember from our high school math the area of a rectangle is calculated as: </p><p class="math-container">\[
+area = L \times W.
+\]</p><p>This implies the following:</p><p class="math-container">\[
+\int_a^b f(x)dx \approx L \times W
+
+\]</p><p class="math-container">\[
+
+\int_a^b f(x)dx \approx f(\frac{b+a}{2})(b-a)
+\]</p><p>Let&#39;s do this integration and compare the results of the two methods. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+int_mdp(f,a,b) = f(mean([a,b])) * (b - a)
+
+int_anal = 416.666
+
+int_err = int_anal -  int_mdp(f,a,b)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">-83.334</code></pre><p>As you can see from the figure this single rectangle is not able to cover the full area under the curve. To solve this problem we can increase the number of rectangles within the defined window. For example we can perform the same calculations with four windows. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+n_win = 5
+n_mp = 4
+
+wins = collect(range(a,b,length = (n_win + n_mp)))   # Calculating the edges of the windows and their midpoints
+mps = wins[2:2:length(wins)]                         # Collecting only the midpoints
+edges = wins[1:2:length(wins)]
+
+f_mps = f(mps)                                       # Evaluating the midpoints</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">4-element Vector{Float64}:
+ 35.9375
+ 48.4375
+ 48.4375
+ 35.9375</code></pre><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot(x,f(x),label = &quot;f(x)&quot;, xlabel = &quot;x values&quot;, ylabel = &quot;f(x)&quot;)
+plot!([-10,10],[0,0], label = &quot;y = 0&quot;)
+scatter!(mps,f_mps,label=&quot;midpoints&quot;)
+bar!(mps,f_mps,label=&quot;rectangles&quot;,fillalpha = 0.3 )</code></pre><img src="48ba9ccf.svg" alt="Example block output"/><p>With four windows we are getting a lot better at following the tend of the curve and we expect lower integration error compared to a single rectangle. For calculating the area under the curve with multiple rectangles, we need to multiply the evaluated midpoints by the width of the windows. Given that all the windows are equal size, we can use the first two edges for our width calculations. We also need to sum up the areas of all the rectangles to estimate the integral of the <em>f(x)</em>. </p><p class="math-container">\[
+
+\int_a^b f(x)dx \approx \sum_{i=1}^{n} f(\frac{x_{i}+x_{i+1}}{2})\Delta x
+\]</p><pre><code class="language-julia hljs">using DataSci4Chem
+
+est_int = sum(f_mps .* (edges[2] - edges[1]))
+
+int_er_4 =  int_anal - est_int</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">-5.209000000000003</code></pre><p>Here by increasing the number of windows from 1 to four we have drastically reduced the estimation error from -83 to -5. We can further increase the number of windows to get an acceptable accuracy. For example for the case where we have 10 or more windows, intuitively we can see that the algorithm is getting better at following the trend line in <em>f(x)</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+n_win = 20
+n_mp = n_win - 1
+
+wins = collect(range(a,b,length = (n_win + n_mp)))   # Calculating the edges of the windows and their midpoints
+mps = wins[2:2:length(wins)]                         # Collecting only the midpoints
+edges = wins[1:2:length(wins)]
+
+f_mps = f(mps)
+
+plot(x,f(x),label = &quot;f(x)&quot;, xlabel = &quot;x values&quot;, ylabel = &quot;f(x)&quot;)
+plot!([-10,10],[0,0], label = &quot;y = 0&quot;)
+scatter!(mps,f_mps,label=&quot;midpoints&quot;)
+bar!(mps,f_mps,label=&quot;rectangles&quot;,fillalpha = 0.3 )</code></pre><img src="9459f93c.svg" alt="Example block output"/><pre><code class="language-julia hljs">using DataSci4Chem
+
+est_int = sum(f_mps .* (edges[2] - edges[1]))
+
+int_er_10 =  int_anal - est_int</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">-0.23150692520766825</code></pre><p>As expected the error of area estimation has become very small. </p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>The higher is the number of windows the better is the accuracy of integration. However, in real case scenarios this may  be computationally expensive (e.g. high dimensional problems). Therefore, you need to find a balance between the number of windows and the needed accuracy. </p></div></div><h2 id="Trapezoid-rule"><a class="docs-heading-anchor" href="#Trapezoid-rule">Trapezoid rule</a><a id="Trapezoid-rule-1"></a><a class="docs-heading-anchor-permalink" href="#Trapezoid-rule" title="Permalink"></a></h2><p>Another more accurate approach with a similar level of simplicity is <a href="https://en.wikipedia.org/wiki/Trapezoidal_rule">trapezoid rule</a> for numerical integration. Let&#39;s go back to our previous example (i.e. <em>f(x)</em>) with two windows. For the midpoint case, we generate two rectangles to predict the area under the curve. On the other hand for trapezoid rule we generate trapezoids by connecting the <em>f(x)</em> at the edges of the windows. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+
+f_mps = f(mps)
+f_edges = f(edges)
+
+p1 = plot(x,f(x),label = &quot;f(x)&quot;, xlabel = &quot;x values&quot;, ylabel = &quot;f(x)&quot;)
+plot!([-10,10],[0,0], label = &quot;y = 0&quot;)
+scatter!(mps,f_mps,label=&quot;midpoints&quot;)
+bar!(mps,f_mps,label=&quot;rectangles&quot;,fillalpha = 0.3 , legend= :bottom)
+
+p2 = plot(x,f(x),label = &quot;f(x)&quot;, xlabel = &quot;x values&quot;, ylabel = &quot;f(x)&quot;)
+plot!([-10,10],[0,0], label = &quot;y = 0&quot;)
+scatter!(edges,f_edges,label=&quot;edges&quot;, legend= :bottom)
+plot!([-5,-5],[0,f_edges[1]],label = false, lc =:black)
+plot!([5,5],[0,f_edges[1]],label = false, lc =:black)
+plot!([0,0],[0,f_edges[2]],label = false, lc =:black)
+plot!([-5,0],[f_edges[1],f_edges[2]],label = false, lc =:black)
+plot!([0,5],[f_edges[2],f_edges[3]],label = false, lc =:black)
+
+
+plot(p1,p2)</code></pre><img src="9e6f05dd.svg" alt="Example block output"/><p>As you can see from the figure above, trapezoids are a lot better at approximating the area under the curve compared to the rectangles. In terms of math the area of a trapezoid can be calculated using the following equation.</p><p class="math-container">\[
+
+Area_{trap} = \frac{L+W}{2}h
+\]</p><p>If we rewrite this to fit our case we will have the below equation.</p><p class="math-container">\[
+Area_{trap} = \frac{f(x_{i})+f(x_{i+1})}{2}\Delta x
+\]</p><p>This implies that our total area approximation will become as: </p><p class="math-container">\[
+
+\int_a^b f(x)dx \approx \frac{\Delta x}{2}(f(x_1) + 2f(x_{2}) + ... + 2f(x_{n-1}) + f(x_{n}))
+\]</p><p>Now that we have the formula for approximation of area under the <em>f(x)</em> using trapezoid rule, we can test it for two windows. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+est_int_trap = (0.5 * (b-a)/n_mp) * (f_edges[1] + 2* f_edges[2] + f_edges[3])
+
+int_er_trap_2 =  int_anal - est_int_trap</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">41.666</code></pre><pre><code class="language-julia hljs">using DataSci4Chem
+
+est_int = sum(f_mps .* (b-a)/n_mp)
+
+int_er_2 =  int_anal - est_int</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">-20.834000000000003</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>As you can see from the results above the trapezoid method tends to underestimate the area under the curve while the midpoint method has a tendency to overestimate the integrals. However, with enough intervals both method are able to achieve high levels of accuracy. </p></div></div><h2 id="Simpson&#39;s-rule"><a class="docs-heading-anchor" href="#Simpson&#39;s-rule">Simpson&#39;s rule</a><a id="Simpson&#39;s-rule-1"></a><a class="docs-heading-anchor-permalink" href="#Simpson&#39;s-rule" title="Permalink"></a></h2><p>So far we have been using linear functions to perform our integration. However, as you may imagine, the linear function (i.e. <em>f(x) = ax + b</em>) may not be the best function to describe the trend in the objective curve. On the other hand, a function that is very well able to cover any trends is a parabola (i.e. <em><span>$f(x) = ax^2 + bx + c$</span></em>), which is the basic principal of <a href="https://en.wikipedia.org/wiki/Simpson%27s_rule">Simpson&#39;s rule</a>. A variation of parabola can, theoretically, cover any kind of objective function. To be able to do this we need to fit a parabola into at least three consecutive points, which will be unique. Let&#39;s write our system of equations: </p><p class="math-container">\[
+f(x_i) = a(x_{i+1} - \Delta x)^2 + b(x_{i+1} - \Delta x) + c \\
+f(x_{i+1}) = a(x_{i+1})^2 + b(x_{i+1}) + c \\
+f(x_{i+2}) = a(x_{i+1} + \Delta x)^2 + b(x_{i+1} + \Delta x) + c \\
+\]</p><p>Now if we solve this system of equations we will end up with the following equation:</p><p class="math-container">\[
+\int_{x_{i+1} - \Delta x}^{x_{i+1} + \Delta x} (ax^2 + bx + c)dx = \sum_{0}^{n} \frac{\Delta x}{3}(f(x_i) + 4f(x_{i+1}) + f(x_{i+2})),
+\]</p><p>which will ultimately result in the below equation. </p><p class="math-container">\[
+\int_{x_{i+1} - \Delta x}^{x_{i+1} + \Delta x} (ax^2 + bx + c)dx = \\
+
+ \frac{\Delta x}{3}(f(x_0) + 4f(x_1) + 2f(x_2) + 4f(x_3) + ... + 2f(x_{n−2})+4f(x_{n−1})+f(x_n))
+\]</p><p>Here the pattern is that the first and the last terms stay as they are while the odd indexed terms are multiplied by four and the even ones are multiplied by two. By selecting a small enough <em><span>$\Delta x$</span></em> this method is able to provide a fairly accurate estimation of the area under the curve. </p><h2 id="Additional-resources"><a class="docs-heading-anchor" href="#Additional-resources">Additional resources</a><a id="Additional-resources-1"></a><a class="docs-heading-anchor-permalink" href="#Additional-resources" title="Permalink"></a></h2><p>There are additional resources for the numerical integration, for example this <a href="https://ocw.mit.edu/courses/18-01-single-variable-calculus-fall-2006/">MIT open course</a>. </p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../RootFinding/">« Numerical root finding</a><a class="docs-footer-nextpage" href="../fit/">Curve fitting »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.0.0 on <span class="colophon-date" title="Sunday 17 September 2023 17:40">Sunday 17 September 2023</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

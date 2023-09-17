@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Data visualization · DataSci4Chem.jl</title><meta name="title" content="Data visualization · DataSci4Chem.jl"/><meta property="og:title" content="Data visualization · DataSci4Chem.jl"/><meta property="twitter:title" content="Data visualization · DataSci4Chem.jl"/><meta name="description" content="Documentation for DataSci4Chem.jl."/><meta property="og:description" content="Documentation for DataSci4Chem.jl."/><meta property="twitter:description" content="Documentation for DataSci4Chem.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.png" alt="DataSci4Chem.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">DataSci4Chem.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../Basics/">Basics</a></li><li class="is-active"><a class="tocitem" href>Data visualization</a><ul class="internal"><li><a class="tocitem" href="#Simple-line-plot"><span>Simple line plot</span></a></li><li><a class="tocitem" href="#Frame"><span>Frame</span></a></li><li><a class="tocitem" href="#Multiple-frames"><span>Multiple frames</span></a></li><li><a class="tocitem" href="#Plot-types"><span>Plot types</span></a></li><li><a class="tocitem" href="#Advanced-topics"><span>Advanced topics</span></a></li><li><a class="tocitem" href="#Additional-resources"><span>Additional resources</span></a></li></ul></li><li><a class="tocitem" href="../Matrix/">Matrix manipulation</a></li><li><a class="tocitem" href="../svd/">SVD</a></li><li><a class="tocitem" href="../DataExplore/">Data exploration</a></li><li><a class="tocitem" href="../RootFinding/">Numerical root finding</a></li><li><a class="tocitem" href="../Integration/">Numerical integration</a></li><li><a class="tocitem" href="../fit/">Curve fitting</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Data visualization</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Data visualization</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/EMCMS/DataSci4Chem.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/vis.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Data-visualization-and-plotting"><a class="docs-heading-anchor" href="#Data-visualization-and-plotting">Data visualization and plotting</a><a id="Data-visualization-and-plotting-1"></a><a class="docs-heading-anchor-permalink" href="#Data-visualization-and-plotting" title="Permalink"></a></h1><p>Here we will explore basics of the data visualization from simple plots to model representations. The content of this section is mainly based on the <a href="https://docs.juliaplots.org/stable/">Plots.jl</a> package. You should be able to generate all the figures in this tutorial using the <em>DataSci4Chem.jl</em> package. For functions that are not exported directly, you can use <em>DataSci4Chem.fun(-)</em>. </p><h2 id="Simple-line-plot"><a class="docs-heading-anchor" href="#Simple-line-plot">Simple line plot</a><a id="Simple-line-plot-1"></a><a class="docs-heading-anchor-permalink" href="#Simple-line-plot" title="Permalink"></a></h2><p>If you have one single variable as a vector of numbers, you can use simple line plot (<a href="https://docs.juliaplots.org/stable/tutorial/">plot</a>). </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+# Generating the data
+
+y = collect(1:0.1:10)
+
+# Plotting the data
+
+plot(y)</code></pre><img src="8ef52dc1.svg" alt="Example block output"/><p>Here we stored our vector of 100 entries between 0 and 10 in variable <em>y</em>. The &quot;x axis&quot; here represents the index of each value while the &quot;y axis&quot; is the assigned value of the <em>y</em> at each index. For example, if we multiply the <em>y</em> by a number (e.g. 5), the &quot;x axis&quot; will not change while the &quot;y axis&quot; will be adjusted. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+y1 = 5 .* y
+
+# Plotting the data
+
+plot(y1)</code></pre><img src="9243d53c.svg" alt="Example block output"/><p>In this case the <em>julia</em> plotting backend is actually evaluating the below command to generate this figure. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+y1 = 5 .* y
+
+# Plotting the data
+
+plot(1:length(y1),y1)</code></pre><img src="bbcc1d51.svg" alt="Example block output"/><p>The first entry in the <em>plot(-)</em> is replaced with a vector of indices from 1 to the length of the <em>y</em>. This implies that we generally need two variables of the same size to be able to use line plot. In case we have a <em>x</em> vector the above plot will be changed to the following. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+x = sin.(y)
+
+# Plotting the data
+
+plot(x,y)</code></pre><img src="3e86e05c.svg" alt="Example block output"/><p>The x values in this plot are the <em>sin(y)</em> while the y values remain the same. </p><h2 id="Frame"><a class="docs-heading-anchor" href="#Frame">Frame</a><a id="Frame-1"></a><a class="docs-heading-anchor-permalink" href="#Frame" title="Permalink"></a></h2><p>You can adjust different parameters associated with the plot axis such as axis labels and range. For doing so you can either modify an existing frame or set these parameters as attributes of <em>plot(-)</em>. </p><h3 id="Axis-label"><a class="docs-heading-anchor" href="#Axis-label">Axis label</a><a id="Axis-label-1"></a><a class="docs-heading-anchor-permalink" href="#Axis-label" title="Permalink"></a></h3><p>Below you can see how the labels on the x and y axis are set via frame modification. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot(x,y)
+xlabel!(&quot;sin(y)&quot;)              # setting the label of x axis
+ylabel!(&quot;y values&quot;)            # setting the label of the y axis</code></pre><img src="508da74d.svg" alt="Example block output"/><p>You can also set these parameters directly in the <em>plot(-)</em> function. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot(x,y,xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;)</code></pre><img src="f2db70a7.svg" alt="Example block output"/><p>These ways of setting axis labels can be used for any type of plot type as long as the generic <a href="https://docs.juliaplots.org/stable/gallery/gr/">&quot;GR&quot; backend</a> is used. These approaches are not completely mapped for all the backends, particularly for <a href="https://docs.juliaplots.org/stable/gallery/plotlyjs/">PlotlyJS</a>.  </p><h3 id="Axis-limit"><a class="docs-heading-anchor" href="#Axis-limit">Axis limit</a><a id="Axis-limit-1"></a><a class="docs-heading-anchor-permalink" href="#Axis-limit" title="Permalink"></a></h3><p>You can also set the range of each axis using the function <em>lims!(-)</em>. This function must be adjusted for &quot;x axis&quot; vs &quot;y axis&quot;. In other words for &quot;x axis&quot; it will become <em>xlims!(-)</em> while for the &quot;y axis&quot; it will be <em>ylims!(-)</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot(x,y,xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;)
+xlims!(-2,2)                               # Setting the limits of x
+ylims!(3,6)                                # Setting the limits of y</code></pre><img src="b330afa3.svg" alt="Example block output"/><p>Similar to the axis label, the same concept can be applied to any plot frame generated via <em>Plots.jl</em>. </p><h3 id="Label/legend"><a class="docs-heading-anchor" href="#Label/legend">Label/legend</a><a id="Label/legend-1"></a><a class="docs-heading-anchor-permalink" href="#Label/legend" title="Permalink"></a></h3><p>When plotting multiple series or overlaying multiple frames, it is important to label each series accordingly. To do that we need to modify an attribute of the <em>plot(-)</em> called &quot;label&quot;. If this parameter is not set, the series label is selected automatically to &quot;y1&quot;. If you want to change this, you need to provide an input to the attribute &quot;label&quot; while plotting your data. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot(x,y,xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label = &quot;Example data&quot;)</code></pre><img src="25ae3d3f.svg" alt="Example block output"/><p>In case you want to remove the label of a data series, you can set the attribute label to <em>false</em>, which will result in the removal of the legend completely. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot(x,y,xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label = false)</code></pre><img src="dff9c01d.svg" alt="Example block output"/><h3 id="The-line-settings"><a class="docs-heading-anchor" href="#The-line-settings">The line settings</a><a id="The-line-settings-1"></a><a class="docs-heading-anchor-permalink" href="#The-line-settings" title="Permalink"></a></h3><p>When plotting our data being able to adjust parameters associated with the line is very important. This becomes particularly important for the multivariate data. As a start we can change the line style with the keyword <a href="https://docs.juliaplots.org/stable/generated/attributes_series/">&quot;linestyle&quot;</a>, that is fed directly to the plot function. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot(x,y,xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label = false,linestyle=:dash)</code></pre><img src="ab26166c.svg" alt="Example block output"/><p>A shortcut to the &quot;linestyle&quot; parameter is &quot;ls&quot;. In other words, you will get the same outcome replacing &quot;linestyle&quot; with &quot;ls&quot; in the above example. The <em>GR</em> backend in <em>Plots.jl</em> package has several builtin options for the line style. </p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>The plotting backend in julia keeps the same the line style for all the plots unless it is specified. You need to set this parameter for each frame separately. </p></div></div><p>Another line setting to be adjusted is the line width, which helps with the visibility of the lines in your plot. The keyword for line width setting is &quot;linewidth&quot; or &quot;lw&quot;. The parameter must be a real and positive number. For example by setting the &quot;lw&quot; to 2 for the above plot we can increase the visibility of our data. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot(x,y,xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label = false,linestyle=:dash,lw=2)</code></pre><img src="7cdb656f.svg" alt="Example block output"/><p>For most figures, we also want to set the color of the lines in the plot, particularly when multiple lines are plotted. The parameter to be adjusted here is &quot;linecolor&quot; or &quot;lc&quot;. The julia plotting backend, usually, sets a different color to each line in your plot. However, it is useful to be able to set these colors as it fits your needs. There several <a href="https://github.com/JuliaGraphics/Colors.jl/blob/master/src/names_data.jl">colors</a> builtin the <em>plots.jl</em> and can be used without further definition. You can also set these colors manually via <a href="https://en.wikipedia.org/wiki/RGB_color_model">RGB cods</a>. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot(x,y,xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label = false,
+linestyle=:dash,lw=2,lc=:red)</code></pre><img src="03fb8498.svg" alt="Example block output"/><div class="admonition is-warning"><header class="admonition-header">Warning</header><div class="admonition-body"><p>There are other parameters that can be set related to the line style settings, which have not been discussed here. For a comprehensive list please refer to the <a href="https://docs.juliaplots.org/stable/generated/attributes_series/">&quot;Series Attributes&quot;</a> page in <em>Plots.jl</em> documentation.   </p></div></div><h2 id="Multiple-frames"><a class="docs-heading-anchor" href="#Multiple-frames">Multiple frames</a><a id="Multiple-frames-1"></a><a class="docs-heading-anchor-permalink" href="#Multiple-frames" title="Permalink"></a></h2><p>To plot multiple data series, there are two different options. These options are 1) using multivariate <em>X</em> and <em>Y</em> matrices or 2) overlay different frames on top of each other. </p><h3 id="Multivariate-data-plotting"><a class="docs-heading-anchor" href="#Multivariate-data-plotting">Multivariate data plotting</a><a id="Multivariate-data-plotting-1"></a><a class="docs-heading-anchor-permalink" href="#Multivariate-data-plotting" title="Permalink"></a></h3><p>When providing multivariate matrices, julia treats each column in your data as a separate variable. This implies that for an <em><span>$X_{2 \times 10}$</span></em>, two series are plotted. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+x_m = hcat(x,x)
+y_m = hcat(y,y .+ 5)
+
+plot(x_m,y_m,xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;)</code></pre><img src="6e47420a.svg" alt="Example block output"/><p>In this case to add the legend to this plot you need to provide a vector of labels to the <em>plot(-)</em> function. The same goes for all the line setting attributes. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+x_m = hcat(x,x)
+y_m = hcat(y,y .+ 5)
+
+plot(x_m,y_m,xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=[&quot;column 1&quot; &quot;column 2&quot;])</code></pre><img src="d0b9c823.svg" alt="Example block output"/><div class="admonition is-warning"><header class="admonition-header">Warning</header><div class="admonition-body"><p>Please note that the entries in the label vector are space separated. Otherwise, the backend will not be able to separate different entries from each other. </p></div></div><pre><code class="language-julia hljs">using DataSci4Chem
+
+x_m = hcat(x,x)
+y_m = hcat(y,y .+ 5)
+
+plot(x_m,y_m,xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=[&quot;column 1&quot; &quot;column 2&quot;],
+lc = [:red :green], lw = [2 1], ls = [:dot :dash])</code></pre><img src="f49a2a1b.svg" alt="Example block output"/><h3 id="Overlying-frames"><a class="docs-heading-anchor" href="#Overlying-frames">Overlying frames</a><a id="Overlying-frames-1"></a><a class="docs-heading-anchor-permalink" href="#Overlying-frames" title="Permalink"></a></h3><p>Another option for plotting multivariate data is the use of overlying frames. For this you need to use the function <em>plot!(-)</em>, which modifies the last in memory frame. To use this approach, you first plot your first variable and then overlay the additional variables on top of the already existing frame. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+x_m = hcat(x,x)
+y_m = hcat(y,y .+ 5)
+
+plot(x_m[:,1],y_m[:,1],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=&quot;column 1&quot;)
+plot!(x_m[:,2],y_m[:,2],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=&quot;column 2&quot;)</code></pre><img src="a14f94a8.svg" alt="Example block output"/><div class="admonition is-warning"><header class="admonition-header">Warning</header><div class="admonition-body"><p>The variable ranges, unless set, will take the values relevant to the largest frame. The labels must be set for each series separately to make sure proper display of the plots.</p></div></div><p>For setting the line attributes, you will have to set them up for each frame separately. Otherwise, julia will use the default settings. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+x_m = hcat(x,x)
+y_m = hcat(y,y .+ 5)
+
+plot(x_m[:,1],y_m[:,1],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=&quot;column 1&quot;,lw=2,ls=:dot,lc=:red)
+plot!(x_m[:,2],y_m[:,2],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=&quot;column 2&quot;,lw=1,ls=:dash)</code></pre><img src="e90fb180.svg" alt="Example block output"/><p>For example, for the above plot in the second frame we do not set the &quot;lc&quot; parameter and as a consequence julia uses the default color sequence for the second line. </p><p>Another way to overlay the frames on top of each other is to store the frame information into a variable that can be retrieved and/or modified. For example, in the below case we are storing all the info of the first frame into variable &quot;p&quot;. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+x_m = hcat(x,x)
+y_m = hcat(y,y .+ 5)
+
+p = plot(x_m[:,1],y_m[:,1],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=&quot;column 1&quot;,lw=2,ls=:dot,lc=:red)</code></pre><img src="9ed4f190.svg" alt="Example block output"/><p>In the next step, one can modify this frame using the function <em>plot!(-)</em> by defining the first variable as the previous frame. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot!(p,x_m[:,2],y_m[:,2],xlabel=&quot;sin(y)&quot;,
+ylabel=&quot;y values&quot;,label=&quot;column 2&quot;,lw=1,ls=:dash)</code></pre><img src="78dcf885.svg" alt="Example block output"/><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>The same strategy can be used for updating the attributes of the plot.</p></div></div><h2 id="Plot-types"><a class="docs-heading-anchor" href="#Plot-types">Plot types</a><a id="Plot-types-1"></a><a class="docs-heading-anchor-permalink" href="#Plot-types" title="Permalink"></a></h2><p>There are several plot types implemented within the <em>Plots.jl</em> and accessible via <em>DataSci4Chem.jl</em>. Here we will discuss the most commonly used plot types. </p><h3 id="Scatter"><a class="docs-heading-anchor" href="#Scatter">Scatter</a><a id="Scatter-1"></a><a class="docs-heading-anchor-permalink" href="#Scatter" title="Permalink"></a></h3><p><a href="https://docs.juliaplots.org/stable/api/#Plots.scatter-Tuple">Scatter plots</a> next to the line plots are one of the most commonly used plotting approaches. Similar to line plots, the inputs of <em>scatter(-)</em> are the matrics <em>X</em> and <em>Y</em> with the same size. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+x_m = hcat(x,x)
+y_m = hcat(y,y .+ 5)
+
+scatter(x_m,y_m,xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=[&quot;column 1&quot; &quot;column 2&quot;])</code></pre><img src="bd0ee1a0.svg" alt="Example block output"/><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>All the frame and axis related commands that work for line plots are applicable to scatter plots too.</p></div></div><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+scatter(x_m[:,1],y_m[:,1],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=&quot;column 1&quot;,lw=2,ls=:dot,lc=:red)
+scatter!(x_m[:,2],y_m[:,2],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=&quot;column 2&quot;,lw=1,ls=:dash)</code></pre><img src="8b59529d.svg" alt="Example block output"/><div class="admonition is-warning"><header class="admonition-header">Warning</header><div class="admonition-body"><p>The scatter plot ignores the parameters specific to line plots or other plot types (e.g. &quot;ls&quot;). For example, &quot;lc&quot;, &quot;ls&quot;, and &quot;lw&quot; parameters associated with line plots are skipped and the backend uses the default values for the scatter plot equivalent attribute. </p></div></div><p>There are a few highly relevant attributes specific to scatter plots that will be discussed here. </p><h4 id="Marker-properties"><a class="docs-heading-anchor" href="#Marker-properties">Marker properties</a><a id="Marker-properties-1"></a><a class="docs-heading-anchor-permalink" href="#Marker-properties" title="Permalink"></a></h4><p>You can set both marker size, shape, color, and opacity for your scatter plots. These parameters will help readability of your figures and their interpretation. </p><p>The default marker size is 4 and can be changed by resetting either &quot;markersize&quot; or &quot;ms&quot;. For the &quot;ms&quot; please make sure to use a positive and real number. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+scatter(x_m[:,1],y_m[:,1],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=&quot;column 1&quot;,ms=5)
+scatter!(x_m[:,2],y_m[:,2],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=&quot;column 2&quot;,ms=2)</code></pre><img src="a9f5460e.svg" alt="Example block output"/><p>You can also feed a vector of the size of &quot;Y&quot; to your marker size attribute. This will enable to plot higher dimensional data in a 2D plot. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+ms1 = range(1, stop=10, length=size(y_m,1))
+
+scatter(x_m[:,1],y_m[:,1],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=&quot;column 1&quot;,ms=ms1)
+scatter!(x_m[:,2],y_m[:,2],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;,label=&quot;column 2&quot;,ms=2)</code></pre><img src="effd12b6.svg" alt="Example block output"/><p>Another highly relevant scatter plot attribute is the marker shape, which is by default &quot;circle&quot; and can be changed using either &quot;markershape&quot; or &quot;shape&quot;. For example if want to change the marker shape of column 2 in the above plot we can do this by doing the following. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+ms1 = range(1, stop=10, length=size(y_m,1))
+
+scatter(x_m[:,1],y_m[:,1],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;
+,label=&quot;column 1&quot;,ms=ms1)
+
+scatter!(x_m[:,2],y_m[:,2],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;
+,label=&quot;column 2&quot;,ms=2,shape=:+)</code></pre><img src="9a731c3b.svg" alt="Example block output"/><p>The marker color is the equivalent of &quot;lc&quot; attribute for the line plots. Similar to the &quot;lc&quot; you have access to the same color schemes via either &quot;markercolor&quot; or &quot;mc&quot;.</p><pre><code class="language-julia hljs">using DataSci4Chem
+
+ms1 = range(1, stop=10, length=size(y_m,1))
+
+scatter(x_m[:,1],y_m[:,1],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;
+,label=&quot;column 1&quot;,ms=ms1)
+
+scatter!(x_m[:,2],y_m[:,2],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;
+,label=&quot;column 2&quot;,ms=2,shape=:+,mc=:black)</code></pre><img src="11a4ad1d.svg" alt="Example block output"/><p>The last scatter plot specific attribute discussed here is the marker opacity which is defined by &quot;markerapha&quot; or &quot;ma&quot;. This attribute is very helpful with multiple frames&#39; plots where a large amount of data is plotted. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+ms1 = range(1, stop=10, length=size(y_m,1))
+
+scatter(x_m[:,1],y_m[:,1],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;
+,label=&quot;column 1&quot;,ms=ms1,ma=0.5)
+
+scatter!(x_m[:,2],y_m[:,2],xlabel=&quot;sin(y)&quot;,ylabel=&quot;y values&quot;
+,label=&quot;column 2&quot;,ms=3,shape=:+,mc=:black)</code></pre><img src="88e3c661.svg" alt="Example block output"/><h3 id="Bar"><a class="docs-heading-anchor" href="#Bar">Bar</a><a id="Bar-1"></a><a class="docs-heading-anchor-permalink" href="#Bar" title="Permalink"></a></h3><p>Another commonly used plotting style is <a href="https://en.wikipedia.org/wiki/Bar_chart">bar plots</a>. They are an easy way to get a quick overview of your data, particularly when your independent variable is discreet. However, care needs to be taken when scaling the data to avoid misleading conclusions. For example here we will plot the first 10 values of or first column. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+bar(x_m[:,1][1:10],y_m[:,1][1:10],label=&quot;column 1 - first 10&quot;)</code></pre><img src="1c889422.svg" alt="Example block output"/><p>Similar to the previous plot types we can add more frames to the existing figure to represent multiple data series. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+measles = [38556, 24472, 14556, 18060, 19549, 8122, 28541, 7880, 3283, 4135, 7953, 1884]
+mumps = [20178, 23536, 34561, 37395, 36072, 32237, 18597, 9408, 6005, 6268, 8963, 13882]
+chickenPox = [37140, 32169, 37533, 39103, 33244, 23269, 16737, 5411, 3435, 6052, 12825, 23332]
+
+
+bar(measles,label=&quot;measles&quot;)
+
+bar!(mumps,label=&quot;mumps&quot;)
+
+bar!(chickenPox,label=&quot;chickenPox&quot;)</code></pre><img src="57858d53.svg" alt="Example block output"/><p>In the figure above each series is plotted on top of the previous one, which may not be the most desirable setup. To solve this issue we need to use a more complete backend/version of <em>Plots.jl</em>, which is <a href="https://docs.juliaplots.org/latest/generated/statsplots/"><em>StatsPlots.jl</em></a>. The <em>StatsPlots.jl</em> has been exported as &quot;sp&quot; within the <em>DataSci4Chem.jl</em> package to avoid any conflicts with other packages. It can be accessed using the following syntax. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+sp.bar(measles,label=&quot;measles&quot;)
+
+sp.bar!(mumps,label=&quot;mumps&quot;)
+
+sp.bar!(chickenPox,label=&quot;chickenPox&quot;)</code></pre><img src="b7c98d54.svg" alt="Example block output"/><p>For this case we need to used the function <em>groupedbar(-)</em> to be able to have the bars being plotted side by side. The combination of <em>groupedbar(-)</em> and the attribute &quot;bar_position&quot; enables having the bars side by side. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+sp.groupedbar([measles mumps chickenPox], bar_position = :dodge)</code></pre><img src="17736429.svg" alt="Example block output"/><p>A variant of bar plot is <a href="https://en.wikipedia.org/wiki/Histogram">histogram</a>, which is very useful for exploring the distribution of the variables in a dataset. Histograms can be used for a first step during the data visualization. For example, when looking at the <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set">&quot;Iris&quot; dataset</a>, we can explore the distribution of each variable via histograms. To import the data we are taking advantage of <a href="https://github.com/JuliaStats/RDatasets.jl"><em>RDatasets.jl</em></a> package. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+data = dataset(&quot;datasets&quot;, &quot;iris&quot;)     # Importing the data
+describe(data)                         # Summarizes the dataset</code></pre><div><div style = "float: left;"><span>5×7 DataFrame</span></div><div style = "clear: both;"></div></div><div class = "data-frame" style = "overflow-x: scroll;"><table class = "data-frame" style = "margin-bottom: 6px;"><thead><tr class = "header"><th class = "rowNumber" style = "font-weight: bold; text-align: right;">Row</th><th style = "text-align: left;">variable</th><th style = "text-align: left;">mean</th><th style = "text-align: left;">min</th><th style = "text-align: left;">median</th><th style = "text-align: left;">max</th><th style = "text-align: left;">nmissing</th><th style = "text-align: left;">eltype</th></tr><tr class = "subheader headerLastRow"><th class = "rowNumber" style = "font-weight: bold; text-align: right;"></th><th title = "Symbol" style = "text-align: left;">Symbol</th><th title = "Union{Nothing, Float64}" style = "text-align: left;">Union…</th><th title = "Any" style = "text-align: left;">Any</th><th title = "Union{Nothing, Float64}" style = "text-align: left;">Union…</th><th title = "Any" style = "text-align: left;">Any</th><th title = "Int64" style = "text-align: left;">Int64</th><th title = "DataType" style = "text-align: left;">DataType</th></tr></thead><tbody><tr><td class = "rowNumber" style = "font-weight: bold; text-align: right;">1</td><td style = "text-align: left;">SepalLength</td><td style = "text-align: left;">5.84333</td><td style = "text-align: left;">4.3</td><td style = "text-align: left;">5.8</td><td style = "text-align: left;">7.9</td><td style = "text-align: right;">0</td><td style = "text-align: left;">Float64</td></tr><tr><td class = "rowNumber" style = "font-weight: bold; text-align: right;">2</td><td style = "text-align: left;">SepalWidth</td><td style = "text-align: left;">3.05733</td><td style = "text-align: left;">2.0</td><td style = "text-align: left;">3.0</td><td style = "text-align: left;">4.4</td><td style = "text-align: right;">0</td><td style = "text-align: left;">Float64</td></tr><tr><td class = "rowNumber" style = "font-weight: bold; text-align: right;">3</td><td style = "text-align: left;">PetalLength</td><td style = "text-align: left;">3.758</td><td style = "text-align: left;">1.0</td><td style = "text-align: left;">4.35</td><td style = "text-align: left;">6.9</td><td style = "text-align: right;">0</td><td style = "text-align: left;">Float64</td></tr><tr><td class = "rowNumber" style = "font-weight: bold; text-align: right;">4</td><td style = "text-align: left;">PetalWidth</td><td style = "text-align: left;">1.19933</td><td style = "text-align: left;">0.1</td><td style = "text-align: left;">1.3</td><td style = "text-align: left;">2.5</td><td style = "text-align: right;">0</td><td style = "text-align: left;">Float64</td></tr><tr><td class = "rowNumber" style = "font-weight: bold; text-align: right;">5</td><td style = "text-align: left;">Species</td><td style = "font-style: italic; text-align: left;"></td><td style = "text-align: left;">setosa</td><td style = "font-style: italic; text-align: left;"></td><td style = "text-align: left;">virginica</td><td style = "text-align: right;">0</td><td style = "text-align: left;">CategoricalValue{String, UInt8}</td></tr></tbody></table></div><p>Through the function <em>describe(-)</em> we can seen that the dataset contains five variables namely: sepal length, sepal width, petal length, petal width, and species. Now we can use histograms to explore the numerical variables. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+histogram(data[!,&quot;SepalLength&quot;],label=false)
+
+xlabel!(&quot;SepalWidth&quot;)
+ylabel!(&quot;Frequency&quot;)</code></pre><img src="a0f6b753.svg" alt="Example block output"/><p>In this plot the bin size and number is set automatically by julia. However, the automatic choice may not be the best option for your case of data exploration. One of the parameters that can be set here is the number of bins. Let&#39;s change the number of bins to 20 instead of 8.</p><pre><code class="language-julia hljs">using DataSci4Chem
+
+histogram(data[!,&quot;SepalLength&quot;],label=false,bins =20)
+
+xlabel!(&quot;SepalWidth&quot;)
+ylabel!(&quot;Frequency&quot;)</code></pre><img src="5c4c3fb7.svg" alt="Example block output"/><div class="admonition is-warning"><header class="admonition-header">Warning</header><div class="admonition-body"><p>As you can see changing the number of bins may impact the final interpretation of your data. Therefore, you need to be sure that this parameter is adequately selected to correctly reflect the true distribution of your data. </p></div></div><p>Another way to change the number of bins or their size is to provide a vector of bins to the parameter &quot;bins&quot; rather than an integer. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+b_range = range(4, 8, length=21)                            # Generate the individual bins
+
+histogram(data[!,&quot;SepalLength&quot;],label=false,bins =b_range)  # Use those bins for plotting the results
+
+xlabel!(&quot;SepalWidth&quot;)
+ylabel!(&quot;Frequency&quot;)</code></pre><img src="5a374f87.svg" alt="Example block output"/><p>Similar to the previous plots you can overlay multiple frames on top of each other. For example, below we are plotting the histogram of two separate variables in the &quot;iris dataset&quot; together. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+histogram(data[!,&quot;SepalLength&quot;],label=&quot;Sepal Length&quot;, bins=10)
+histogram!(data[!,&quot;SepalWidth&quot;],label=&quot;Sepal Width&quot;, bins=10)
+
+xlabel!(&quot;Bins&quot;)
+ylabel!(&quot;Frequency&quot;)</code></pre><img src="db1e0b0f.svg" alt="Example block output"/><p>As you can see from the above plot the two distributions have an overlapping region, which is very difficult to see. To overcome this issue you can use the parameter &quot;fillalpha&quot;, which sets the transparency of the bars. Please note that the order of the plotting is highly relevant when setting this parameter. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+histogram(data[!,&quot;SepalLength&quot;],label=&quot;Sepal Length&quot;, bins=10)
+histogram!(data[!,&quot;SepalWidth&quot;],label=&quot;Sepal Width&quot;, bins=10,fillalpha=0.6)
+
+xlabel!(&quot;Bins&quot;)
+ylabel!(&quot;Frequency&quot;)</code></pre><img src="d1ec50c4.svg" alt="Example block output"/><p>Another highly relevant parameter to adjust when using histograms is the normalization factor set via parameter &quot;norm&quot;. The julia default is false (i.e. the pure count). This can be set to &quot;:pdf&quot; resulting in the sum of areas will be set to one while :probability generates a plot where the sum of heights is equal to one. The normalization is very helpful when dealing with datasets with different population sizes. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+histogram(data[!,&quot;SepalLength&quot;],label=&quot;Sepal Length&quot;, bins=10,norm = :pdf)
+histogram!(data[!,&quot;SepalWidth&quot;],label=&quot;Sepal Width&quot;, bins=10,fillalpha=0.6, norm = :pdf)
+
+xlabel!(&quot;Bins&quot;)
+ylabel!(&quot;Frequency&quot;)</code></pre><img src="e3771288.svg" alt="Example block output"/><p>or </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+histogram(data[!,&quot;SepalLength&quot;],label=&quot;Sepal Length&quot;, bins=10,norm = :probability)
+histogram!(data[!,&quot;SepalWidth&quot;],label=&quot;Sepal Width&quot;, bins=10,fillalpha=0.6, norm = :probability)
+
+xlabel!(&quot;Bins&quot;)
+ylabel!(&quot;Frequency&quot;)</code></pre><img src="ac201ac4.svg" alt="Example block output"/><h3 id="Heatmap"><a class="docs-heading-anchor" href="#Heatmap">Heatmap</a><a id="Heatmap-1"></a><a class="docs-heading-anchor-permalink" href="#Heatmap" title="Permalink"></a></h3><p><a href="https://en.wikipedia.org/wiki/Heat_map">Heatmaps</a> are a set of very information rich and versatile plots that can be used for multidimensional data plotting. In heatmaps the 3rd dimension is usually represented through a color scheme indicating the magnitude of the plotted data. Heatmaps either accept an <em><span>$D_{m,n}$</span></em> or three variables where <em><span>$X_{m,1}$</span></em> and <em><span>$Y_{1,n}$</span></em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+D = randn(10,20)
+
+heatmap(D)
+
+xlabel!(&quot;Random values&quot;)
+ylabel!(&quot;Random values&quot;)</code></pre><img src="7d10fc23.svg" alt="Example block output"/><p>or </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+x = range(5, 25, length=10)
+y = range(-5, 3, length=20)
+
+DataSci4Chem.heatmap(x,y,D)
+
+xlabel!(&quot;Random values&quot;)
+ylabel!(&quot;Random values&quot;)</code></pre><img src="a28e8515.svg" alt="Example block output"/><p>When working with the heatmaps you can change the color scheme used via &quot;cmap&quot; and different colormaps. For example, below we are setting the <a href="https://docs.juliaplots.org/latest/colorschemes/">colormap</a> of our data to :jet.  </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+heatmap(x,y,D,cmap= :jet)
+
+xlabel!(&quot;Random values&quot;)
+ylabel!(&quot;Random values&quot;)</code></pre><img src="d7683068.svg" alt="Example block output"/><p>There are many useful attributes built in the heatmap function to enable you to visualize your data at best. Here we will discuss a few of those. </p><h4 id="Color-scale-limits"><a class="docs-heading-anchor" href="#Color-scale-limits">Color scale limits</a><a id="Color-scale-limits-1"></a><a class="docs-heading-anchor-permalink" href="#Color-scale-limits" title="Permalink"></a></h4><p>You can adjust the color scale in a similar way to the ranges of <em>X</em> and/or <em>Y</em>. For this you can use the attribute &quot;clim&quot;. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+heatmap(x,y,D,cmap= :turbo,clim=(-1,1))
+
+xlabel!(&quot;Random values&quot;)
+ylabel!(&quot;Random values&quot;)</code></pre><img src="c8be87b3.svg" alt="Example block output"/><h4 id="Colorbar-title"><a class="docs-heading-anchor" href="#Colorbar-title">Colorbar title</a><a id="Colorbar-title-1"></a><a class="docs-heading-anchor-permalink" href="#Colorbar-title" title="Permalink"></a></h4><p>You can also add a title to your colorbar as it represent highly relevant information. This can be done with &quot;colorbar_title&quot;.</p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+DataSci4Chem.heatmap(x,y,D,cmap= :turbo,clim=(-1,1),colorbar_title=&quot;My title&quot;)
+
+xlabel!(&quot;Random values&quot;)
+ylabel!(&quot;Random values&quot;)</code></pre><img src="669815ac.svg" alt="Example block output"/><h4 id="Colorbar-position"><a class="docs-heading-anchor" href="#Colorbar-position">Colorbar position</a><a id="Colorbar-position-1"></a><a class="docs-heading-anchor-permalink" href="#Colorbar-position" title="Permalink"></a></h4><p>You can also set the position of the colorbar, depending on the backend, to improve the way that your data is displayed. For the position of the colorbar you can use the &quot;cbar&quot; attribute. The backend &quot;GR&quot; only supports absence and presence of the colorbar in the position of the legend. For example, below we are removing the colorbar completely.</p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+heatmap(x,y,D,cmap= :turbo,clim=(-1,1),colorbar_title=&quot;My title&quot;,cbar= :none)
+
+xlabel!(&quot;Random values&quot;)
+ylabel!(&quot;Random values&quot;)</code></pre><img src="5d4b7164.svg" alt="Example block output"/><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>The plot type can be set as on the attributes of <em>plot(-)</em> using parameter &quot;seriestype&quot; or &quot;st&quot;. In other words, you can use <em>plot(-)</em> for all the plot types presented above. </p></div></div><pre><code class="language-julia hljs">using DataSci4Chem
+
+plot(data[!,&quot;SepalLength&quot;],label=&quot;Sepal Length&quot;, st = :histogram,bins=10,norm = :probability)
+plot!(data[!,&quot;SepalWidth&quot;],label=&quot;Sepal Width&quot;, st = :histogram, bins=10,fillalpha=0.6, norm = :probability)
+
+xlabel!(&quot;Bins&quot;)
+ylabel!(&quot;Frequency&quot;)</code></pre><img src="60f042d0.svg" alt="Example block output"/><p>or </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot(x,y,D,st = :heatmap,cmap= :turbo,clim=(-1,1),colorbar_title=&quot;My title&quot;)
+
+xlabel!(&quot;Random values&quot;)
+ylabel!(&quot;Random values&quot;)</code></pre><img src="47b98877.svg" alt="Example block output"/><h2 id="Advanced-topics"><a class="docs-heading-anchor" href="#Advanced-topics">Advanced topics</a><a id="Advanced-topics-1"></a><a class="docs-heading-anchor-permalink" href="#Advanced-topics" title="Permalink"></a></h2><p>This section aims at enabling you to generate publication quality figures. This is only a small selection of things that might be useful for high quality figure generation.</p><h3 id="Frame-size"><a class="docs-heading-anchor" href="#Frame-size">Frame size</a><a id="Frame-size-1"></a><a class="docs-heading-anchor-permalink" href="#Frame-size" title="Permalink"></a></h3><p>The size of the frame/plot can be set depending on the your needs. This is an attribute called &quot;size&quot;, which is <a href="https://en.wikipedia.org/wiki/Tuple">tuple</a> and has (600,400) as default. For example, we can update the above plot by making it more square. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot(x,y,D,st = :heatmap,cmap= :turbo,clim=(-1,1),colorbar_title=&quot;My title&quot;,size=(600,600))
+
+xlabel!(&quot;Random values&quot;)
+ylabel!(&quot;Random values&quot;)</code></pre><img src="8a62597e.svg" alt="Example block output"/><h3 id="The-figure-resolution"><a class="docs-heading-anchor" href="#The-figure-resolution">The figure resolution</a><a id="The-figure-resolution-1"></a><a class="docs-heading-anchor-permalink" href="#The-figure-resolution" title="Permalink"></a></h3><p>You can also adjust the resolution of your plots using the attribute &quot;dpi&quot; (i.e. dots per inch). The higher is dpi the higher is the resolution and thus the quality of your plots. Julia sets this at 100 by default. For high quality figures using a value around 300 is recommended. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+plot(x,y,D,st = :heatmap,cmap= :turbo,clim=(-1,1),colorbar_title=&quot;My title&quot;,size=(600,600),dpi =300)
+
+xlabel!(&quot;Random values&quot;)
+ylabel!(&quot;Random values&quot;)</code></pre><img src="d9891dc6.svg" alt="Example block output"/><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>When changing the dpi for a figure, you will not notice any differences at the screen level, given that the figure is rendered as a vector giving you the possibility to zoom in as much as possible. The dpi becomes very important when you are saving your plots.</p></div></div><h3 id="Subplots"><a class="docs-heading-anchor" href="#Subplots">Subplots</a><a id="Subplots-1"></a><a class="docs-heading-anchor-permalink" href="#Subplots" title="Permalink"></a></h3><p>Subplots are the combination of multiple plots in separate sub-frames within on main frame. Subplots mainly use a combination of <em>plot(-)</em> and the attribute <a href="https://docs.juliaplots.org/latest/layouts/">&quot;layout&quot;</a> to achieve its goal. The simplest way of making subplots is the following. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+p1 = plot(x,y,D,st = :heatmap,cmap= :turbo,clim=(-1,1),colorbar_title=&quot;My title&quot;)
+
+xlabel!(&quot;Random values&quot;)
+ylabel!(&quot;Random values&quot;)
+
+
+p2 = plot(data[!,&quot;SepalLength&quot;],label=&quot;Sepal Length&quot;, st = :histogram,bins=10,norm = :probability)
+
+xlabel!(&quot;Bins&quot;)
+ylabel!(&quot;Frequency&quot;)
+
+plot(p1,p2,layout = (1,2),size=(800,400))</code></pre><img src="11c6b7dc.svg" alt="Example block output"/><p>You can also have a set of nested subplots to represent you data. Below you can see an example of such a case.   </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+p1 = plot(data[!,&quot;SepalWidth&quot;],label=&quot;SepalWidth&quot;, st = :histogram,bins=10,norm = :probability)
+
+ylabel!(&quot;Frequency&quot;)
+
+p2 = plot(data[!,&quot;SepalLength&quot;],label=&quot;Sepal Length&quot;, st = :histogram,bins=10,norm = :probability)
+
+ylabel!(&quot;Frequency&quot;)
+
+p3 = plot(x,y,D,st = :heatmap,cmap= :turbo,clim=(-1,1))
+
+xlabel!(&quot;Random values&quot;)
+ylabel!(&quot;Random values&quot;)
+
+
+
+plot(plot(p1,p2),p3,layout = (2,1),margin = (5,:mm))</code></pre><img src="6b317138.svg" alt="Example block output"/><h3 id="Saving-figures"><a class="docs-heading-anchor" href="#Saving-figures">Saving figures</a><a id="Saving-figures-1"></a><a class="docs-heading-anchor-permalink" href="#Saving-figures" title="Permalink"></a></h3><p>You can save your figures using the function <em>savefig(-)</em>. This function takes the currently stored plot in the memory and saves it with a given title. You can also save a specific figure using its handle, if that figure is not the last figure stored in the memory. For example, here we are saving the last generated figure (i.e. the subplot). </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+savefig(&quot;Example_fig.png&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&quot;/Users/saersamanipour/Desktop/dev/pkgs/DataSci4Chem.jl/docs/build/Example_fig.png&quot;</code></pre><p>On the other hand, in this example we are saving the figure &quot;p3, which is the heatmap, independently from the last generated figure. </p><pre><code class="language-julia hljs">using DataSci4Chem
+
+
+savefig(p3,&quot;Example_fig_p3.png&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&quot;/Users/saersamanipour/Desktop/dev/pkgs/DataSci4Chem.jl/docs/build/Example_fig_p3.png&quot;</code></pre><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>By changing the extension of the figure in its name (i.e. &quot;.png&quot; vs &quot;.pdf&quot;) you can change the format of the generated file as well as its quality. The extensions such as &quot;.svg&quot;, &quot;.tiff&quot;, and &quot;.pdf&quot; tend to be of higher quality than &quot;.png&quot; for example. </p></div></div><h2 id="Additional-resources"><a class="docs-heading-anchor" href="#Additional-resources">Additional resources</a><a id="Additional-resources-1"></a><a class="docs-heading-anchor-permalink" href="#Additional-resources" title="Permalink"></a></h2><p>There are several external resources for making plots and practicing. The main and the most important one is the <a href="https://docs.juliaplots.org/latest/"><em>Plots.jl documentation</em></a>. There are several videos on YouTube with introductory lectures in julia plotting (https://www.youtube.com/watch?v=rtOqvqm5IjE).   </p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Basics/">« Basics</a><a class="docs-footer-nextpage" href="../Matrix/">Matrix manipulation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.0.0 on <span class="colophon-date" title="Sunday 17 September 2023 17:40">Sunday 17 September 2023</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
