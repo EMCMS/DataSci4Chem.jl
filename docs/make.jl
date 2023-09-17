@@ -1,6 +1,6 @@
 using Documenter, DataSci4Chem
 
-makedocs(modules = [Documenter, DataSci4Chem],
+makedocs(modules = [DataSci4Chem],
     build = "build",
     clean = true,
     sitename="DataSci4Chem.jl",
@@ -10,10 +10,10 @@ makedocs(modules = [Documenter, DataSci4Chem],
         "Data visualization" => "vis.md",
         "Matrix manipulation" => "Matrix.md",
         "SVD" => "svd.md",
+        "Data exploration" => "DataExplore.md",
         "Numerical root finding" => "RootFinding.md",
         "Numerical integration" => "Integration.md",
-        "Curve fitting" => "fit.md",
-        "Data exploration" => "DataExplore.md"
+        "Curve fitting" => "fit.md"
         ]
     )
 

@@ -1,17 +1,15 @@
 using LinearAlgebra
 using Statistics
-using CSV 
-using DataFrames
-using HTTP 
 
 ###############################################################################
 #
 #
-######################################################
+
+###############################################################################
 # Reading datasets from the internal repo
 
-function read_inter_data(file_name)
-    url = "https://raw.githubusercontent.com/EMCMS/DataSci4Chem.jl/main/docs/src/assets/"
+function read_intern_data(file_name)
+    url = "https://raw.githubusercontent.com/EMCMS/DataSci4Chem.jl/main/docs/src/assets"
     
     
     data = DataFrame(CSV.File(HTTP.get(url * "/" *  file_name).body))
