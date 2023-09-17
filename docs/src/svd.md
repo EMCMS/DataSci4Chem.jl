@@ -199,7 +199,7 @@ after which the matrices ``U,S,V^T``are contained in ``F.U``, ``F.S`` and ``F.Vt
 
 ```@example svd
 
-println(F.S)
+F.S
 
 ```
 
@@ -211,15 +211,19 @@ Let us calculate the SVD of matrix $C$ above, and have a look at the first 5 wei
 
 ```@example svd 
 
-C = DataFrame(DataSci4Chem.CSV.File("https://raw.githubusercontent.com/EMCMS/DataSci4Chem.jl/main/docs/src/assets/C.csv"))
+file_name = "C.csv"
+
+C = read_inter_data(file_name)
 
 ```
 Clearly the list of weights is completely dominated by the first two. This is the quantitative version of our earlier hunch that each sample in the matrix $C$ contained only two compounds. Note that unlike the SVD of matrix $A$, the remaining weights are not zero, but very small. This is because the data in $C$ also contain a noise contribution, which is contained in the remaining singular vectors. How well can we approximate $C$ with the first two terms in the summation? We plot the first row of $C$ and of its approxiation obtained from just the first two components of the SVD:
-```@example
-julia> Capprox = F.U[:,1:2]*Diagonal(F.S[1:2])*F.Vt[1:2,:]
-julia> plot([C[1,:] Capprox[1,:]], label=["C" "Capprox"])
+
+```@example svd
+print("ciao")
+# julia> Capprox = F.U[:,1:2]*Diagonal(F.S[1:2])*F.Vt[1:2,:]
+# julia> plot([C[1,:] Capprox[1,:]], label=["C" "Capprox"])
 ```
-![svdapprox.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svdapprox.png)
+![svdapprox.png](https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svdapprox.png?raw=true)
 Isn't that nice? Not only do we get the number of components present in the samples, but the approximation constructed from the first two singular vectors is actually smoother than the original data! Try to think why this is. More importantly, the SVD method to analyze a data matrix also works when the number of components is larger (and it would be difficult to "guess" the number of components contained in the samples).
 
 ### Chemical Kinetics
@@ -227,8 +231,10 @@ To investigate time-dependent processes such as chemical reactions, one often me
 
 ### Image compression
 Digital images are matrices of intensity values, and we can apply SVD to approximate these matrices. In this way, you can reduce the file size of an image. Here is an example using a healthy-looking image from the [Julia standard-image database](https://testimages.juliaimages.org/stable/imagelist/):
-```
-using TestImages
+
+```@example svd 
+
+
 img = testimage("peppers_gray.tif")
 T = channelview(img)[1,:,:]
 F = svd(T)

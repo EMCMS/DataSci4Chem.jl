@@ -13,6 +13,7 @@ using Documenter
 #using ACS
 using RDatasets
 using StatsBase
+using TestImages
 
 include("Added_Functions.jl")
 
