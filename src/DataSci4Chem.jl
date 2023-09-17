@@ -15,6 +15,7 @@ using RDatasets
 using StatsBase
 using TestImages
 using ImageCore
+using HTTP 
 
 include("Added_Functions.jl")
 
