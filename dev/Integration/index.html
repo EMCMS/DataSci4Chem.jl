@@ -10,7 +10,7 @@ x = collect(-10:0.1:10)
 f(x) = (- x.^2) .+ 50
 
 plot(x,f(x),label = &quot;f(x)&quot;, xlabel = &quot;x values&quot;, ylabel = &quot;f(x)&quot;)
-plot!([-10,10],[0,0], label = &quot;y = 0&quot;)</code></pre><img src="a0463616.svg" alt="Example block output"/><p>Let&#39;s say that the integration window is between -5 and 5. </p><p>With the integral of assuming <em>C = 0</em>.</p><p class="math-container">\[
+plot!([-10,10],[0,0], label = &quot;y = 0&quot;)</code></pre><img src="acc9e062.svg" alt="Example block output"/><p>Let&#39;s say that the integration window is between -5 and 5. </p><p>With the integral of assuming <em>C = 0</em>.</p><p class="math-container">\[
 F(-5:5) = -\frac{x^{3}}{3} + 50x + C = 416.666
 \]</p><p>Now to perform the same calculations numerically, we need to calculate the midpoint in this window as the first step. </p><pre><code class="language-julia hljs">using DataSci4Chem
 
@@ -23,7 +23,7 @@ plot(x,f(x),label = &quot;f(x)&quot;, xlabel = &quot;x values&quot;, ylabel = &q
 plot!([-10,10],[0,0], label = &quot;y = 0&quot;)
 plot!([a,a],[0,f(mp)],label = &quot;a&quot;,lc =:black)
 plot!([b,b],[0,f(mp)],label = &quot;b&quot;,lc =:black)
-scatter!([mp],[f(mp)],label = &quot;midpoint&quot;)</code></pre><img src="84f13c91.svg" alt="Example block output"/><p>In the next step we need to form a rectangle from <em>a</em>, <em>b</em>, and <em>f(midpoint)</em>, which will have a with of <em>b - a</em> and the length of <em>f(midpoint)</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
+scatter!([mp],[f(mp)],label = &quot;midpoint&quot;)</code></pre><img src="0d2506fc.svg" alt="Example block output"/><p>In the next step we need to form a rectangle from <em>a</em>, <em>b</em>, and <em>f(midpoint)</em>, which will have a with of <em>b - a</em> and the length of <em>f(midpoint)</em>. </p><pre><code class="language-julia hljs">using DataSci4Chem
 
 a = -5
 b = 5
@@ -35,7 +35,7 @@ plot!([-10,10],[0,0], label = &quot;y = 0&quot;)
 plot!([a,a],[0,f(mp)],label = false,lc =:black)
 plot!([b,b],[0,f(mp)],label = false,lc =:black)
 plot!([a,b],[f(mp),f(mp)],label = &quot;rectangle&quot;,lc =:black)
-scatter!([mp],[f(mp)],label = &quot;midpoint&quot;)</code></pre><img src="298714ee.svg" alt="Example block output"/><p>In the last step, we assume that the area of this rectangle is a good approximation of the area under the <em>f(x)</em> within the set interval. As we remember from our high school math the area of a rectangle is calculated as: </p><p class="math-container">\[
+scatter!([mp],[f(mp)],label = &quot;midpoint&quot;)</code></pre><img src="4522f67b.svg" alt="Example block output"/><p>In the last step, we assume that the area of this rectangle is a good approximation of the area under the <em>f(x)</em> within the set interval. As we remember from our high school math the area of a rectangle is calculated as: </p><p class="math-container">\[
 area = L \times W.
 \]</p><p>This implies the following:</p><p class="math-container">\[
 \int_a^b f(x)dx \approx L \times W
@@ -69,7 +69,7 @@ f_mps = f(mps)                                       # Evaluating the midpoints<
 plot(x,f(x),label = &quot;f(x)&quot;, xlabel = &quot;x values&quot;, ylabel = &quot;f(x)&quot;)
 plot!([-10,10],[0,0], label = &quot;y = 0&quot;)
 scatter!(mps,f_mps,label=&quot;midpoints&quot;)
-bar!(mps,f_mps,label=&quot;rectangles&quot;,fillalpha = 0.3 )</code></pre><img src="38acc498.svg" alt="Example block output"/><p>With four windows we are getting a lot better at following the tend of the curve and we expect lower integration error compared to a single rectangle. For calculating the area under the curve with multiple rectangles, we need to multiply the evaluated midpoints by the width of the windows. Given that all the windows are equal size, we can use the first two edges for our width calculations. We also need to sum up the areas of all the rectangles to estimate the integral of the <em>f(x)</em>. </p><p class="math-container">\[
+bar!(mps,f_mps,label=&quot;rectangles&quot;,fillalpha = 0.3 )</code></pre><img src="c900d2a2.svg" alt="Example block output"/><p>With four windows we are getting a lot better at following the tend of the curve and we expect lower integration error compared to a single rectangle. For calculating the area under the curve with multiple rectangles, we need to multiply the evaluated midpoints by the width of the windows. Given that all the windows are equal size, we can use the first two edges for our width calculations. We also need to sum up the areas of all the rectangles to estimate the integral of the <em>f(x)</em>. </p><p class="math-container">\[
 
 \int_a^b f(x)dx \approx \sum_{i=1}^{n} f(\frac{x_{i}+x_{i+1}}{2})\Delta x
 \]</p><pre><code class="language-julia hljs">using DataSci4Chem
@@ -90,7 +90,7 @@ f_mps = f(mps)
 plot(x,f(x),label = &quot;f(x)&quot;, xlabel = &quot;x values&quot;, ylabel = &quot;f(x)&quot;)
 plot!([-10,10],[0,0], label = &quot;y = 0&quot;)
 scatter!(mps,f_mps,label=&quot;midpoints&quot;)
-bar!(mps,f_mps,label=&quot;rectangles&quot;,fillalpha = 0.3 )</code></pre><img src="d295203b.svg" alt="Example block output"/><pre><code class="language-julia hljs">using DataSci4Chem
+bar!(mps,f_mps,label=&quot;rectangles&quot;,fillalpha = 0.3 )</code></pre><img src="e793e1dd.svg" alt="Example block output"/><pre><code class="language-julia hljs">using DataSci4Chem
 
 est_int = sum(f_mps .* (edges[2] - edges[1]))
 
@@ -116,7 +116,7 @@ plot!([-5,0],[f_edges[1],f_edges[2]],label = false, lc =:black)
 plot!([0,5],[f_edges[2],f_edges[3]],label = false, lc =:black)
 
 
-plot(p1,p2)</code></pre><img src="c7e3e801.svg" alt="Example block output"/><p>As you can see from the figure above, trapezoids are a lot better at approximating the area under the curve compared to the rectangles. In terms of math the area of a trapezoid can be calculated using the following equation.</p><p class="math-container">\[
+plot(p1,p2)</code></pre><img src="e70f3dac.svg" alt="Example block output"/><p>As you can see from the figure above, trapezoids are a lot better at approximating the area under the curve compared to the rectangles. In terms of math the area of a trapezoid can be calculated using the following equation.</p><p class="math-container">\[
 
 Area_{trap} = \frac{L+W}{2}h
 \]</p><p>If we rewrite this to fit our case we will have the below equation.</p><p class="math-container">\[
@@ -142,4 +142,4 @@ f(x_{i+2}) = a(x_{i+1} + \Delta x)^2 + b(x_{i+1} + \Delta x) + c \\
 \int_{x_{i+1} - \Delta x}^{x_{i+1} + \Delta x} (ax^2 + bx + c)dx = \\
 
  \frac{\Delta x}{3}(f(x_0) + 4f(x_1) + 2f(x_2) + 4f(x_3) + ... + 2f(x_{n−2})+4f(x_{n−1})+f(x_n))
-\]</p><p>Here the pattern is that the first and the last terms stay as they are while the odd indexed terms are multiplied by four and the even ones are multiplied by two. By selecting a small enough <em><span>$\Delta x$</span></em> this method is able to provide a fairly accurate estimation of the area under the curve. </p><h2 id="Additional-resources"><a class="docs-heading-anchor" href="#Additional-resources">Additional resources</a><a id="Additional-resources-1"></a><a class="docs-heading-anchor-permalink" href="#Additional-resources" title="Permalink"></a></h2><p>There are additional resources for the numerical integration, for example this <a href="https://ocw.mit.edu/courses/18-01-single-variable-calculus-fall-2006/">MIT open course</a>. </p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../RootFinding/">« Numerical root finding</a><a class="docs-footer-nextpage" href="../fit/">Curve fitting »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.0.1 on <span class="colophon-date" title="Tuesday 19 September 2023 11:01">Tuesday 19 September 2023</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+\]</p><p>Here the pattern is that the first and the last terms stay as they are while the odd indexed terms are multiplied by four and the even ones are multiplied by two. By selecting a small enough <em><span>$\Delta x$</span></em> this method is able to provide a fairly accurate estimation of the area under the curve. </p><h2 id="Additional-resources"><a class="docs-heading-anchor" href="#Additional-resources">Additional resources</a><a id="Additional-resources-1"></a><a class="docs-heading-anchor-permalink" href="#Additional-resources" title="Permalink"></a></h2><p>There are additional resources for the numerical integration, for example this <a href="https://ocw.mit.edu/courses/18-01-single-variable-calculus-fall-2006/">MIT open course</a>. </p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../RootFinding/">« Numerical root finding</a><a class="docs-footer-nextpage" href="../fit/">Curve fitting »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.0.1 on <span class="colophon-date" title="Tuesday 19 September 2023 21:57">Tuesday 19 September 2023</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
