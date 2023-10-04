@@ -297,7 +297,7 @@ R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - f(x_i))^2}{\sum_{i=1}^{n} (y_i - \bar y)^2
 using DataSci4Chem
 
 
-res_t = fh2(X) .- mean(Y) 
+res_t = Y .- mean(Y) 
 
 R2 = 1 - sum(res.^2)/sum(res_t.^2)
 
