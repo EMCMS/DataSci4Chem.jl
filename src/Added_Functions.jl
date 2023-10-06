@@ -33,7 +33,7 @@ function newton_root(f, df, x0; tol=1e-6, max_iter=100)
     # f(x) = x.^2 .- a
     # df(x) = 2 .* x
     # x0 = 5
-    #
+    # newton_root(f, df, x0)
     #################################################
 
     x = x0

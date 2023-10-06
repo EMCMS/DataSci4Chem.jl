@@ -1,7 +1,7 @@
 name = "DataSci4Chem"
 uuid = "ad2afb88-707b-4870-bda2-735669810ff9"
 authors = ["Saer Samanipour, PhD", "Env Modeling & Computational Mass Spec Lab (EMCMS)"]
-version = "1.0.2-DEV"
+version = "1.0.3-DEV"
 
 [deps]
 BSON = "fbb218c0-5317-5bc6-957e-2ee96dd4b1f0"
