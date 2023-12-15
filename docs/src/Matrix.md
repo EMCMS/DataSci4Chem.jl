@@ -401,8 +401,8 @@ Solving these equations ultimately will result in the inverse matrix.
 ```math 
 
 \begin{pmatrix}
-1 & -1 \\
-1 & 2 
+1 & 2 \\
+1 & -1 
 \end{pmatrix}^{-1}
 
 = 
