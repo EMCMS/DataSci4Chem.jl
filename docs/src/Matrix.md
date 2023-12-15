@@ -420,7 +420,7 @@ You can calculate the inverse of invertible matrices using the functions *inv()*
 ```@example mat1
 using DataSci4Chem
 
-A = [2 1; -1 1]
+A = [1 2; 1 -1]
 inv(A)
 
 ```
