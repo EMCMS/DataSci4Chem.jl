@@ -1,3 +1,4 @@
+__precompile__(false)
 module DataSci4Chem
 
 using CSV
@@ -7,7 +8,7 @@ import StatsPlots as sp
 using Statistics
 using LinearAlgebra
 using LsqFit
-import Pluto
+#import Pluto
 using IJulia
 using Documenter
 #using ACS
