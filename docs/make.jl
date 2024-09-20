@@ -21,7 +21,7 @@ deploydocs(
         repo = "github.com/EMCMS/DataSci4Chem.jl.git",
         target = "build",
         branch = "gh-pages",
-        #push_preview = true,
+        push_preview = true,
 )
 
 
