@@ -184,7 +184,10 @@ Then it can be shown that of all possible $r$-term summations
 ```math
 \tilde{X} = \sum_{k=1}^r s_k {\bf u}_k {\bf v}^T_k
 ```
-the minimum value of $||X-\tilde{X}||$ is obtained precisely for the truncated $r$-term summation obtained from the first $k$ weights in the singular-value decomposition. In this sense, the truncated dyadic summation of vector products that we obtain from the SVD of a given matrix is the best possible approximation of this matrix.
+the minimum value of $||X-\tilde{X}||$ is obtained precisely for the truncated $r$-term summation obtained from the first $k$ weights in the singular-value decomposition. In this sense, the truncated dyadic summation of vector products that we obtain from the SVD of a given matrix is the best possible approximation of this matrix. It can be shown that if we construct the approximation $\tilde{X}$ using the first $r$ singular vectors, then
+```math
+||X-\tilde{X}||= \sum_{j=r+1}^n s_j^2
+```
 
 ## Doing it yourself 
 Julia has a function ``svd`` that returns the SVD of any matrix. This function can be loaded (together with many other matrix functions) with ``using DataSci4Chem``.
