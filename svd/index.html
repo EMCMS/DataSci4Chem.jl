@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>SVD · DataSci4Chem.jl</title><meta name="title" content="SVD · DataSci4Chem.jl"/><meta property="og:title" content="SVD · DataSci4Chem.jl"/><meta property="twitter:title" content="SVD · DataSci4Chem.jl"/><meta name="description" content="Documentation for DataSci4Chem.jl."/><meta property="og:description" content="Documentation for DataSci4Chem.jl."/><meta property="twitter:description" content="Documentation for DataSci4Chem.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.png" alt="DataSci4Chem.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">DataSci4Chem.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../Basics/">Basics</a></li><li><a class="tocitem" href="../vis/">Data visualization</a></li><li><a class="tocitem" href="../Matrix/">Matrix manipulation</a></li><li class="is-active"><a class="tocitem" href>SVD</a><ul class="internal"><li><a class="tocitem" href="#Introduction"><span>Introduction</span></a></li><li><a class="tocitem" href="#Singular-Value-Decomposition-Theorem"><span>Singular Value Decomposition Theorem</span></a></li><li><a class="tocitem" href="#Doing-it-yourself"><span>Doing it yourself</span></a></li><li><a class="tocitem" href="#Applications"><span>Applications</span></a></li><li><a class="tocitem" href="#Further-reading"><span>Further reading</span></a></li></ul></li><li><a class="tocitem" href="../DataExplore/">Data exploration</a></li><li><a class="tocitem" href="../RootFinding/">Numerical root finding</a></li><li><a class="tocitem" href="../Integration/">Numerical integration</a></li><li><a class="tocitem" href="../fit/">Curve fitting</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>SVD</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>SVD</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/EMCMS/DataSci4Chem.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/svd.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Singular-Value-Decomposition"><a class="docs-heading-anchor" href="#Singular-Value-Decomposition">Singular Value Decomposition</a><a id="Singular-Value-Decomposition-1"></a><a class="docs-heading-anchor-permalink" href="#Singular-Value-Decomposition" title="Permalink"></a></h1><h2 id="Introduction"><a class="docs-heading-anchor" href="#Introduction">Introduction</a><a id="Introduction-1"></a><a class="docs-heading-anchor-permalink" href="#Introduction" title="Permalink"></a></h2><p>In many cases, a data matrix can be very well approximated by a sum (&quot;linear combination&quot;) of products of vectors. As a trivial example, consider the matrix</p><p class="math-container">\[A = 
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\
+3 &amp; 6 &amp; 9 \\
+0 &amp; 0 &amp; 0 \\
+2 &amp; 4 &amp; 6
+\end{pmatrix}\]</p><p>Each row of this matrix is a multiple of the row vector <span>$\begin{pmatrix} 1 &amp; 2 &amp; 3 \end{pmatrix}$</span>, and in matrix notation we can write</p><p class="math-container">\[A = 
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\
+3 &amp; 6 &amp; 9 \\
+0 &amp; 0 &amp; 0 \\
+2 &amp; 4 &amp; 6
+\end{pmatrix}
+=
+\begin{pmatrix}
+1\\3\\0\\2
+\end{pmatrix}
+\begin{pmatrix}
+1 &amp; 2 &amp; 3
+\end{pmatrix},\]</p><p>so in this case the &quot;sum of products of vectors&quot; is just one term. Here is a larger example: we measure the infrared spectra of 3000 samples and put them in matrix as rows. Each spectrum contains 1400 points, so the data is a 3000<span>$\times$</span>1400 matrix. To get a view of this rather large matrix we  translate numbers into color intensity, and we also make plots of the first five rows: <img src="https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/1component_example.png?raw=true" alt="1component_example.png"/> It seems that here too, each row is a multiple of the same row vector (note that this will not be exactly so, because the noise on the data will not be the same in each row). The chemical interpretation of this fact is that apparently all the samples contain only one compound, but with different concentrations. To a good approximation we can write </p><p class="math-container">\[B = 
+\begin{pmatrix}
+u_1\\u_2\\\vdots\\u_{3000}
+\end{pmatrix}
+\begin{pmatrix}
+v_1 &amp; v_2 &amp; \ldots &amp; v_{1400}
+\end{pmatrix},\]</p><p>where the <span>$u_i$</span>values are (proportional to) the concentrations, and the vector <span>$\begin{pmatrix} v_1 &amp; v_2 &amp; \ldots &amp; v_{1400} \end{pmatrix}$</span> is the spectrum of the compound (=its absorption at 1400 different IR frequencies). Note that we need only 3000+1400 numbers to characterize the entire matrix, which contains 3000<span>$\times$</span>1400 numbers, so we have a data reduction by a factor of about 1000! Of course, this situation will not occur very often. As a  more realistic example, here is a different set of IR spectra, again containing 3000 samples (=rows): <img src="https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/2component_example.png?raw=true" alt="1component_example.png"/> Looking at the graphs of the first 5 rows, we see that this matrix can not be written as the product of two vectors: comparing the  intensities at positions 550 and 1200 of the blue and red data, it is clear that these two matrix rows are not multiples of each other (and therefore cannot be multiples of one and the same row vector). However, in this case, it turns out that the matrix can be very well approximated by a sum of two vector products:</p><p class="math-container">\[C = 
+\begin{pmatrix}
+u_{1,1}\\u_{2,1}\\\vdots\\u_{3000,1}
+\end{pmatrix}
+\begin{pmatrix}
+v_{1,1} &amp; v_{1,2} &amp; \ldots &amp; v_{1,1400}
+\end{pmatrix}+
+\begin{pmatrix}
+u_{1,2}\\u_{2,2}\\\vdots\\u_{3000,2}
+\end{pmatrix}
+\begin{pmatrix}
+v_{2,1} &amp; v_{2,2} &amp; \ldots &amp; v_{2,1400}
+\end{pmatrix}
+,\]</p><p>where we needed an extra index for the <span>$u$</span> and <span>$v$</span> vectors since there are now two of each. The value <span>$u_{i,j}$</span> can be interpreted as the concentration of compound <span>$j$</span> in sample <span>$i$</span>, and the value <span>$v_{i,j}$</span>can be interpreted as the spectral absorption intensity of compound <span>$i$</span> at IR frequency <span>$j$</span>. This can be written more elegantly as a matrix product (and we can interpret the indices as matrix indices):</p><p class="math-container">\[C = 
+\begin{pmatrix}
+u_{1,1} &amp; u_{1,2}\\u_{2,1}&amp;u_{2,2}\\\vdots&amp;\vdots\\u_{3000,1}&amp; u_{3000,2}
+\end{pmatrix}
+\begin{pmatrix}
+v_{1,1} &amp; v_{1,2} &amp; \ldots &amp; v_{1400,1}\\
+v_{2,1} &amp; v_{2,2} &amp; \ldots &amp; v_{1400,2}
+\end{pmatrix}\]</p><p>So in this case we need 2(3000+1400) numbers to characterize the matrix, still a huge reduction in data. This idea can be extended to sums of more than two products of vectors.</p><p>In many practical situations, matrices turn out to be such sums of a small number of vector products: in the case where the matrix contains sample spectra (IR, mass, NMR, ...), this is simply the mathematical expression of the fact that the samples contain a finite number of compounds, each with their own spectrum (but with different concentrations in the samples). However, when the number of components is larger than 1 it generally becomes difficult to find out how many there are by just looking at the data. For instance in the case of matrix <span>$C$</span> above, how did we know there were not more than 2 components required to describe it? (we will soon be able to answer this). Two questions naturally arise: (1) is there a mathematical way of estimating how many components there are present in a data matrix? and (2) can we quantify how well the sum of component products approximates the original data matrix?</p><h2 id="Singular-Value-Decomposition-Theorem"><a class="docs-heading-anchor" href="#Singular-Value-Decomposition-Theorem">Singular Value Decomposition Theorem</a><a id="Singular-Value-Decomposition-Theorem-1"></a><a class="docs-heading-anchor-permalink" href="#Singular-Value-Decomposition-Theorem" title="Permalink"></a></h2><p>Theorem: any <span>$m \times n$</span> matrix <span>$A$</span> (with <span>$m\ge n$</span>) can be decomposed as</p><p class="math-container">\[\begin{pmatrix}
+~\\~\\~\\~~~~~~~~~~~~A~~~~~~~~~~~~\\~\\~\\~
+\end{pmatrix}
+=
+\begin{pmatrix}
+~\\~\\~\\~~~~~~~~~~~~U~~~~~~~~~~~~\\~\\~\\~
+\end{pmatrix}
+\begin{pmatrix}
+s_1 &amp; &amp; &amp; \\ &amp; s_2 &amp; &amp; \\ &amp; &amp; \ddots &amp; \\ &amp; &amp; &amp; s_n
+\end{pmatrix}
+\begin{pmatrix}
+  &amp; &amp; &amp; &amp; &amp; \\ &amp;  &amp; &amp; &amp; &amp; \\ &amp; &amp; &amp;  \!\!\!V^T   &amp; &amp; \\  &amp;&amp; &amp;  &amp; &amp; \\ &amp; &amp; &amp; &amp; &amp;
+\end{pmatrix},\]</p><p>where the middle matrix <span>$S$</span>is a diagonal <span>$n\times n$</span> matrix with positive or zero elements (the singular values, basically &quot;weights&quot;), <span>$U$</span> has the same dimensions as <span>$A$</span>and has columns that are orthonormal vectors, and <span>$V^T$</span> is a square <span>$n\times n$</span>matrix with rows that are orthonormal vectors (so that <span>$V$</span>is a square matrix with colums that are orthonormal vectors). This latter orthogonal-vector property of the columns of <span>$U$</span> and the rows of <span>$V^T$</span> (or <span>$V$</span>) can be written explicitly as</p><p class="math-container">\[\sum_i u_{ij}u_{ik} = \delta_{jk}\\\]</p><p class="math-container">\[\sum_j v_{ij}v_{ik} = \delta_{jk} \]</p><p>If the <span>$s_i$</span>are sorted by order of decreasing value, this decomposition is unique (apart from forming linear combinations of columns of <span>$U$</span> and rows of <span>$V^T$</span> that have the same <span>$s_i$</span> values). The names <span>$U,S,V^T$</span>of the matrices in the product are standard. Note that the diagonal matrix <span>$S$</span>in the middle &quot;picks out&quot; columns from the left matrix and rows from the right matrix, and that we can also write the above decomposition as a so-called &quot;dyadic summation&quot;:</p><p class="math-container">\[\begin{align} 
+\begin{pmatrix}
+~\\~\\~\\~~~~~~~~~~~~A~~~~~~~~~~~~\\~\\~\\~
+\end{pmatrix}
+&amp;= s_1
+\begin{pmatrix}
+u_{1,1}\\u_{2,1}\\ \vdots \\ u_{m,1}
+\end{pmatrix}
+\begin{pmatrix}
+v_{1,1} &amp;v_{1,2} &amp; \ldots &amp; v_{1,n}  
+\end{pmatrix}
++
+s_2
+\begin{pmatrix}
+u_{1,2}\\u_{2,2}\\ \vdots \\ u_{m,2}
+\end{pmatrix}
+\begin{pmatrix}
+v_{2,1} &amp;v_{2,2} &amp; \ldots &amp; v_{2,n}  
+\end{pmatrix}
++\ldots+
+s_n
+\begin{pmatrix}
+u_{1,n}\\u_{2,n}\\ \vdots \\ u_{m,n}
+\end{pmatrix}
+\begin{pmatrix}
+v_{n,1} &amp;v_{n,2} &amp; \ldots &amp; v_{n,n}  
+\end{pmatrix}\\
+&amp;=s_1{\bf u}_1 {\bf v}^T_1+s_2{\bf u }_2 {\bf v}^T_2+\ldots+s_n{\bf u}_n {\bf v}^T_n
+\end{align} \]</p><p>where in the second line we used boldface letters to denote column vectors (with the transposes <span>${\bf v}^T_k$</span> being row vectors). This shows that the example matrices <span>$A,B,C$</span>above were special cases in which the only nonzero <span>$s_i$</span>were the first (for <span>$A$</span>and <span>$B`$) and the first and second (for$</span>C`$).</p><h4 id="Example"><a class="docs-heading-anchor" href="#Example">Example</a><a id="Example-1"></a><a class="docs-heading-anchor-permalink" href="#Example" title="Permalink"></a></h4><p>For matrix the <span>$A$</span> above we have</p><p class="math-container">\[\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\
+3 &amp; 6 &amp; 9 \\
+0 &amp; 0 &amp; 0 \\
+2 &amp; 4 &amp; 6
+\end{pmatrix} =
+\begin{pmatrix}
+  0.267 &amp;  0.951 &amp;  -0.153\\
+ 0.802 &amp; -0.132  &amp;  0.583\\
+  0.0      &amp;  0.0     &amp;   0.0\\
+ 0.535 &amp; -0.278 &amp; -0.798
+\end{pmatrix}
+\begin{pmatrix}
+14 &amp;  &amp;  \\
+ &amp; 0 &amp;  \\
+ &amp; &amp; 0
+\end{pmatrix}
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\
+3 &amp; 6 &amp; 9 \\
+0 &amp; 0 &amp; 0 \\
+2 &amp; 4 &amp; 6
+\end{pmatrix}
+= 14 \begin{pmatrix}
+  0.267 \\
+ 0.802 \\
+  0.0  \\
+ 0.535
+\end{pmatrix}
+\begin{pmatrix}
+1 &amp; 2 &amp; 3
+\end{pmatrix}\]</p><p>The SVD decomposition (and the dyadic summation) is exact. In addition, for many data matrices that one encounters in practice, it turns out that the first few weights <span>$s_i$</span>are much larger than all the others. This means that if we truncate the dyadic summation after a small number of terms, we still get a good approximation of the original matrix. How good?</p><h3 id="Matrix-approximation"><a class="docs-heading-anchor" href="#Matrix-approximation">Matrix approximation</a><a id="Matrix-approximation-1"></a><a class="docs-heading-anchor-permalink" href="#Matrix-approximation" title="Permalink"></a></h3><p>To define quantitatively how well we approximate a given matrix <span>$X$</span> with another matrix <span>$\tilde{X}$</span>, we sum the squares of the differences per element:</p><p class="math-container">\[||X-\tilde{X}||=\sqrt{\sum_i \sum_j |x_{ij}-\tilde{x}_{ij}|^2}\]</p><p>Then it can be shown that of all possible <span>$r$</span>-term summations </p><p class="math-container">\[\tilde{X} = \sum_{k=1}^r s_k {\bf u}_k {\bf v}^T_k\]</p><p>the minimum value of <span>$||X-\tilde{X}||$</span> is obtained precisely for the truncated <span>$r$</span>-term summation obtained from the first <span>$k$</span> weights in the singular-value decomposition. In this sense, the truncated dyadic summation of vector products that we obtain from the SVD of a given matrix is the best possible approximation of this matrix. It can be shown that if we construct the approximation <span>$\tilde{X}$</span> using the first <span>$r$</span> singular vectors, then</p><p class="math-container">\[||X-\tilde{X}||= \sum_{j=r+1}^n s_j^2\]</p><h2 id="Doing-it-yourself"><a class="docs-heading-anchor" href="#Doing-it-yourself">Doing it yourself</a><a id="Doing-it-yourself-1"></a><a class="docs-heading-anchor-permalink" href="#Doing-it-yourself" title="Permalink"></a></h2><p>Julia has a function <span>$svd$</span> that returns the SVD of any matrix. This function can be loaded (together with many other matrix functions) with <span>$using DataSci4Chem$</span>.</p><pre><code class="language-julia hljs">using DataSci4Chem
+
+A = [[1,3,0,2] [2,6,0,4] [3,9,0,6]]
+F = DataSci4Chem.svd(A)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">LinearAlgebra.SVD{Float64, Float64, Matrix{Float64}}
+U factor:
+4×3 Matrix{Float64}:
+ -0.267261   0.956183   0.0
+ -0.801784  -0.28946    0.0
+  0.0        0.0        1.0
+ -0.534522  -0.0439019  0.0
+singular values:
+3-element Vector{Float64}:
+ 14.000000000000002
+  1.3001600768649971e-15
+  0.0
+Vt factor:
+3×3 Matrix{Float64}:
+ -0.267261  -0.534522  -0.801784
+ -0.872872  -0.218218   0.436436
+  0.408248  -0.816497   0.408248</code></pre><p>after which the matrices <span>$U,S,V^T$</span>are contained in <span>$F.U$</span>, <span>$F.S$</span> and <span>$F.Vt$</span> (the nontransposed matrix <span>$V$</span>is contained in <span>$F.V$</span>). The SVD is calculated numerically, and in the case of matrix <span>$A$</span>we run into the machine precision:</p><pre><code class="language-julia hljs">println(F.S)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">[14.000000000000002, 1.3001600768649971e-15, 0.0]</code></pre><h2 id="Applications"><a class="docs-heading-anchor" href="#Applications">Applications</a><a id="Applications-1"></a><a class="docs-heading-anchor-permalink" href="#Applications" title="Permalink"></a></h2><h3 id="Sets-of-sample-spectra"><a class="docs-heading-anchor" href="#Sets-of-sample-spectra">Sets of sample spectra</a><a id="Sets-of-sample-spectra-1"></a><a class="docs-heading-anchor-permalink" href="#Sets-of-sample-spectra" title="Permalink"></a></h3><p>Let us calculate the SVD of matrix <span>$C$</span> above, and have a look at the first 5 weights <span>$s_1,\ldots,s_{5}$</span>:</p><pre><code class="language- hljs">julia&gt; F = svd(C)
+julia&gt; F.S[1:5]
+5-element Vector{Float64}:
+ 312.83248348826254
+ 124.30327344440433
+   0.9221245484802668
+   0.9160134372171663
+   0.914885397452181</code></pre><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>You can use the function <em>read<em>intern</em>data(-)</em> to directly read the <em>C</em> from the GitHub repository. </p></div></div><p>Clearly the list of weights is completely dominated by the first two. This is the quantitative version of our earlier hunch that each sample in the matrix <span>$C$</span> contained only two compounds. Note that unlike the SVD of matrix <span>$A$</span>, the remaining weights are not zero, but very small. This is because the data in <span>$C$</span> also contain a noise contribution, which is contained in the remaining singular vectors. How well can we approximate <span>$C$</span> with the first two terms in the summation? We plot the first row of <span>$C$</span> and of its approximation obtained from just the first two components of the SVD:</p><pre><code class="language- hljs">julia&gt; Capprox = F.S[1]*F.U[:,1]*Transpose(F.Vt[1,:]) + F.S[2]*F.U[:,2]*Transpose(F.Vt[2,:])
+julia&gt; plot([C[1,:] Capprox[1,:]], label=[&quot;C&quot; &quot;Capprox&quot;])</code></pre><p><img src="https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svdapprox.png?raw=true" alt="svdapprox.png"/> Isn&#39;t that nice? Not only do we get the number of components present in the samples, but the approximation constructed from the first two singular vectors is actually smoother than the original data! Try to think why this is. More importantly, the SVD method to analyze a data matrix also works when the number of components is larger (and it would be difficult to &quot;guess&quot; the number of components contained in the samples).</p><h3 id="Chemical-Kinetics"><a class="docs-heading-anchor" href="#Chemical-Kinetics">Chemical Kinetics</a><a id="Chemical-Kinetics-1"></a><a class="docs-heading-anchor-permalink" href="#Chemical-Kinetics" title="Permalink"></a></h3><p>To investigate time-dependent processes such as chemical reactions, one often measures time series of spectra (NMR, IR, Raman, ...) to observe time-dependent changes in the molecular composition of a sample. Putting such a time series of spectra in a matrix, we can analyze the data with SVD to obtain the number of species involved in the process (since each will have its own time dependence). This can be valuable if one or more of the species are intermediates, that may are present in comparatively low concentrations compared to the initial (reactant) and final (product) compounds, and therefore difficult to observe separately. Suitable analysis of the singular vectors can even reveal the spectra of the intermediate species. Examples include <a href="https://doi.org/10.1039/C1CP22146A">shuttling molecular motors</a> and <a href="https://doi.org/10.1016/j.bpj.2020.05.026">amyloid formation</a>.</p><h3 id="Image-compression"><a class="docs-heading-anchor" href="#Image-compression">Image compression</a><a id="Image-compression-1"></a><a class="docs-heading-anchor-permalink" href="#Image-compression" title="Permalink"></a></h3><p>Digital images are matrices of intensity values, and we can apply SVD to approximate these matrices. In this way, you can reduce the file size of an image. Here is an example using a healthy-looking image from the <a href="https://testimages.juliaimages.org/stable/imagelist/">Julia standard-image database</a>:</p><pre><code class="language-julia hljs">img = testimage(&quot;peppers_gray.tif&quot;)
+T = channelview(img)[1,:,:]
+F = svd(T)
+r = 5
+Tapprox = F.U[:,1:r]*Diagonal(F.S[1:r])*F.Vt[1:r,:]
+
+Gray.(Tapprox)</code></pre><img src="cabad2c5.png" alt="Example block output"/><p>The quality of the compressed image depends on the number <span>$r$</span> of singular vectors that we include in the approximation, see below. With <span>$r=50$</span> we have a compression of about a factor of 10. <img src="https://github.com/EMCMS/DataSci4Chem.jl/blob/main/docs/src/assets/svdpeppers.png?raw=true" alt="svdpeppers.png"/></p><h2 id="Further-reading"><a class="docs-heading-anchor" href="#Further-reading">Further reading</a><a id="Further-reading-1"></a><a class="docs-heading-anchor-permalink" href="#Further-reading" title="Permalink"></a></h2><p><a href="https://sites.math.washington.edu/~morrow/464_16/svd.pdf">D. Kalman, &quot;A Singularly Valuable Decomposition: The SVD of a Matrix&quot;</a></p><p><a href="https://www.researchgate.net/publication/332751929">S. L. Brunton, &quot;Data Driven Science &amp; Engineering&quot;, chapter 1: Singular Value Decomposition</a></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Matrix/">« Matrix manipulation</a><a class="docs-footer-nextpage" href="../DataExplore/">Data exploration »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.7.0 on <span class="colophon-date" title="Sunday 22 September 2024 11:47">Sunday 22 September 2024</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
