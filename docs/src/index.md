@@ -2,7 +2,7 @@
 
 ## Course content
 
-This course is built for BSc of [Chemistry](https://www.uva.nl/programmas/bachelors/scheikunde/studieprogramma/studieprogramma.html?origin=QM8V0lIERF2uFhPGbux%2F2g#Jaar-3) at the University of Amsterdam (UvA). In this course, the students learn the basics of [julia language](https://julialang.org/) programming. Additionally, they will learn how to explore multi-dimensional data (e.g. LC-MS or DOSI-IR data) from simple visualization to curve fitting. The course contains 11 lectures with dedicated pages in the documentation. In future more topics will be added to the package and thus the documentation. This package utilizes a wide range of other packages developed by others, as this is meant to facilitate the introduction of the students to programming and data science. The package is based on [julia language](https://julialang.org/). 
+This course is built for BSc of [Chemistry](https://www.uva.nl/programmas/bachelors/scheikunde/studieprogramma/studieprogramma.html?origin=QM8V0lIERF2uFhPGbux%2F2g#Jaar-3) at the University of Amsterdam (UvA). In this course, the students learn the basics of [julia language](https://julialang.org/) programming. Additionally, they will learn how to explore multi-dimensional data (e.g. LC-MS or DOSY-IR data) from simple visualization to curve fitting. The course contains 11 lectures with dedicated pages in the documentation. In future more topics will be added to the package and thus the documentation. This package utilizes a wide range of other packages developed by others, as this is meant to facilitate the introduction of the students to programming and data science. The package is based on [julia language](https://julialang.org/). 
 
 1. Introduction to julia programming
 2. Julia syntax
