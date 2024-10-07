@@ -58,7 +58,7 @@ plot!([0,10],[0,0], label = "f(x) = 0")
 
 ```
 
-Now let's pick a random *x* value as our firs guess for example *``x = 0.5``*. Let's first evaluate the *f(0.5)* as our first step.  
+Now let's pick a random *x* value as our first guess for example *``x = 0.5``*. Let's first evaluate the *f(0.5)* as our first step.  
 
 ```@example nrf
 using DataSci4Chem

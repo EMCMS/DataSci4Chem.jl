@@ -81,7 +81,7 @@ function bisection_root(f, a, b; tol=1e-6, max_iter=100)
     # max_iter: maximum number of iterations (default: 100)
     #################################################
     # Example 
-    # f(x) = x.^2 .- a
+    # f(x) = x.^2 .- 25
     # a = 0.0
     # b = 25.0
     #################################################
