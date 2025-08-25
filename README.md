@@ -16,5 +16,5 @@ Pkg.add(PackageSpec(url="https://github.com/EMCMS/DataSci4Chem.jl"))
 ```
 
 
-All necessary information about this package can be found in its [documentation](https://emcms.github.io/DataSci4Chem.jl/dev/).
+All necessary information about this package can be found in its [documentation](https://emcms.github.io/DataSci4Chem.jl).
 
